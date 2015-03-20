@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不积跬步，无以至千里]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-03-20T04:09:53.520Z</updated>
+  <updated>2015-03-20T08:28:34.330Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://yoursite.com/2015/03/18/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
     <id>http://yoursite.com/2015/03/18/搭建个人博客/</id>
     <published>2015-03-18T11:51:58.000Z</published>
-    <updated>2015-03-20T04:09:05.000Z</updated>
+    <updated>2015-03-20T08:28:27.000Z</updated>
     <content type="html"><![CDATA[<h2 id="前言">前言</h2>
 <hr>
 <p>之前在csdn上写过博文，觉得它的编辑框使用起来毫无沉浸感，可控性也很差。于是希望搭建独立的博客。<br>在网上搜索之后，确定使用hexo博客生成框架+github page免费空间的方式来创建博客系统。<br>很喜欢markdown的语法，配合mou编辑器，写起来很有沉浸感。简单记录一下搭建过程。<br><a id="more"></a></p>
@@ -30,6 +30,24 @@
 
 <p>node自带npm,查看安装结果:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$:</span>node -v</div><div class="line">v<span class="number">0</span>.<span class="number">10.36</span></div><div class="line"><span class="variable">$:</span>npm -v</div><div class="line"><span class="number">2.6</span>.<span class="number">1</span></div></pre></td></tr></table></figure>
+
+<h2 id="安装hexo">安装hexo</h2>
+<p>使用npm安装：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$:</span>npm install hexo -g</div></pre></td></tr></table></figure>
+
+<p>初始化，folder为指定的目录</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo init <span class="tag">&lt;<span class="title">folder</span>&gt;</span></div></pre></td></tr></table></figure>
+
+<p>进入folder目录内,生成静态文件</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> floder</div><div class="line">hexo generate/g</div></pre></td></tr></table></figure>
+
+<p>本地启动预览</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hexo server</div><div class="line">info] Hexo is running <span class="keyword">at</span> <span class="keyword">http</span>://localhost:<span class="number">4000</span>/. Press Ctrl+C <span class="built_in">to</span> stop.</div></pre></td></tr></table></figure>
+
+<p>在浏览器输入<a href="http://localhost:4000/即可看到博客的预览效果。" target="_blank" rel="external">http://localhost:4000/即可看到博客的预览效果。</a></p>
+<h2 id="安装过程遇到的问题">安装过程遇到的问题</h2>
+<p>1、执行npm install hexo -g后出现：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">npm</span> WARN locking <span class="attribute">Error</span>: EACCES, open <span class="string">'/Users/imac/.npm/_locks/</span></div><div class="line">hexo-89ff29e8d72588ea.lock.STALE'</div><div class="line"><span class="built_in">npm</span> WARN locking  <span class="regexp">/Users/imac/</span>.<span class="built_in">npm</span><span class="regexp">/_locks/hexo-89ff29e8d72588ea.lock failed { [Error: EACCES, open '/Users/imac/</span>.<span class="built_in">npm</span>/_locks/hexo-<span class="number">89</span>ff29e8d72588ea.lock.STALE<span class="string">']</span></div><div class="line">npm WARN locking   errno: 3,</div><div class="line">npm WARN locking   code: 'EACCES<span class="string">',</span></div><div class="line">npm WARN locking   path: '<span class="regexp">/Users/imac/</span>.<span class="built_in">npm</span>/_locks/hexo-<span class="number">89</span>ff29e8d72588ea.lock.STALE<span class="string">' }</span></div><div class="line">npm ERR! Darwin 14.0.0</div><div class="line">npm ERR! argv "node" "/usr/local/bin/npm" "install" "hexo@2.8.3" "-g"</div><div class="line">npm ERR! node v0.10.35</div><div class="line">npm ERR! npm  v2.1.18</div><div class="line"></div><div class="line">npm ERR! Attempt to unlock /usr/local/Cellar/node/0.10.35_2/libexec/npm/lib/node_modules/hexo, which hasn't been locked</div><div class="line"><span class="built_in">npm</span> ERR! </div><div class="line"><span class="built_in">npm</span> ERR! If you need help, you may report <span class="keyword">this</span> error <span class="attribute">at</span>:</div><div class="line"><span class="built_in">npm</span> ERR!     &lt;<span class="attribute">http</span>:<span class="regexp">//gi</span>thub.com/<span class="built_in">npm</span>/<span class="built_in">npm</span>/issues&gt;</div><div class="line"><span class="built_in">npm</span> ERR! Please include the following file <span class="reserved">with</span> any support <span class="attribute">request</span>:</div><div class="line"><span class="built_in">npm</span> ERR!     /Users/imac/<span class="built_in">npm</span>-debug.log</div></pre></td></tr></table></figure>
 
 ]]></content>
     <summary type="html">
