@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不积跬步，无以至千里]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-03-20T03:53:59.552Z</updated>
+  <updated>2015-03-20T04:09:24.743Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,14 +19,17 @@
     <link href="http://yoursite.com/2015/03/18/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
     <id>http://yoursite.com/2015/03/18/搭建个人博客/</id>
     <published>2015-03-18T11:51:58.000Z</published>
-    <updated>2015-03-19T13:28:38.000Z</updated>
+    <updated>2015-03-20T04:09:05.000Z</updated>
     <content type="html"><![CDATA[<h2 id="前言">前言</h2>
 <hr>
 <p>之前在csdn上写过博文，觉得它的编辑框使用起来毫无沉浸感，可控性也很差。于是希望搭建独立的博客。<br>在网上搜索之后，确定使用hexo博客生成框架+github page免费空间的方式来创建博客系统。<br>很喜欢markdown的语法，配合mou编辑器，写起来很有沉浸感。简单记录一下搭建过程。<br><a id="more"></a></p>
 <h2 id="配置环境">配置环境</h2>
 <hr>
-<p>hexo基于node.js，那么就先安装node.js。我使用Homebrew安装:</p>
+<p>hexo基于node.js，那么就先安装node.js。使用Homebrew安装:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew <span class="operator"><span class="keyword">install</span> node</span></div></pre></td></tr></table></figure>
+
+<p>node自带npm,查看安装结果:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$:</span>node -v</div><div class="line">v<span class="number">0</span>.<span class="number">10.36</span></div><div class="line"><span class="variable">$:</span>npm -v</div><div class="line"><span class="number">2.6</span>.<span class="number">1</span></div></pre></td></tr></table></figure>
 
 ]]></content>
     <summary type="html">
