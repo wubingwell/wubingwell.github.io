@@ -110,8 +110,9 @@
 <ul>
 <li>retain的对象毫无悬念，还是源对象的内存地址；</li>
 <li>copy的对象和我原来想的不一样，竟然和retain一样，也是源对象地址；这意味者并没有对源对象内容进行复制，而只是复制了指针而已。如此看来copy方法并不一定会复制源对象的内容。之所以复制，肯定是因为两个版本有所不同。而这里源对象是NSString不可变的，copy返回的也是不可变的，既然都不可变，那么这里的副本就没有多大意义存在，就如同使用字符串常量，系统会为我们优化，声明多个字符串，都是不可变且内容相同，那么系统就只申请一块内存，这个道理是一样的。指向一块内存就可以了，所以这里的copy和retain的作用是一样的。</li>
-<li>mutablecopy的对象地址和源对象地址不同，说明重新开辟了内存，复制了一个副本。因为mutablecopy返回的对象是可变的，它的变动会影响到源对象，所以需要拷贝一份。<br>2、源对象为可变的NSMutableString</li>
+<li>mutablecopy的对象地址和源对象地址不同，说明重新开辟了内存，复制了一个副本。因为mutablecopy返回的对象是可变的，它的变动会影响到源对象，所以需要拷贝一份。</li>
 </ul>
+<p>2、源对象为可变的NSMutableString</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSMutableString</span>* str = [<span class="built_in">NSMutableString</span> stringWithString:<span class="string">@"test"</span>];</div><div class="line"><span class="built_in">NSString</span>* retainStr = [str retain];</div><div class="line"><span class="built_in">NSString</span>* copyStr = [str <span class="keyword">copy</span>];</div><div class="line"><span class="built_in">NSMutableString</span>* mcopyStr = [str mutableCopy];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"str addr = %p"</span>,str);</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"retainStr addr = %p"</span>,retainStr);</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"copyStr addr = %p"</span>,copyStr);</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"mcopyStr addr = %p"</span>,mcopyStr);</div></pre></td></tr></table></figure>
 
 <p>输出:</p>
