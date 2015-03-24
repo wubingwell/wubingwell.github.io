@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不积跬步，无以至千里]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-03-24T10:22:01.354Z</updated>
+  <updated>2015-03-24T10:31:46.613Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,14 +15,12 @@
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[]]></title>
+    <title><![CDATA[object-c的copy机制(二)]]></title>
     <link href="http://yoursite.com/2015/03/24/object-c%E7%9A%84copy%E6%9C%BA%E5%88%B6-%E4%BA%8C/"/>
     <id>http://yoursite.com/2015/03/24/object-c的copy机制-二/</id>
-    <published>2015-03-24T10:21:47.000Z</published>
-    <updated>2015-03-24T10:21:47.000Z</updated>
-    <content type="html"><![CDATA[<p>title: object-c的copy机制(二)<br>date: 2015-03-24 16:48:00<br>categories:object-c</p>
-<h2 id="tags:">tags:</h2>
-<h2 id="前言">前言</h2>
+    <published>2015-03-24T08:48:00.000Z</published>
+    <updated>2015-03-24T10:30:48.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="前言">前言</h2>
 <p>上篇分析了NSString的copy和retain的区别，引出对custom object copy探究，参考了一些资料，这里做讨论。</p>
 <h4 id="实现了NSCopy/NSMutableCopying的框架类">实现了NSCopy/NSMutableCopying的框架类</h4>
 <p>我们都知道oc框架里面的例如NSString、NSArray等很多类的对象在需要复制的时候都可以直接调用[obj copy/mutablecopy]方法。调用copy方法时，会向NSCopying的协议方法copywithzone发消息的。作为根类的NSObject并没有实现NSCopying协议，所以他们都默认实现了NSCopying和NSMutableCopying协议，实现copywithzone和mutablecopywithzone方法。</p>
@@ -86,23 +84,22 @@ p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 
 <p>或者我们自己实现深拷贝的方法。因为如果容器的某一元素是不可变的，那你复制完后该对象仍旧是不能改变的，因此只需要指针复制即可。除非你对容器内的元素重新赋值，否则指针复制即已足够。举个例子，[[array objectAtIndex:0]appendstring:@”sd”]后其他的容器内对象并不会受影响。[[array objectAtIndex:1]和[[deepCopyArray<br> objectAtIndex:1]尽管是指向同一块内存，但是我们没有办法对其进行修改——因为它是不可改变的。所以指针复制已经足够。所以这并不是完全意义上的深拷贝，但是apple的官方文档将其列为deep copy了，并添加了copy和mutablity的关系说明，故在此做一说明</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>title: object-c的copy机制(二)<br>date: 2015-03-24 16:48:00<br>categories:object-c</p>
-<h2 id="tags:">tags:</h2>
-<h2 id="前言">前言</h2>
-<p>上篇分析了N]]>
+    <![CDATA[<h2 id="前言">前言</h2>
+<p>上篇分析了NSString的copy和retain的区别，引出对custom object copy探究，参考了一些资料，这里做讨论。</p>
+<h4 id="实现了NSCopy/NSMutableCopying的框架类">实现了NS]]>
     </summary>
+    
+      <category term="object-c" scheme="http://yoursite.com/categories/object-c/"/>
     
   </entry>
   
   <entry>
-    <title><![CDATA[]]></title>
+    <title><![CDATA[object-c的copy机制(一)]]></title>
     <link href="http://yoursite.com/2015/03/24/object-c%E7%9A%84copy%E6%9C%BA%E5%88%B6-%E4%B8%80/"/>
     <id>http://yoursite.com/2015/03/24/object-c的copy机制-一/</id>
-    <published>2015-03-24T08:47:18.000Z</published>
-    <updated>2015-03-24T08:47:18.000Z</updated>
-    <content type="html"><![CDATA[<p>title: object-c的copy机制(一)<br>date: 2015-03-24 16:28:05<br>categories:object-c</p>
-<h2 id="tags:">tags:</h2>
-<h2 id="前言">前言</h2>
+    <published>2015-03-24T08:28:05.000Z</published>
+    <updated>2015-03-24T10:31:23.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="前言">前言</h2>
 <p>之前的编码中，对于NSString的property修饰，习惯性使用copy，只是粗略的知道copy属于深复制，retain/strong属于浅复制，并没有对其深究。最近需要详细了解这一块知识，在网上搜索相关内容，并且用代码验证，查看对比了内存地址，做一些总结。</p>
 <h3 id="理解">理解</h3>
 <p>之前对于copy和retain/strong的区别理解是这样的：<br>copy是复制了源对象所在内存空间的数据，放入目的对象指针指向的内存空间，并且令目的对象引用计数为1，对于源对象的引用计数没有影响；源对象内容的改变不会影响到目的对象。<br>retain/strong是目的对象指针指向源对象的内存空间，源对象的引用计数+1；源对象的改变会影响到目的对象。mutablecopy返回的是可变的对象，copy返回的是不可变的对象。</p>
@@ -137,11 +134,11 @@ p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 
 <p>上面讨论的是NSString相关的retain/copy/mutablecopy，在oc里面所有实现了NSCopying和NSMutableCopying协议的类，都具有copy和mutablecopy这两个方法。<br>那么自定义对象的copy特性，它们是什么样的，下一篇进行探究。</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>title: object-c的copy机制(一)<br>date: 2015-03-24 16:28:05<br>categories:object-c</p>
-<h2 id="tags:">tags:</h2>
-<h2 id="前言">前言</h2>
-<p>之前的编码中]]>
+    <![CDATA[<h2 id="前言">前言</h2>
+<p>之前的编码中，对于NSString的property修饰，习惯性使用copy，只是粗略的知道copy属于深复制，retain/strong属于浅复制，并没有对其深究。最近需要详细了解这一块知识，在网上搜索相关内容，并且用代码验证，查看]]>
     </summary>
+    
+      <category term="object-c" scheme="http://yoursite.com/categories/object-c/"/>
     
   </entry>
   
