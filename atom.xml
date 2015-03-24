@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不积跬步，无以至千里]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-03-24T10:31:46.613Z</updated>
+  <updated>2015-03-24T10:34:16.255Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,12 +19,12 @@
     <link href="http://yoursite.com/2015/03/24/object-c%E7%9A%84copy%E6%9C%BA%E5%88%B6-%E4%BA%8C/"/>
     <id>http://yoursite.com/2015/03/24/object-c的copy机制-二/</id>
     <published>2015-03-24T08:48:00.000Z</published>
-    <updated>2015-03-24T10:30:48.000Z</updated>
+    <updated>2015-03-24T10:34:02.000Z</updated>
     <content type="html"><![CDATA[<h2 id="前言">前言</h2>
 <p>上篇分析了NSString的copy和retain的区别，引出对custom object copy探究，参考了一些资料，这里做讨论。</p>
 <h4 id="实现了NSCopy/NSMutableCopying的框架类">实现了NSCopy/NSMutableCopying的框架类</h4>
 <p>我们都知道oc框架里面的例如NSString、NSArray等很多类的对象在需要复制的时候都可以直接调用[obj copy/mutablecopy]方法。调用copy方法时，会向NSCopying的协议方法copywithzone发消息的。作为根类的NSObject并没有实现NSCopying协议，所以他们都默认实现了NSCopying和NSMutableCopying协议，实现copywithzone和mutablecopywithzone方法。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">我们都知道oc框架里面的例如<span class="built_in">NSString</span>、<span class="built_in">NSArray</span>等很多类的对象在需要复制的时候都可以直接调用[obj <span class="keyword">copy</span>/mutablecopy]方法。调用<span class="keyword">copy</span>方法时，会向NSCopying的协议方法copywithzone发消息的。作为根类的<span class="built_in">NSObject</span>并没有实现NSCopying协议，所以他们都默认实现了NSCopying和NSMutableCopying协议，实现copywithzone和mutablecopywithzone方法</div></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="input"><span class="prompt">@interface NSString : NSObject &lt;NSCopying, NSMutableCopying, NSSecureCoding&gt;</span>  </span></div><div class="line">  </div><div class="line"><span class="input"><span class="prompt">@interface NSArray : NSObject &lt;NSCopying, NSMutableCopying, NSSecureCoding, NSFastEnumeration&gt;</span>  </span></div><div class="line">  </div><div class="line"><span class="variable">@interface</span> <span class="constant">NSDictionary</span> <span class="symbol">:</span> <span class="constant">NSObject</span> &lt;<span class="constant">NSCopying</span>, <span class="constant">NSMutableCopying</span>, <span class="constant">NSSecureCoding</span>, <span class="constant">NSFastEnumeration</span>&gt;</div></pre></td></tr></table></figure>
 
 <h4 id="自定义的对象的copy/mutablecopy">自定义的对象的copy/mutablecopy</h4>
 <p>我们自定义的对象要想调用copy/mutablecopy方法，也必须手动实现NSCopying协议，实现两个方法。如果没有实现，调用copy方法会抛出异常。</p>
