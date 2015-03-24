@@ -93,17 +93,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言">前言</h2>
+        <h4 id="前言">前言</h4>
 <p>上篇分析了NSString的copy和retain的区别，引出对custom object copy探究，参考了一些资料，这里做讨论。</p>
+<hr>
 <h4 id="实现了NSCopy/NSMutableCopying的框架类">实现了NSCopy/NSMutableCopying的框架类</h4>
 <p>我们都知道oc框架里面的例如NSString、NSArray等很多类的对象在需要复制的时候都可以直接调用[obj copy/mutablecopy]方法。调用copy方法时，会向NSCopying的协议方法copywithzone发消息的。作为根类的NSObject并没有实现NSCopying协议，所以他们都默认实现了NSCopying和NSMutableCopying协议，实现copywithzone和mutablecopywithzone方法。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="input"><span class="prompt">@interface NSString : NSObject &lt;NSCopying, NSMutableCopying, NSSecureCoding&gt;</span>  </span></div><div class="line">  </div><div class="line"><span class="input"><span class="prompt">@interface NSArray : NSObject &lt;NSCopying, NSMutableCopying, NSSecureCoding, NSFastEnumeration&gt;</span>  </span></div><div class="line">  </div><div class="line"><span class="variable">@interface</span> <span class="constant">NSDictionary</span> <span class="symbol">:</span> <span class="constant">NSObject</span> &lt;<span class="constant">NSCopying</span>, <span class="constant">NSMutableCopying</span>, <span class="constant">NSSecureCoding</span>, <span class="constant">NSFastEnumeration</span>&gt;</div></pre></td></tr></table></figure>
 
+<hr>
 <h4 id="自定义的对象的copy/mutablecopy">自定义的对象的copy/mutablecopy</h4>
 <p>我们自定义的对象要想调用copy/mutablecopy方法，也必须手动实现NSCopying协议，实现两个方法。如果没有实现，调用copy方法会抛出异常。</p>
 <p>定义一个person类：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">@interface Person : NSObject  </span></div><div class="line"><span class="comment">@property (strong,nonatomic) NSString* name;  </span></div><div class="line"><span class="comment">@property (assign,nonatomic) NSInteger age;  </span></div><div class="line"><span class="comment">@property (strong,nonatomic) NSArray* sons;  </span></div><div class="line"><span class="comment">@end  </span></div><div class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span>  </div><div class="line"><span class="comment">@implementation Person  </span></div><div class="line">  </div><div class="line"><span class="comment">@end</span></div></pre></td></tr></table></figure>
 
+<hr>
 <h4 id="使用copy方法：">使用copy方法：</h4>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span> Person* <span class="variable">p =</span> [[Person alloc] init];   </div><div class="line"><span class="number">2</span> p.<span class="variable">name =</span> @<span class="string">"张三"</span>;  </div><div class="line"><span class="number">3</span> p.<span class="variable">age =</span> <span class="number">50</span>;  </div><div class="line"><span class="number">4</span> p.<span class="variable">sons =</span> @[@<span class="string">"张小一"</span>,@<span class="string">"张小二"</span>];  </div><div class="line"><span class="number">5</span> Person* <span class="variable">copy =</span> [p copy];</div></pre></td></tr></table></figure>
 
@@ -134,6 +137,7 @@ Person* <span class="variable">copy =</span> [p copy];
 
 <p>这个结果没有悬念，遵循不可变对象copy属于浅拷贝。</p>
 <p>这里注意到，我专门打印出p.sons 和copy.sons的第一个元素地址来做对比，他们是一样的。NSArray是容器类型，里面的元素是在copy的时候是什么样的情况，后面详细讨论。</p>
+<hr>
 <h4 id="使用mutablecopy方法">使用mutablecopy方法</h4>
 <p>可以看到，copywithzone和mutablecopywithzone都创建了新的内存空间，不同之处在于对成员变量的处理上。</p>
 <pre><code>Person* <span class="variable">copy =</span> [p mutableCopy];
@@ -142,6 +146,7 @@ p.name <span class="variable">addr =</span> <span class="number">0</span>x5848 &
 p.sons <span class="variable">addr =</span> <span class="number">0</span>x8a3f8f0 &amp;&amp; copy.sons <span class="variable">addr =</span> <span class="number">0</span>x8a3f020  
 p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 &amp;&amp; copy's son <span class="variable">addr =</span> <span class="number">0</span>x5858  
 </code></pre><p>结果是name和sons都被深拷贝，sons里面元素仍然是浅拷贝，看来NSArray的mutablecopy不会令其中的元素深拷贝。</p>
+<hr>
 <h4 id="容器类对象的拷贝">容器类对象的拷贝</h4>
 <p>参考<a href="http://www.cnblogs.com/ydhliphonedev/archive/2012/04/27/2473927.html" target="_blank" rel="external">http://www.cnblogs.com/ydhliphonedev/archive/2012/04/27/2473927.html</a><br>对于类似NSArray、NSDictionary之类的容器元素，要想实现深拷贝，可以参考以下两种方法：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSArray</span> *array = [<span class="built_in">NSArray</span> arrayWithObjects:[<span class="built_in">NSMutableString</span> stringWithString:<span class="string">@"first"</span>],[<span class="built_in">NSString</span> stringWithString:<span class="string">@"b"</span>],<span class="string">@"c"</span>,<span class="literal">nil</span>];  </div><div class="line"><span class="number">1</span>、<span class="built_in">NSArray</span> *deepCopyArray=[[<span class="built_in">NSArray</span> alloc] initWithArray: array copyItems: <span class="literal">YES</span>];  </div><div class="line"><span class="number">2</span>、<span class="built_in">NSArray</span>* trueDeepCopyArray = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: array]];</div></pre></td></tr></table></figure>
