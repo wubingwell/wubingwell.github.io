@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不积跬步，无以至千里]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-03-24T08:19:14.599Z</updated>
+  <updated>2015-03-24T08:20:32.238Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://yoursite.com/2015/03/23/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%86%99flv%E6%96%87%E4%BB%B6/"/>
     <id>http://yoursite.com/2015/03/23/自己动手写flv文件/</id>
     <published>2015-03-23T11:24:28.000Z</published>
-    <updated>2015-03-24T08:19:09.000Z</updated>
+    <updated>2015-03-24T08:20:19.000Z</updated>
     <content type="html"><![CDATA[<p>项目需要使用ffmpeg来实现flv格式的编解码功能。ffmpeg对编解码大致分两部分来实现：数据编码和文件编码，直接调用相关api就可以实现。然而不够灵活，需要自己定制flv格式，于是就把文件编码这一部分自己来做，加入自己的东西。数据的编码直接使用ffmpeg的api。解码的时候根据由自己来分析格式，抽取纯音频数据，进行解码。</p>
 <p>首先需要对flv的格式做一个了解，这块网上文章很多，也很详细。</p>
 <p>flv文件分为header区和tag区。header区都是固定的9bytes,接着是为了兼容格式的previous size 4bytes。后面就是tag区。一般第一个tag是标示为0x12的脚本tag，包含了一些音频信息，例如时长，文件大小等。也有的没有脚本tag，那么播放器就会遍历文件寻找这些信息。web版flv由于编码过程不够规范，所以很多没有脚本tag，自然得不到tag信息，但是这个需求是听录音，mp3和flv一起播放，而mp3的长度是可以得到的；然而手机生成的录音就需要打上长度信息.<br>header区和脚本tag可以先作为文件头写入flv文件，脚本tag可以根据自己的需求来定制。只要符合播放器的解码规则，不要视为错误文件就可以。</p>
@@ -31,6 +31,8 @@
     <summary type="html">
     <![CDATA[<p>项目需要使用ffmpeg来实现flv格式的编解码功能。ffmpeg对编解码大致分两部分来实现：数据编码和文件编码，直接调用相关api就可以实现。然而不够灵活，需要自己定制flv格式，于是就把文件编码这一部分自己来做，加入自己的东西。数据的编码直接使用ffmpeg的api。解]]>
     </summary>
+    
+      <category term="音视频" scheme="http://yoursite.com/categories/%E9%9F%B3%E8%A7%86%E9%A2%91/"/>
     
   </entry>
   
