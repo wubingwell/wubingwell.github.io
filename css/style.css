@@ -350,7 +350,7 @@ body {
   width: 50%;
   height: 50%;
 }
-background:url(banner-url) center #000 background-size: cover {
+background: url(banner-url) center #000 background-size: cover {
   z-index: -1;
 }
 #header-title {
