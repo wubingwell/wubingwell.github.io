@@ -6,23 +6,17 @@
   <title>object-c的copy机制(一) | bing&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前言
-之前的编码中，对于NSString的property修饰，习惯性使用copy，只是粗略的知道copy属于深复制，retain/strong属于浅复制，并没有对其深究。最近需要详细了解这一块知识，在网上搜索相关内容，并且用代码验证，查看对比了内存地址，做一些总结。
-理解
-之前对于copy和retain/strong的区别理解是这样的：copy是复制了源对象所在内存空间的数据，放入目的对象指针指">
+之前的编码中，对于NSString的property修饰，习惯性使用copy，只是粗略的知道copy属于深复制，retain/strong属于浅复制，并没有对其深究。最近需要详细了解这一块知识，在网上搜索相关内容，并且用代码验证，查看对比了内存地址，做一些总结。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="object-c的copy机制(一)">
 <meta property="og:url" content="http://wubinge.github.io/2015/03/24/object-c的copy机制-一/">
 <meta property="og:site_name" content="bing's blog">
 <meta property="og:description" content="前言
-之前的编码中，对于NSString的property修饰，习惯性使用copy，只是粗略的知道copy属于深复制，retain/strong属于浅复制，并没有对其深究。最近需要详细了解这一块知识，在网上搜索相关内容，并且用代码验证，查看对比了内存地址，做一些总结。
-理解
-之前对于copy和retain/strong的区别理解是这样的：copy是复制了源对象所在内存空间的数据，放入目的对象指针指">
+之前的编码中，对于NSString的property修饰，习惯性使用copy，只是粗略的知道copy属于深复制，retain/strong属于浅复制，并没有对其深究。最近需要详细了解这一块知识，在网上搜索相关内容，并且用代码验证，查看对比了内存地址，做一些总结。">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="object-c的copy机制(一)">
 <meta name="twitter:description" content="前言
-之前的编码中，对于NSString的property修饰，习惯性使用copy，只是粗略的知道copy属于深复制，retain/strong属于浅复制，并没有对其深究。最近需要详细了解这一块知识，在网上搜索相关内容，并且用代码验证，查看对比了内存地址，做一些总结。
-理解
-之前对于copy和retain/strong的区别理解是这样的：copy是复制了源对象所在内存空间的数据，放入目的对象指针指">
+之前的编码中，对于NSString的property修饰，习惯性使用copy，只是粗略的知道copy属于深复制，retain/strong属于浅复制，并没有对其深究。最近需要详细了解这一块知识，在网上搜索相关内容，并且用代码验证，查看对比了内存地址，做一些总结。">
 
   
     <link rel="alternative" href="/atom.xml" title="bing&#39;s blog" type="application/atom+xml">
@@ -101,7 +95,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="前言">前言</h2>
-<p>之前的编码中，对于NSString的property修饰，习惯性使用copy，只是粗略的知道copy属于深复制，retain/strong属于浅复制，并没有对其深究。最近需要详细了解这一块知识，在网上搜索相关内容，并且用代码验证，查看对比了内存地址，做一些总结。</p>
+<p>之前的编码中，对于NSString的property修饰，习惯性使用copy，只是粗略的知道copy属于深复制，retain/strong属于浅复制，并没有对其深究。最近需要详细了解这一块知识，在网上搜索相关内容，并且用代码验证，查看对比了内存地址，做一些总结。<br><a id="more"></a></p>
 <h3 id="理解">理解</h3>
 <p>之前对于copy和retain/strong的区别理解是这样的：<br>copy是复制了源对象所在内存空间的数据，放入目的对象指针指向的内存空间，并且令目的对象引用计数为1，对于源对象的引用计数没有影响；源对象内容的改变不会影响到目的对象。<br>retain/strong是目的对象指针指向源对象的内存空间，源对象的引用计数+1；源对象的改变会影响到目的对象。mutablecopy返回的是可变的对象，copy返回的是不可变的对象。</p>
 <h3 id="代码验证">代码验证</h3>
