@@ -309,7 +309,7 @@ body {
   font-weight: bold;
 }
 #header {
-  height: 200px;
+  height: 300px;
   position: relative;
   border-bottom: 1px solid #ddd;
 }
@@ -350,7 +350,7 @@ body {
   width: 50%;
   height: 50%;
 }
-background: center #000 background-size: cover {
+background:url(banner-url) center #000 background-size: cover {
   z-index: -1;
 }
 #header-title {
