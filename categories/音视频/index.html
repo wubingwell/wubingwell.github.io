@@ -93,16 +93,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>项目需要使用ffmpeg来实现flv格式的编解码功能。ffmpeg对编解码大致分两部分来实现：数据编码和文件编码，直接调用相关api就可以实现。然而不够灵活，需要自己定制flv格式，于是就把文件编码这一部分自己来做，加入自己的东西。数据的编码直接使用ffmpeg的api。解码的时候根据由自己来分析格式，抽取纯音频数据，进行解码。<br>
-        
-          <p class="article-more-link">
-            <a href="/2015/03/23/自己动手写flv文件/#more">Read More</a>
-          </p>
-        
+        <p>项目需要使用ffmpeg来实现flv格式的编解码功能。ffmpeg对编解码大致分两部分来实现：数据编码和文件编码，直接调用相关api就可以实现。然而不够灵活，需要自己定制flv格式，于是就把文件编码这一部分自己来做，加入自己的东西。数据的编码直接使用ffmpeg的api。解码的时候根据由自己来分析格式，抽取纯音频数据，进行解码。</p>
+<p>首先需要对flv的格式做一个了解，这块网上文章很多，也很详细。</p>
+<p>flv文件分为header区和tag区。header区都是固定的9bytes,接着是为了兼容格式的previous size 4bytes。后面就是tag区。一般第一个tag是标示为0x12的脚本tag，包含了一些音频信息，例如时长，文件大小等。也有的没有脚本tag，那么播放器就会遍历文件寻找这些信息。web版flv由于编码过程不够规范，所以很多没有脚本tag，自然得不到tag信息，但是这个需求是听录音，mp3和flv一起播放，而mp3的长度是可以得到的；然而手机生成的录音就需要打上长度信息.<br>header区和脚本tag可以先作为文件头写入flv文件，脚本tag可以根据自己的需求来定制。只要符合播放器的解码规则，不要视为错误文件就可以。</p>
+<p>每个tag分为header和data两个区。tag header 固定的是11个字节，tag类型(1byte)、data大小(3bytes)、timestamp(3bytes)、exTimestamp扩展时间戳，作为时间戳的高位(1byte)和stramid(3bytes恒为0).。后面紧跟着是tag data ，开头1byte标示 出该tag data的一些音频信息，例如编码类型、通道数等。在tag data后面还有一个4bytes的区域表示该tag的size。据此可以看出，每个tag的size是不固定的，取决于tag data的大小。但是tag的header和data第一个byte以及后面的previous的大小和值是固定的。除了header中的data大小、timestamp和previous size的值。</p>
+<p>下面就是纯音频数据的编码了。我们的原始数据都是未经压缩的pcm数据，来源可以是声卡，也可以是文件和网络流。拿到的pcm数据，要先进行分割，确定一个包的大小。先找到所使用的编码器的压缩比是多少，这个一般是常数。在ffmpeg的decoder实例中可以找到。据此计算出编码后的数据的大小，为方便读取，尽量把包分割成相同大小。然后把这个值+1写进tagheader的datasize区，当然previoussize的大小也可以确定了。至于时间戳，知道采样率，那么也就很容易计算出来了。例如压缩比是8：1。原始数据512编码之后就是64，那么就65就是tagdata的大小，不要忘了前面的1byte的音频信息。</p>
+<p>   要注意一点，在实际的编码中，可能会出现缓存不足导致丢包的现象，这时候会出现时间戳错误，导致不同步。</p>
+<p>   本来打算按照脚本tag的标准格式写入信息，但是觉得太麻烦。所以tag头按照标准，内容就用4bytes存储samples。当然，前面最好加一个校验标志。反正是自己来读取。其他播放器无视就可以，只要脚本tag头的size写对就可以。</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wubinge.github.io/2015/03/23/自己动手写flv文件/" data-id="srz9fl4fqp7e9o6q" class="article-share-link">Share</a>
+      <a data-url="http://wubinge.github.io/2015/03/23/自己动手写flv文件/" data-id="l5b1zspinwelp239" class="article-share-link">Share</a>
       
       
     </footer>

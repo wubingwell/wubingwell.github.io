@@ -96,16 +96,75 @@
         <h4 id="前言">前言</h4>
 <p>上篇分析了NSString的copy和retain的区别，引出对custom object copy探究，参考了一些资料，这里做讨论。</p>
 <hr>
+<h4 id="实现了NSCopy/NSMutableCopying的框架类">实现了NSCopy/NSMutableCopying的框架类</h4>
+<p>我们都知道oc框架里面的例如NSString、NSArray等很多类的对象在需要复制的时候都可以直接调用[obj copy/mutablecopy]方法。调用copy方法时，会向NSCopying的协议方法copywithzone发消息的。作为根类的NSObject并没有实现NSCopying协议，所以他们都默认实现了NSCopying和NSMutableCopying协议，实现copywithzone和mutablecopywithzone方法。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="input"><span class="prompt">@interface NSString : NSObject &lt;NSCopying, NSMutableCopying, NSSecureCoding&gt;</span>  </span></div><div class="line">  </div><div class="line"><span class="input"><span class="prompt">@interface NSArray : NSObject &lt;NSCopying, NSMutableCopying, NSSecureCoding, NSFastEnumeration&gt;</span>  </span></div><div class="line">  </div><div class="line"><span class="variable">@interface</span> <span class="constant">NSDictionary</span> <span class="symbol">:</span> <span class="constant">NSObject</span> &lt;<span class="constant">NSCopying</span>, <span class="constant">NSMutableCopying</span>, <span class="constant">NSSecureCoding</span>, <span class="constant">NSFastEnumeration</span>&gt;</div></pre></td></tr></table></figure>
 
-        
-          <p class="article-more-link">
-            <a href="/2015/03/24/object-c的copy机制-二/#more">Read More</a>
-          </p>
-        
+<hr>
+<h4 id="自定义的对象的copy/mutablecopy">自定义的对象的copy/mutablecopy</h4>
+<p>我们自定义的对象要想调用copy/mutablecopy方法，也必须手动实现NSCopying协议，实现两个方法。如果没有实现，调用copy方法会抛出异常。</p>
+<p>定义一个person类：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">@interface Person : NSObject  </span></div><div class="line"><span class="comment">@property (strong,nonatomic) NSString* name;  </span></div><div class="line"><span class="comment">@property (assign,nonatomic) NSInteger age;  </span></div><div class="line"><span class="comment">@property (strong,nonatomic) NSArray* sons;  </span></div><div class="line"><span class="comment">@end  </span></div><div class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span>  </div><div class="line"><span class="comment">@implementation Person  </span></div><div class="line">  </div><div class="line"><span class="comment">@end</span></div></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="使用copy方法：">使用copy方法：</h4>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span> Person* <span class="variable">p =</span> [[Person alloc] init];   </div><div class="line"><span class="number">2</span> p.<span class="variable">name =</span> @<span class="string">"张三"</span>;  </div><div class="line"><span class="number">3</span> p.<span class="variable">age =</span> <span class="number">50</span>;  </div><div class="line"><span class="number">4</span> p.<span class="variable">sons =</span> @[@<span class="string">"张小一"</span>,@<span class="string">"张小二"</span>];  </div><div class="line"><span class="number">5</span> Person* <span class="variable">copy =</span> [p copy];</div></pre></td></tr></table></figure>
+
+<p>抛出异常：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">*** Terminating app due <span class="keyword">to</span> uncaught exception <span class="comment">'NSInvalidArgumentException', reason: '-[Person copyWithZone:]: unrecognized select  </span></div><div class="line"><span class="keyword">or</span> sent <span class="keyword">to</span> instance <span class="number">0x8b240d0</span><span class="comment">'</span></div></pre></td></tr></table></figure>
+
+<p>无法识别的方法消息，这里因为person没有实现NSCopying协议和coypwithzone方法。接下来我为person类添加协议和方法。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">@interface Person : NSObject&lt;NSCopying,NSMutableCopying&gt;  </span></div><div class="line">...  </div><div class="line">...  </div><div class="line">...  </div><div class="line"><span class="comment">@end   </span></div><div class="line">//<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span>  </div><div class="line"><span class="comment">@implementation Person </span></div><div class="line">-(id)copyWithZone:(NSZone <span class="keyword">*</span>)zone</div><div class="line">{</div><div class="line">    Person<span class="keyword">*</span> copy = [[self class] allocWithZone:zone]; //分配新的内存空间 对于self本身来说，属于深拷贝了。</div><div class="line">    copy.name = [self.name copy]; //NSString的copy，对于name，属于浅拷贝，因为都属于不可变</div><div class="line">    copy.age = self.age;   </div><div class="line">    copy.sons = [self.sons copy]; //同样浅拷贝    </div><div class="line">       </div><div class="line">    return self;   </div><div class="line">}   </div><div class="line">-(id)mutableCopyWithZone:(NSZone <span class="keyword">*</span>)zone</div><div class="line">{ </div><div class="line">    Person<span class="keyword">*</span> copy = [[self class] allocWithZone:zone];//分配新的内存空间   </div><div class="line">    copy.name = [self.name mutableCopy]; //深拷贝 不可变拷贝可变   </div><div class="line">    copy.age = self.age;   </div><div class="line">    copy.sons = [self.sons mutableCopy]; //同样深拷贝   </div><div class="line">    return copy;   </div><div class="line">}  </div><div class="line"><span class="comment">@end</span></div></pre></td></tr></table></figure>
+
+<p>使用copy：</p>
+<pre><code>Person* <span class="variable">p =</span> [[Person alloc] init];  
+p.<span class="variable">name =</span> @<span class="string">"张三"</span>;  
+p.<span class="variable">age =</span> <span class="number">50</span>;  
+p.<span class="variable">sons =</span> @[@<span class="string">"张小一"</span>,@<span class="string">"张小二"</span>];      
+Person* <span class="variable">copy =</span> [p copy]; 
+</code></pre><p>打印地址：</p>
+<pre><code><span class="built_in">NSLog</span>(<span class="string">@"copy addr = %p"</span>,<span class="keyword">copy</span>);
+<span class="keyword">copy</span> addr = <span class="number">0x8d34750</span> 
+</code></pre><p>我们看到，地址不同，copy的内存空间是新开辟的。这里要说一下，因为一般我们copy出来的Person对象，副本变动不希望影响到另一个。所以在copywithzone里面如上面那样操作，新开辟内存空间，逐个成员变量赋值；如果copy的对象不考虑互相影响的后果，则可以直接：</p>
+<pre><code>(<span class="keyword">id</span>)copyWithZone:(NSZone *)zone  
+{  
+    <span class="keyword">return</span> <span class="keyword">self</span>;  
+}
+</code></pre><p>不过这样貌似没有什么意义，不如直接用：</p>
+<pre><code><span class="attribute">Person* copy </span>=<span class="string"> p;</span>
+</code></pre><p>Person的name和sons都属于不可变，并且调用的是copy，所以对象p和copy的这两个成员的地址应该是一样的。 我们打印出name和sons的值和地址来看一下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="type">NSLog</span>(@<span class="string">"p.sons addr = %p && copy.sons addr = %p"</span>,p.sons,copy.sons);  </div><div class="line"><span class="type">NSLog</span>(@<span class="string">"p's son addr = %p && copy's son addr = %p"</span>,[p.sons objectAtIndex:<span class="number">0</span>],[copy.sons objectAtIndex:<span class="number">0</span>]);  </div><div class="line">p.sons <span class="keyword">addr</span> = <span class="number">0x8d46410</span> && copy.sons <span class="keyword">addr</span> = <span class="number">0x8d46410</span>  </div><div class="line">p's son <span class="keyword">addr</span> = <span class="number">0x5858</span> && copy's son <span class="keyword">addr</span> = <span class="number">0x5858</span></div></pre></td></tr></table></figure>
+
+<p>这个结果没有悬念，遵循不可变对象copy属于浅拷贝。</p>
+<p>这里注意到，我专门打印出p.sons 和copy.sons的第一个元素地址来做对比，他们是一样的。NSArray是容器类型，里面的元素是在copy的时候是什么样的情况，后面详细讨论。</p>
+<hr>
+<h4 id="使用mutablecopy方法">使用mutablecopy方法</h4>
+<p>可以看到，copywithzone和mutablecopywithzone都创建了新的内存空间，不同之处在于对成员变量的处理上。</p>
+<pre><code>Person* <span class="variable">copy =</span> [p mutableCopy];
+//打印地址
+p.name <span class="variable">addr =</span> <span class="number">0</span>x5848 &amp;&amp; copy.name <span class="variable">addr =</span> <span class="number">0</span>x8a3db30  
+p.sons <span class="variable">addr =</span> <span class="number">0</span>x8a3f8f0 &amp;&amp; copy.sons <span class="variable">addr =</span> <span class="number">0</span>x8a3f020  
+p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 &amp;&amp; copy's son <span class="variable">addr =</span> <span class="number">0</span>x5858  
+</code></pre><p>结果是name和sons都被深拷贝，sons里面元素仍然是浅拷贝，看来NSArray的mutablecopy不会令其中的元素深拷贝。</p>
+<hr>
+<h4 id="容器类对象的拷贝">容器类对象的拷贝</h4>
+<p>参考<a href="http://www.cnblogs.com/ydhliphonedev/archive/2012/04/27/2473927.html" target="_blank" rel="external">http://www.cnblogs.com/ydhliphonedev/archive/2012/04/27/2473927.html</a><br>对于类似NSArray、NSDictionary之类的容器元素，要想实现深拷贝，可以参考以下两种方法：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSArray</span> *array = [<span class="built_in">NSArray</span> arrayWithObjects:[<span class="built_in">NSMutableString</span> stringWithString:<span class="string">@"first"</span>],[<span class="built_in">NSString</span> stringWithString:<span class="string">@"b"</span>],<span class="string">@"c"</span>,<span class="literal">nil</span>];  </div><div class="line"><span class="number">1</span>、<span class="built_in">NSArray</span> *deepCopyArray=[[<span class="built_in">NSArray</span> alloc] initWithArray: array copyItems: <span class="literal">YES</span>];  </div><div class="line"><span class="number">2</span>、<span class="built_in">NSArray</span>* trueDeepCopyArray = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject: array]];</div></pre></td></tr></table></figure>
+
+<p>打印元素地址：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">NSLog(<span class="variable">@"</span>array enum addr = <span class="variable">%p</span>,<span class="variable">%p</span>,<span class="variable">%p</span>\n<span class="string">",array[0],array[1],array[2]);</span></div><div class="line">   NSLog(<span class="variable">@"</span>deepCopyArray enum addr = <span class="variable">%p</span>,<span class="variable">%p</span>,<span class="variable">%p</span>\n",deepCopyArray[<span class="number">0</span>],deepCopyArray[<span class="number">1</span>],deepCopyArray[<span class="number">2</span>]);</div><div class="line">   NSLog(<span class="variable">@"</span>trueDeepCopyArray enum addr = <span class="variable">%p</span>,<span class="variable">%p</span>,<span class="variable">%p</span>\n<span class="string">",trueDeepCopyArray[0],trueDeepCopyArray[1],trueDeepCopyArray[2]);</span></div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">array enum addr             = <span class="number">0x7f81d05ab020</span>,<span class="number">0x10958d0d0</span>,<span class="number">0x10958d0f0</span></div><div class="line">deepCopyArray enum addr     = <span class="number">0x7f81d05ab080</span>,<span class="number">0x10958d0d0</span>,<span class="number">0x10958d0f0</span></div><div class="line">trueDeepCopyArray enum addr = <span class="number">0x7f81d05abb50</span>,<span class="number">0x7f81d05abcd0</span>,<span class="number">0x7f81d05ac030</span></div></pre></td></tr></table></figure>
+
+<p>trueDeepCopyArray是完全意义上的深拷贝，而deepCopyArray则不是，对于deepCopyArray内的不可变元素其还是指针复制。</p>
+<p>或者我们自己实现深拷贝的方法。因为如果容器的某一元素是不可变的，那你复制完后该对象仍旧是不能改变的，因此只需要指针复制即可。除非你对容器内的元素重新赋值，否则指针复制即已足够。举个例子，[[array objectAtIndex:0]appendstring:@”sd”]后其他的容器内对象并不会受影响。[[array objectAtIndex:1]和[[deepCopyArray<br> objectAtIndex:1]尽管是指向同一块内存，但是我们没有办法对其进行修改——因为它是不可改变的。所以指针复制已经足够。所以这并不是完全意义上的深拷贝，但是apple的官方文档将其列为deep copy了，并添加了copy和mutablity的关系说明，故在此做一说明</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wubinge.github.io/2015/03/24/object-c的copy机制-二/" data-id="8ikdlstrusr7cw00" class="article-share-link">Share</a>
+      <a data-url="http://wubinge.github.io/2015/03/24/object-c的copy机制-二/" data-id="xrybt1nywxrdk4qv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -143,16 +202,43 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="前言">前言</h2>
-<p>之前的编码中，对于NSString的property修饰，习惯性使用copy，只是粗略的知道copy属于深复制，retain/strong属于浅复制，并没有对其深究。最近需要详细了解这一块知识，在网上搜索相关内容，并且用代码验证，查看对比了内存地址，做一些总结。<br>
-        
-          <p class="article-more-link">
-            <a href="/2015/03/24/object-c的copy机制-一/#more">Read More</a>
-          </p>
-        
+<p>之前的编码中，对于NSString的property修饰，习惯性使用copy，只是粗略的知道copy属于深复制，retain/strong属于浅复制，并没有对其深究。最近需要详细了解这一块知识，在网上搜索相关内容，并且用代码验证，查看对比了内存地址，做一些总结。  </p>
+<h3 id="理解">理解</h3>
+<p>之前对于copy和retain/strong的区别理解是这样的：<br>copy是复制了源对象所在内存空间的数据，放入目的对象指针指向的内存空间，并且令目的对象引用计数为1，对于源对象的引用计数没有影响；源对象内容的改变不会影响到目的对象。<br>retain/strong是目的对象指针指向源对象的内存空间，源对象的引用计数+1；源对象的改变会影响到目的对象。mutablecopy返回的是可变的对象，copy返回的是不可变的对象。</p>
+<h3 id="代码验证">代码验证</h3>
+<p> 1、源对象为不可变 NSString</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSString</span>*str = <span class="string">@"test"</span>;</div><div class="line"><span class="built_in">NSString</span>* retainStr = [str retain];</div><div class="line"><span class="built_in">NSString</span>* copyStr = [str <span class="keyword">copy</span>];</div><div class="line"><span class="built_in">NSMutableString</span>* mcopyStr = [str mutableCopy];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"str addr = %p"</span>,str);</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"retainStr addr = %p"</span>,retainStr);</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"copyStr addr = %p"</span>,copyStr);</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"mcopyStr addr = %p"</span>,mcopyStr);</div></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">str <span class="keyword">addr</span> = <span class="number">0x4598</span></div><div class="line">retainStr <span class="keyword">addr</span> = <span class="number">0x4598</span></div><div class="line">copyStr <span class="keyword">addr</span> = <span class="number">0x4598</span></div><div class="line">mcopyStr <span class="keyword">addr</span> = <span class="number">0x8caf630</span></div></pre></td></tr></table></figure>
+
+<ul>
+<li>retain的对象毫无悬念，还是源对象的内存地址；</li>
+<li>copy的对象和我原来想的不一样，竟然和retain一样，也是源对象地址；这意味者并没有对源对象内容进行复制，而只是复制了指针而已。如此看来copy方法并不一定会复制源对象的内容。之所以复制，肯定是因为两个版本有所不同。而这里源对象是NSString不可变的，copy返回的也是不可变的，既然都不可变，那么这里的副本就没有多大意义存在，就如同使用字符串常量，系统会为我们优化，声明多个字符串，都是不可变且内容相同，那么系统就只申请一块内存，这个道理是一样的。指向一块内存就可以了，所以这里的copy和retain的作用是一样的。</li>
+<li>mutablecopy的对象地址和源对象地址不同，说明重新开辟了内存，复制了一个副本。因为mutablecopy返回的对象是可变的，它的变动会影响到源对象，所以需要拷贝一份。</li>
+</ul>
+<p>2、源对象为可变的NSMutableString</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSMutableString</span>* str = [<span class="built_in">NSMutableString</span> stringWithString:<span class="string">@"test"</span>];</div><div class="line"><span class="built_in">NSString</span>* retainStr = [str retain];</div><div class="line"><span class="built_in">NSString</span>* copyStr = [str <span class="keyword">copy</span>];</div><div class="line"><span class="built_in">NSMutableString</span>* mcopyStr = [str mutableCopy];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"str addr = %p"</span>,str);</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"retainStr addr = %p"</span>,retainStr);</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"copyStr addr = %p"</span>,copyStr);</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"mcopyStr addr = %p"</span>,mcopyStr);</div></pre></td></tr></table></figure>
+
+<p>输出:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">str</span> addr = <span class="number">0x8b7a130</span></div><div class="line">retainStr addr = <span class="number">0x8b7a130</span></div><div class="line">copyStr addr = <span class="number">0x8b751d0</span></div><div class="line">mcopyStr addr = <span class="number">0x8b7a170</span></div></pre></td></tr></table></figure>
+
+<ul>
+<li>retain仍然和目的对象地址相同；</li>
+<li>copy的地址和目的对象地址不相同，是因为源对象是可变的，目的对象不可变，当然需要两个不同的版本；</li>
+<li>mutablecopy形成了一个新的副本。因为两个对象的改变会影响到对方，所以需要两个版本。</li>
+</ul>
+<h3 id="结论">结论</h3>
+<ul>
+<li>对于copy来说，如果源对象是不可变的，那么是浅拷贝，没有必要深拷贝；如果源对象可变，为了安全性，深拷贝，生成副本。</li>
+<li>对于mutablecopy来说，不管源对象是否可变，都是深拷贝。<br>因此我们在设置property的copy属性时，是在源对象为可变的情况下,如果希望对象跟着源对象的值变化，那么就是用retain；如果希望对象保持独立的值，那就使用copy。</li>
+</ul>
+<p>上面讨论的是NSString相关的retain/copy/mutablecopy，在oc里面所有实现了NSCopying和NSMutableCopying协议的类，都具有copy和mutablecopy这两个方法。<br>那么自定义对象的copy特性，它们是什么样的，下一篇进行探究。</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wubinge.github.io/2015/03/24/object-c的copy机制-一/" data-id="6np3z5vhbqrgj0dz" class="article-share-link">Share</a>
+      <a data-url="http://wubinge.github.io/2015/03/24/object-c的copy机制-一/" data-id="blegf4ragr8z4y9q" class="article-share-link">Share</a>
       
       
     </footer>
@@ -189,16 +275,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>项目需要使用ffmpeg来实现flv格式的编解码功能。ffmpeg对编解码大致分两部分来实现：数据编码和文件编码，直接调用相关api就可以实现。然而不够灵活，需要自己定制flv格式，于是就把文件编码这一部分自己来做，加入自己的东西。数据的编码直接使用ffmpeg的api。解码的时候根据由自己来分析格式，抽取纯音频数据，进行解码。<br>
-        
-          <p class="article-more-link">
-            <a href="/2015/03/23/自己动手写flv文件/#more">Read More</a>
-          </p>
-        
+        <p>项目需要使用ffmpeg来实现flv格式的编解码功能。ffmpeg对编解码大致分两部分来实现：数据编码和文件编码，直接调用相关api就可以实现。然而不够灵活，需要自己定制flv格式，于是就把文件编码这一部分自己来做，加入自己的东西。数据的编码直接使用ffmpeg的api。解码的时候根据由自己来分析格式，抽取纯音频数据，进行解码。</p>
+<p>首先需要对flv的格式做一个了解，这块网上文章很多，也很详细。</p>
+<p>flv文件分为header区和tag区。header区都是固定的9bytes,接着是为了兼容格式的previous size 4bytes。后面就是tag区。一般第一个tag是标示为0x12的脚本tag，包含了一些音频信息，例如时长，文件大小等。也有的没有脚本tag，那么播放器就会遍历文件寻找这些信息。web版flv由于编码过程不够规范，所以很多没有脚本tag，自然得不到tag信息，但是这个需求是听录音，mp3和flv一起播放，而mp3的长度是可以得到的；然而手机生成的录音就需要打上长度信息.<br>header区和脚本tag可以先作为文件头写入flv文件，脚本tag可以根据自己的需求来定制。只要符合播放器的解码规则，不要视为错误文件就可以。</p>
+<p>每个tag分为header和data两个区。tag header 固定的是11个字节，tag类型(1byte)、data大小(3bytes)、timestamp(3bytes)、exTimestamp扩展时间戳，作为时间戳的高位(1byte)和stramid(3bytes恒为0).。后面紧跟着是tag data ，开头1byte标示 出该tag data的一些音频信息，例如编码类型、通道数等。在tag data后面还有一个4bytes的区域表示该tag的size。据此可以看出，每个tag的size是不固定的，取决于tag data的大小。但是tag的header和data第一个byte以及后面的previous的大小和值是固定的。除了header中的data大小、timestamp和previous size的值。</p>
+<p>下面就是纯音频数据的编码了。我们的原始数据都是未经压缩的pcm数据，来源可以是声卡，也可以是文件和网络流。拿到的pcm数据，要先进行分割，确定一个包的大小。先找到所使用的编码器的压缩比是多少，这个一般是常数。在ffmpeg的decoder实例中可以找到。据此计算出编码后的数据的大小，为方便读取，尽量把包分割成相同大小。然后把这个值+1写进tagheader的datasize区，当然previoussize的大小也可以确定了。至于时间戳，知道采样率，那么也就很容易计算出来了。例如压缩比是8：1。原始数据512编码之后就是64，那么就65就是tagdata的大小，不要忘了前面的1byte的音频信息。</p>
+<p>   要注意一点，在实际的编码中，可能会出现缓存不足导致丢包的现象，这时候会出现时间戳错误，导致不同步。</p>
+<p>   本来打算按照脚本tag的标准格式写入信息，但是觉得太麻烦。所以tag头按照标准，内容就用4bytes存储samples。当然，前面最好加一个校验标志。反正是自己来读取。其他播放器无视就可以，只要脚本tag头的size写对就可以。</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wubinge.github.io/2015/03/23/自己动手写flv文件/" data-id="srz9fl4fqp7e9o6q" class="article-share-link">Share</a>
+      <a data-url="http://wubinge.github.io/2015/03/23/自己动手写flv文件/" data-id="l5b1zspinwelp239" class="article-share-link">Share</a>
       
       
     </footer>
@@ -237,16 +325,69 @@
       
         <h2 id="前言">前言</h2>
 <hr>
-<p>之前在csdn上写过博文，觉得它的编辑框使用起来毫无沉浸感，可控性也很差。于是希望搭建独立的博客。<br>在网上搜索之后，确定使用hexo博客生成框架+github page免费空间的方式来创建博客系统。<br>很喜欢markdown的语法，配合mou编辑器，写起来很有沉浸感。简单记录一下搭建过程。<br>
-        
-          <p class="article-more-link">
-            <a href="/2015/03/18/搭建个人博客/#more">Read More</a>
-          </p>
-        
+<p>之前在csdn上写过博文，觉得它的编辑框使用起来毫无沉浸感，可控性也很差。于是希望搭建独立的博客。<br>在网上搜索之后，确定使用hexo博客生成框架+github page免费空间的方式来创建博客系统。<br>很喜欢markdown的语法，配合mou编辑器，写起来很有沉浸感。简单记录一下搭建过程。</p>
+<h2 id="配置环境">配置环境</h2>
+<hr>
+<p>hexo基于node.js，那么就先安装node.js。使用Homebrew安装:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew <span class="operator"><span class="keyword">install</span> node</span></div></pre></td></tr></table></figure>
+
+<p>node自带npm,查看安装结果:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$:</span>node -v</div><div class="line">v<span class="number">0</span>.<span class="number">10.36</span></div><div class="line"><span class="variable">$:</span>npm -v</div><div class="line"><span class="number">2.6</span>.<span class="number">1</span></div></pre></td></tr></table></figure>
+
+<h2 id="安装hexo">安装hexo</h2>
+<p>使用npm安装：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$:</span>npm install hexo -g</div></pre></td></tr></table></figure>
+
+<p>初始化，folder为指定的目录</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo init <span class="tag">&lt;<span class="title">folder</span>&gt;</span></div></pre></td></tr></table></figure>
+
+<p>进入folder目录内,生成静态文件</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> floder</div><div class="line">hexo generate/g</div></pre></td></tr></table></figure>
+
+<p>本地启动预览</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hexo server</div><div class="line">info] Hexo is running <span class="keyword">at</span> <span class="keyword">http</span>://localhost:<span class="number">4000</span>/. Press Ctrl+C <span class="built_in">to</span> stop.</div></pre></td></tr></table></figure>
+
+<p>在浏览器输入<a href="http://localhost:4000/即可看到博客的预览效果。" target="_blank" rel="external">http://localhost:4000/即可看到博客的预览效果。</a></p>
+<h2 id="安装过程遇到的问题">安装过程遇到的问题</h2>
+<h6 id="1、执行npm_install_hexo_-g后出现：">1、执行npm install hexo -g后出现：</h6>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">npm</span> WARN locking <span class="attribute">Error</span>: EACCES, open <span class="string">'/Users/imac/.npm/_locks/</span></div><div class="line">hexo-89ff29e8d72588ea.lock.STALE'</div><div class="line"><span class="built_in">npm</span> WARN locking  <span class="regexp">/Users/imac/</span>.<span class="built_in">npm</span><span class="regexp">/_locks/hexo-89ff29e8d72588ea.lock failed { [Error: EACCES, open '/Users/imac/</span>.<span class="built_in">npm</span>/_locks/hexo-<span class="number">89</span>ff29e8d72588ea.lock.STALE<span class="string">']</span></div><div class="line">npm WARN locking   errno: 3,</div><div class="line">npm WARN locking   code: 'EACCES<span class="string">',</span></div><div class="line">npm WARN locking   path: '<span class="regexp">/Users/imac/</span>.<span class="built_in">npm</span>/_locks/hexo-<span class="number">89</span>ff29e8d72588ea.lock.STALE<span class="string">' }</span></div><div class="line">npm ERR! Darwin 14.0.0</div><div class="line">npm ERR! argv "node" "/usr/local/bin/npm" "install" "hexo@2.8.3" "-g"</div><div class="line">npm ERR! node v0.10.35</div><div class="line">npm ERR! npm  v2.1.18</div><div class="line"></div><div class="line">npm ERR! Attempt to unlock /usr/local/Cellar/node/0.10.35_2/libexec/npm/lib/node_modules/hexo, which hasn't been locked</div><div class="line"><span class="built_in">npm</span> ERR! </div><div class="line"><span class="built_in">npm</span> ERR! If you need help, you may report <span class="keyword">this</span> error <span class="attribute">at</span>:</div><div class="line"><span class="built_in">npm</span> ERR!     &lt;<span class="attribute">http</span>:<span class="regexp">//gi</span>thub.com/<span class="built_in">npm</span>/<span class="built_in">npm</span>/issues&gt;</div><div class="line"><span class="built_in">npm</span> ERR! Please include the following file <span class="reserved">with</span> any support <span class="attribute">request</span>:</div><div class="line"><span class="built_in">npm</span> ERR!     /Users/imac/<span class="built_in">npm</span>-debug.log</div></pre></td></tr></table></figure>
+
+<p>原因是当前用户不具有.npm和/usr/local的使用权限,修改它们的拥有者:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$:</span>sudo <span class="keyword">chown</span> -R <span class="string">`whoami`</span> .npm</div><div class="line"><span class="variable">$:</span>sudo <span class="keyword">chown</span> -R <span class="string">`whoami`</span> .npm /usr/<span class="keyword">local</span>/</div></pre></td></tr></table></figure>
+
+<p>参考:<a href="https://github.com/npm/npm/issues/4815" target="_blank" rel="external">https://github.com/npm/npm/issues/4815</a></p>
+<h6 id="2、node_gyp_rebuild卡住">2、node_gyp rebuild卡住</h6>
+<p>在初始化hexo时会卡到node_gyp rebuild过程,等待很久没有反应。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fsevents@<span class="number">0.2</span>.<span class="number">0</span> install <span class="regexp">/usr/</span>local<span class="regexp">/Cellar/</span>node<span class="regexp">/0.10.35_2/</span>libexec<span class="regexp">/npm/</span>lib<span class="regexp">/node_modules/</span>hexo<span class="regexp">/node_modules/</span>chokidar<span class="regexp">/node_modules/</span>fsevents node-gyp rebuild</div></pre></td></tr></table></figure>
+
+<p>node_gyp的编译需要python和编译工具：</p>
+<ul>
+<li>python (v2.7 recommended, v3.x.x is not supported)</li>
+<li>make</li>
+<li>A proper C/C++ compiler toolchain, like GCC</li>
+</ul>
+<p>如果以上都已经安装则可能是 NodeJs 源码缺失的原因。<br>node-gyp 编译时候需要 NodeJs 源码来提供头文件，所以它会先尝试下载 NodeJs 源码，由于国外CDN的原因,有时候下载 NodeJs 非常慢的。<br>那么就自己用迅雷等下载工具下载对应版本的nodejs源码,然后提取给node_gyp.<br>切记对应的node版本号。我是直接查看本地安装的node版本号下载对应node源码。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="preprocessor"># wget http://nodejs.org/dist/v0.10.33/node-v0.10.33.tar.gz</span></div><div class="line"><span class="preprocessor"># 假设源码已经下载好了.</span></div><div class="line">tar zxf node-v0<span class="number">.10</span><span class="number">.33</span>.tar.gz -C ~/.node-gyp</div><div class="line">mv ~/.node-gyp/node-v0<span class="number">.10</span><span class="number">.33</span> ~/.node-gyp/<span class="number">0.10</span><span class="number">.33</span></div><div class="line">printf <span class="string">"9\n"</span>&gt;~/.node-gyp/<span class="number">0.10</span><span class="number">.33</span>/installVersion</div></pre></td></tr></table></figure>
+
+<p>注意，不同操作系统下和编译不同的 package 时候 node-gyp 需要的源码版本有可能是不一样的，installVersion 也有可能不一样。推荐先检查一下 node-gyp 的输出日志来确定下载哪一个文件。</p>
+<p>另外还可以使用 npm install —loglevel verbose 查看安装时候的详细日志，来确定需要下载的 Nodejs 源码地址。<br>参考:<a href="https://breeswish.org/blog/2014/11/14/node-gyp-rebuild-freeze/" target="_blank" rel="external">https://breeswish.org/blog/2014/11/14/node-gyp-rebuild-freeze/</a></p>
+<h6 id="3、3-0版本降级到2-8-3要做的">3、3.0版本降级到2.8.3要做的</h6>
+<ul>
+<li>备份source、_config.yml和themes文件夹。</li>
+<li>卸载高版本插件，安装低版本插件</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">	</div><div class="line">npm uninstall hexo-<span class="keyword">renderer</span>-ejs hexo-<span class="keyword">renderer</span>-marked hexo-<span class="keyword">renderer</span>-stylus</div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">	</div><div class="line">npm install hexo-<span class="keyword">renderer</span>-ejs<span class="variable">@0</span><span class="number">.1</span><span class="number">.0</span> hexo-<span class="keyword">renderer</span>-marked<span class="variable">@0</span><span class="number">.1</span><span class="number">.0</span> hexo-<span class="keyword">renderer</span>-stylus<span class="variable">@0</span><span class="number">.1</span><span class="number">.0</span> hexo-generator-feed<span class="variable">@0</span><span class="number">.2</span><span class="number">.1</span> hexo-generator-sitemap<span class="variable">@0</span><span class="number">.2</span><span class="number">.0</span></div></pre></td></tr></table></figure>
+
+<p>参考:<a href="http://sandylaw.tk/2015/03/07/hexo3to2/" target="_blank" rel="external">http://sandylaw.tk/2015/03/07/hexo3to2/</a></p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wubinge.github.io/2015/03/18/搭建个人博客/" data-id="wy64wavkmza3dpwh" class="article-share-link">Share</a>
+      <a data-url="http://wubinge.github.io/2015/03/18/搭建个人博客/" data-id="b7t0jwvs1rvc0sxx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/标签/">标签</a></li></ul>

@@ -6,17 +6,26 @@
   <title>object-c的copy机制(二) | bing&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前言
-上篇分析了NSString的copy和retain的区别，引出对custom object copy探究，参考了一些资料，这里做讨论。">
+上篇分析了NSString的copy和retain的区别，引出对custom object copy探究，参考了一些资料，这里做讨论。
+
+实现了NSCopy/NSMutableCopying的框架类
+我们都知道oc框架里面的例如NSString、NSArray等很多类的对象在需要复制的时候都可以直接调用[obj copy/mutablecopy]方法。调用copy方法时，会向NSCopyin">
 <meta property="og:type" content="article">
 <meta property="og:title" content="object-c的copy机制(二)">
 <meta property="og:url" content="http://wubinge.github.io/2015/03/24/object-c的copy机制-二/">
 <meta property="og:site_name" content="bing's blog">
 <meta property="og:description" content="前言
-上篇分析了NSString的copy和retain的区别，引出对custom object copy探究，参考了一些资料，这里做讨论。">
+上篇分析了NSString的copy和retain的区别，引出对custom object copy探究，参考了一些资料，这里做讨论。
+
+实现了NSCopy/NSMutableCopying的框架类
+我们都知道oc框架里面的例如NSString、NSArray等很多类的对象在需要复制的时候都可以直接调用[obj copy/mutablecopy]方法。调用copy方法时，会向NSCopyin">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="object-c的copy机制(二)">
 <meta name="twitter:description" content="前言
-上篇分析了NSString的copy和retain的区别，引出对custom object copy探究，参考了一些资料，这里做讨论。">
+上篇分析了NSString的copy和retain的区别，引出对custom object copy探究，参考了一些资料，这里做讨论。
+
+实现了NSCopy/NSMutableCopying的框架类
+我们都知道oc框架里面的例如NSString、NSArray等很多类的对象在需要复制的时候都可以直接调用[obj copy/mutablecopy]方法。调用copy方法时，会向NSCopyin">
 
   
     <link rel="alternative" href="/atom.xml" title="bing&#39;s blog" type="application/atom+xml">
@@ -97,7 +106,6 @@
         <h4 id="前言">前言</h4>
 <p>上篇分析了NSString的copy和retain的区别，引出对custom object copy探究，参考了一些资料，这里做讨论。</p>
 <hr>
-<a id="more"></a>
 <h4 id="实现了NSCopy/NSMutableCopying的框架类">实现了NSCopy/NSMutableCopying的框架类</h4>
 <p>我们都知道oc框架里面的例如NSString、NSArray等很多类的对象在需要复制的时候都可以直接调用[obj copy/mutablecopy]方法。调用copy方法时，会向NSCopying的协议方法copywithzone发消息的。作为根类的NSObject并没有实现NSCopying协议，所以他们都默认实现了NSCopying和NSMutableCopying协议，实现copywithzone和mutablecopywithzone方法。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="input"><span class="prompt">@interface NSString : NSObject &lt;NSCopying, NSMutableCopying, NSSecureCoding&gt;</span>  </span></div><div class="line">  </div><div class="line"><span class="input"><span class="prompt">@interface NSArray : NSObject &lt;NSCopying, NSMutableCopying, NSSecureCoding, NSFastEnumeration&gt;</span>  </span></div><div class="line">  </div><div class="line"><span class="variable">@interface</span> <span class="constant">NSDictionary</span> <span class="symbol">:</span> <span class="constant">NSObject</span> &lt;<span class="constant">NSCopying</span>, <span class="constant">NSMutableCopying</span>, <span class="constant">NSSecureCoding</span>, <span class="constant">NSFastEnumeration</span>&gt;</div></pre></td></tr></table></figure>
@@ -166,7 +174,7 @@ p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wubinge.github.io/2015/03/24/object-c的copy机制-二/" data-id="8ikdlstrusr7cw00" class="article-share-link">Share</a>
+      <a data-url="http://wubinge.github.io/2015/03/24/object-c的copy机制-二/" data-id="xrybt1nywxrdk4qv" class="article-share-link">Share</a>
       
       
     </footer>
