@@ -3,32 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>xcode包管理工具Alcatraz | bing&#39;s blog</title>
+  <title>实现水平方向的UITableView | bing&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="简介
-Alcatraz是专为xcode设计的开源包管理工具，开发者可以用它自动的搜索、安装所需要的xcode插件、颜色方案和模板，完全摒弃了手动拷贝文件来安装xcode包的方式。Alcatraz的使用体验非常友好，就像是xcode原生的功能。
-安装
-Alcatraz的安装非常方便快速，打开终端输入以下命令：  
-1curl -fsSL https://raw.githubusercontent.">
+  <meta name="description">
 <meta property="og:type" content="article">
-<meta property="og:title" content="xcode包管理工具Alcatraz">
-<meta property="og:url" content="http://wubinge.github.io/2015/04/27/xcode包管理工具/">
+<meta property="og:title" content="实现水平方向的UITableView">
+<meta property="og:url" content="http://wubinge.github.io/2015/05/14/实现水平方向的UITableView/">
 <meta property="og:site_name" content="bing's blog">
-<meta property="og:description" content="简介
-Alcatraz是专为xcode设计的开源包管理工具，开发者可以用它自动的搜索、安装所需要的xcode插件、颜色方案和模板，完全摒弃了手动拷贝文件来安装xcode包的方式。Alcatraz的使用体验非常友好，就像是xcode原生的功能。
-安装
-Alcatraz的安装非常方便快速，打开终端输入以下命令：  
-1curl -fsSL https://raw.githubusercontent.">
-<meta property="og:image" content="http://7xic7r.com1.z0.glb.clouddn.com/alcatraz屏幕快照 2015-04-27 20.15.03.png">
-<meta property="og:image" content="http://7xic7r.com1.z0.glb.clouddn.com/alcatraz1.png">
-<meta property="og:image" content="http://7xic7r.com1.z0.glb.clouddn.com/alcatraz2.png">
+<meta property="og:description">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="xcode包管理工具Alcatraz">
-<meta name="twitter:description" content="简介
-Alcatraz是专为xcode设计的开源包管理工具，开发者可以用它自动的搜索、安装所需要的xcode插件、颜色方案和模板，完全摒弃了手动拷贝文件来安装xcode包的方式。Alcatraz的使用体验非常友好，就像是xcode原生的功能。
-安装
-Alcatraz的安装非常方便快速，打开终端输入以下命令：  
-1curl -fsSL https://raw.githubusercontent.">
+<meta name="twitter:title" content="实现水平方向的UITableView">
+<meta name="twitter:description">
 
   
     <link rel="alternative" href="/atom.xml" title="bing&#39;s blog" type="application/atom+xml">
@@ -80,16 +65,12 @@ Alcatraz的安装非常方便快速，打开终端输入以下命令：
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-xcode包管理工具" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-实现水平方向的UITableView" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/04/27/xcode包管理工具/" class="article-date">
-  <time datetime="2015-04-27T12:00:48.000Z" itemprop="datePublished">2015-04-27</time>
+    <a href="/2015/05/14/实现水平方向的UITableView/" class="article-date">
+  <time datetime="2015-05-14T02:35:34.000Z" itemprop="datePublished">2015-05-14</time>
 </a>
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/工具方法/">工具方法</a>
-  </div>
-
   </div>
   <div class="article-inner">
     
@@ -98,7 +79,7 @@ Alcatraz的安装非常方便快速，打开终端输入以下命令：
         
   
     <h1 class="article-title" itemprop="name">
-      xcode包管理工具Alcatraz
+      实现水平方向的UITableView
     </h1>
   
 
@@ -106,37 +87,11 @@ Alcatraz的安装非常方便快速，打开终端输入以下命令：
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><img src="http://7xic7r.com1.z0.glb.clouddn.com/alcatraz屏幕快照 2015-04-27 20.15.03.png" width="500"><br></p>
-<h3 id="简介">简介</h3>
-<p>Alcatraz是专为xcode设计的开源包管理工具，开发者可以用它自动的搜索、安装所需要的xcode插件、颜色方案和模板，完全摒弃了手动拷贝文件来安装xcode包的方式。Alcatraz的使用体验非常友好，就像是xcode原生的功能。</p>
-<h3 id="安装">安装</h3>
-<p>Alcatraz的安装非常方便快速，打开终端输入以下命令：  </p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -fsSL http<span class="variable">s:</span>//raw.githubusercontent.<span class="keyword">com</span>/supermarin/Alcatraz/master/Scripts/install.<span class="keyword">sh</span> | <span class="keyword">sh</span></div></pre></td></tr></table></figure>
-
-
-<p>当前支持OSX 10.9和Xcode 5以上版本<br>xcode的插件目录是  </p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~<span class="regexp">/Library/</span>Application Support<span class="regexp">/Developer/</span>Shared<span class="regexp">/Xcode/</span>Plug-ins</div></pre></td></tr></table></figure>
-
-
-<p>没有安装过xcode插件，这个目录是不存在的。<br>如果上面的安装命令失败，可以手动下载<a href="https://github.com/supermarin/Alcatraz/releases/download/1.1.2/Alcatraz.tar.gz" target="_blank" rel="external">Alcatraz</a>解压后放入插件目录，插件目录可以手动创建。Alcatraz本质上也是xcode的一个插件。</p>
-<h3 id="卸载">卸载</h3>
-<p>删除Alcatraz</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rm -rf ~<span class="regexp">/Library/</span>Application\ Support<span class="regexp">/Developer/</span>Shared<span class="regexp">/Xcode/</span>Plug-ins<span class="regexp">/Alcatraz.xcplugin</span></div></pre></td></tr></table></figure>
-
-<p>移除缓存</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rm -rf ~<span class="regexp">/Library/</span><span class="constant">Application</span>\ <span class="constant">Support</span>/<span class="constant">Alcatraz</span></div></pre></td></tr></table></figure>
-
-<h3 id="使用">使用</h3>
-<p>使用非常方便，Xcode-&gt;Menu-&gt;Window-&gt;Package Manager  </p>
-<p><img src="http://7xic7r.com1.z0.glb.clouddn.com/alcatraz1.png" width="500">  </p>
-<p>alcatraz界面图，包含插件、颜色方案和模板。直接搜索需要的插件并下载，删除也非常方便。 </p>
-<p><img src="http://7xic7r.com1.z0.glb.clouddn.com/alcatraz2.png" width="500"></p>
-<p><a href="http://www.cocoachina.com/industry/20130918/7022.html" target="_blank" rel="external">这篇文章</a>列出一些提高xcode工作效率的插件。使用alcatraz直接搜索下载安装即可使用。 </p>
-
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wubinge.github.io/2015/04/27/xcode包管理工具/" data-id="70nkpl22a4cn0fgo" class="article-share-link">Share</a>
+      <a data-url="http://wubinge.github.io/2015/05/14/实现水平方向的UITableView/" data-id="rw4qilt882i838cz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -145,19 +100,10 @@ Alcatraz的安装非常方便快速，打开终端输入以下命令：
     
 <nav id="article-nav">
   
-    <a href="/2015/05/14/实现水平方向的UITableView/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          实现水平方向的UITableView
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/03/24/object-c的copy机制-二/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/04/27/xcode包管理工具/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">object-c的copy机制(二)</div>
+      <div class="article-nav-title">xcode包管理工具Alcatraz</div>
     </a>
   
 </nav>
@@ -168,7 +114,7 @@ Alcatraz的安装非常方便快速，打开终端输入以下命令：
 
 <section id="comments">
 <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="post-xcode包管理工具" data-title="xcode包管理工具Alcatraz" data-url="http://wubinge.github.io/2015/04/27/xcode包管理工具/"></div>
+    <div class="ds-thread" data-thread-key="post-实现水平方向的UITableView" data-title="实现水平方向的UITableView" data-url="http://wubinge.github.io/2015/05/14/实现水平方向的UITableView/"></div>
     <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
