@@ -3,23 +3,26 @@
 <head>
   <meta charset="utf-8">
   
-  <title>自己动手写flv文件 | bing&#39;s blog</title>
+  <title>为什么写博客 | bing&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="项目需要使用ffmpeg来实现flv格式的编解码功能。ffmpeg对编解码大致分两部分来实现：数据编码和文件编码，直接调用相关api就可以实现。然而不够灵活，需要自己定制flv格式，于是就把文件编码这一部分自己来做，加入自己的东西。数据的编码直接使用ffmpeg的api。解码的时候根据由自己来分析格式，抽取纯音频数据，进行解码。
-首先需要对flv的格式做一个了解，这块网上文章很多，也很详细。
-fl">
+  <meta name="description" content="整理思路 记录知识
+工作和学习中会遇到很问题，例如实现了新的功能，优化了程序的性能，解决了某个bug。这时候问题并没有真正的结束。接下来要做的就是把遇到的问题，解决的过程做一次整理，多问自己几个为什么。把思考的结果经过整理并记录下来，让其他人能够看明白。自己理解和说出来让别人理解是两码事。经过思考和整理，能够更深入和系统的对知识进行归纳和总结，在技术的深度和广度上都会有所提升。 
+分享和帮助
+解决">
 <meta property="og:type" content="article">
-<meta property="og:title" content="自己动手写flv文件">
-<meta property="og:url" content="http://wubinge.github.io/2015/03/23/自己动手写flv文件/">
+<meta property="og:title" content="为什么写博客">
+<meta property="og:url" content="http://wubinge.github.io/2015/03/19/为什么写博客/">
 <meta property="og:site_name" content="bing's blog">
-<meta property="og:description" content="项目需要使用ffmpeg来实现flv格式的编解码功能。ffmpeg对编解码大致分两部分来实现：数据编码和文件编码，直接调用相关api就可以实现。然而不够灵活，需要自己定制flv格式，于是就把文件编码这一部分自己来做，加入自己的东西。数据的编码直接使用ffmpeg的api。解码的时候根据由自己来分析格式，抽取纯音频数据，进行解码。
-首先需要对flv的格式做一个了解，这块网上文章很多，也很详细。
-fl">
+<meta property="og:description" content="整理思路 记录知识
+工作和学习中会遇到很问题，例如实现了新的功能，优化了程序的性能，解决了某个bug。这时候问题并没有真正的结束。接下来要做的就是把遇到的问题，解决的过程做一次整理，多问自己几个为什么。把思考的结果经过整理并记录下来，让其他人能够看明白。自己理解和说出来让别人理解是两码事。经过思考和整理，能够更深入和系统的对知识进行归纳和总结，在技术的深度和广度上都会有所提升。 
+分享和帮助
+解决">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="自己动手写flv文件">
-<meta name="twitter:description" content="项目需要使用ffmpeg来实现flv格式的编解码功能。ffmpeg对编解码大致分两部分来实现：数据编码和文件编码，直接调用相关api就可以实现。然而不够灵活，需要自己定制flv格式，于是就把文件编码这一部分自己来做，加入自己的东西。数据的编码直接使用ffmpeg的api。解码的时候根据由自己来分析格式，抽取纯音频数据，进行解码。
-首先需要对flv的格式做一个了解，这块网上文章很多，也很详细。
-fl">
+<meta name="twitter:title" content="为什么写博客">
+<meta name="twitter:description" content="整理思路 记录知识
+工作和学习中会遇到很问题，例如实现了新的功能，优化了程序的性能，解决了某个bug。这时候问题并没有真正的结束。接下来要做的就是把遇到的问题，解决的过程做一次整理，多问自己几个为什么。把思考的结果经过整理并记录下来，让其他人能够看明白。自己理解和说出来让别人理解是两码事。经过思考和整理，能够更深入和系统的对知识进行归纳和总结，在技术的深度和广度上都会有所提升。 
+分享和帮助
+解决">
 
   
     <link rel="alternative" href="/atom.xml" title="bing&#39;s blog" type="application/atom+xml">
@@ -71,16 +74,12 @@ fl">
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-自己动手写flv文件" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-为什么写博客" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/03/23/自己动手写flv文件/" class="article-date">
-  <time datetime="2015-03-23T11:24:28.000Z" itemprop="datePublished">2015-03-23</time>
+    <a href="/2015/03/19/为什么写博客/" class="article-date">
+  <time datetime="2015-03-19T11:47:51.000Z" itemprop="datePublished">2015-03-19</time>
 </a>
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/音视频/">音视频</a>
-  </div>
-
   </div>
   <div class="article-inner">
     
@@ -89,7 +88,7 @@ fl">
         
   
     <h1 class="article-title" itemprop="name">
-      自己动手写flv文件
+      为什么写博客
     </h1>
   
 
@@ -97,18 +96,51 @@ fl">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>项目需要使用ffmpeg来实现flv格式的编解码功能。ffmpeg对编解码大致分两部分来实现：数据编码和文件编码，直接调用相关api就可以实现。然而不够灵活，需要自己定制flv格式，于是就把文件编码这一部分自己来做，加入自己的东西。数据的编码直接使用ffmpeg的api。解码的时候根据由自己来分析格式，抽取纯音频数据，进行解码。</p>
-<p>首先需要对flv的格式做一个了解，这块网上文章很多，也很详细。</p>
-<p>flv文件分为header区和tag区。header区都是固定的9bytes,接着是为了兼容格式的previous size 4bytes。后面就是tag区。一般第一个tag是标示为0x12的脚本tag，包含了一些音频信息，例如时长，文件大小等。也有的没有脚本tag，那么播放器就会遍历文件寻找这些信息。web版flv由于编码过程不够规范，所以很多没有脚本tag，自然得不到tag信息，但是这个需求是听录音，mp3和flv一起播放，而mp3的长度是可以得到的；然而手机生成的录音就需要打上长度信息.<br>header区和脚本tag可以先作为文件头写入flv文件，脚本tag可以根据自己的需求来定制。只要符合播放器的解码规则，不要视为错误文件就可以。</p>
-<p>每个tag分为header和data两个区。tag header 固定的是11个字节，tag类型(1byte)、data大小(3bytes)、timestamp(3bytes)、exTimestamp扩展时间戳，作为时间戳的高位(1byte)和stramid(3bytes恒为0).。后面紧跟着是tag data ，开头1byte标示 出该tag data的一些音频信息，例如编码类型、通道数等。在tag data后面还有一个4bytes的区域表示该tag的size。据此可以看出，每个tag的size是不固定的，取决于tag data的大小。但是tag的header和data第一个byte以及后面的previous的大小和值是固定的。除了header中的data大小、timestamp和previous size的值。</p>
-<p>下面就是纯音频数据的编码了。我们的原始数据都是未经压缩的pcm数据，来源可以是声卡，也可以是文件和网络流。拿到的pcm数据，要先进行分割，确定一个包的大小。先找到所使用的编码器的压缩比是多少，这个一般是常数。在ffmpeg的decoder实例中可以找到。据此计算出编码后的数据的大小，为方便读取，尽量把包分割成相同大小。然后把这个值+1写进tagheader的datasize区，当然previoussize的大小也可以确定了。至于时间戳，知道采样率，那么也就很容易计算出来了。例如压缩比是8：1。原始数据512编码之后就是64，那么就65就是tagdata的大小，不要忘了前面的1byte的音频信息。</p>
-<p>   要注意一点，在实际的编码中，可能会出现缓存不足导致丢包的现象，这时候会出现时间戳错误，导致不同步。</p>
-<p>   本来打算按照脚本tag的标准格式写入信息，但是觉得太麻烦。所以tag头按照标准，内容就用4bytes存储samples。当然，前面最好加一个校验标志。反正是自己来读取。其他播放器无视就可以，只要脚本tag头的size写对就可以。</p>
+        <h3 id="整理思路_记录知识">整理思路 记录知识</h3>
+<p>工作和学习中会遇到很问题，例如实现了新的功能，优化了程序的性能，解决了某个bug。这时候问题并没有真正的结束。接下来要做的就是把遇到的问题，解决的过程做一次整理，多问自己几个为什么。<br>把思考的结果经过整理并记录下来，让其他人能够看明白。<br>自己理解和说出来让别人理解是两码事。经过思考和整理，能够更深入和系统的对知识进行归纳和总结，在技术的深度和广度上都会有所提升。 </p>
+<h3 id="分享和帮助">分享和帮助</h3>
+<p>解决了某个问题，或者在某些方面有一些经验。写出来，能够让遇到同样问题的人看到，可以帮助别人解决问题。同时也可以接受别人的反馈，互相讨论和交流，大家都可以得到提高。</p>
+<h3 id="接受批评和指正">接受批评和指正</h3>
+<p>因为个人的经验和思路限制，肯定会对某个问题考虑不够全面，对技术点理解不够深入，甚至掌握了错误的技术。写成博文，则是给自己一个曝光的机会，让自己的短板和薄弱之处暴露在大家眼前，给了自己得到指正的机会。</p>
+<h3 id="抛砖引玉">抛砖引玉</h3>
+<p>同样一个问题，可能会存在更简便更优化的实现方案。通过写具备一定质量的文章，相当于搭建一个交流的平台。抛出问题并提供一个解决方案，往往能够起到抛砖引玉的效果，吸引到更优秀的人做出更优秀的解决方案。</p>
+<h3 id="平时需要注意的问题">平时需要注意的问题</h3>
+<p>新功能</p>
+<ul>
+<li>该功能能够为用户解决哪些问题</li>
+<li>有没有更好的解决方案</li>
+<li>竞品对于该需求的解决方案是什么</li>
+<li>实现该功能用到哪个框架 该框架还有哪些功能 可以解决哪一类问题</li>
+<li>该功能的核心技术点是什么 哪里可以针对性能的优化</li>
+</ul>
+<p>找到的某段代码实现了某个效果或者解决了一个bug</p>
+<ul>
+<li>bug出现的原因 是技术点没掌握还是编程习惯不好 如何避免再次出现</li>
+<li>有没有更好的解决方法</li>
+<li>这段代码用到了哪个框架 还可以解决哪一类问题</li>
+<li>这段代码的工作原理是什么 修改某几个参数会有什么样的不同效果</li>
+<li>有没有性能方面的问题 需要怎么优化</li>
+</ul>
+<p>项目中用到需要自定义的组件</p>
+<ul>
+<li>是否有现成的开源组件 它是如何设计的 我会如何设计</li>
+<li>如果需要自己来做 怎么设计这个组件 使它变得复用性和拓展性更强</li>
+<li>是否可以借鉴系统组件的设计方式 通过自己实现 更深刻理解系统的设计方式</li>
+<li>有哪些地方需要注意性能优化</li>
+</ul>
+<p>项目初期设计架构</p>
+<ul>
+<li>基础框架划分 单元测试 网络通讯 数据存储 公共模块 功能模块 分别如何去搭建</li>
+<li>工程目录如何划分 做到结构清晰 查找方便  </li>
+<li>如何基于MVC进行扩展 来更好的实现业务逻辑和数据处理 界面显示的分离 提高模块复用性</li>
+<li>代码规范 编程习惯 </li>
+<li>代码易读性 可复用性 可扩展性 后期更改需求的变动    </li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wubinge.github.io/2015/03/23/自己动手写flv文件/" data-id="l5b1zspinwelp239" class="article-share-link">Share</a>
+      <a data-url="http://wubinge.github.io/2015/03/19/为什么写博客/" data-id="xy6yr6udr7ti8hp5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -117,19 +149,19 @@ fl">
     
 <nav id="article-nav">
   
-    <a href="/2015/03/24/object-c的copy机制-一/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/03/23/自己动手写flv文件/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          object-c的copy机制(一)
+          自己动手写flv文件
         
       </div>
     </a>
   
   
-    <a href="/2015/03/19/为什么写博客/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/03/18/搭建个人博客/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">为什么写博客</div>
+      <div class="article-nav-title">搭建个人博客</div>
     </a>
   
 </nav>
@@ -140,7 +172,7 @@ fl">
 
 <section id="comments">
 <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="post-自己动手写flv文件" data-title="自己动手写flv文件" data-url="http://wubinge.github.io/2015/03/23/自己动手写flv文件/"></div>
+    <div class="ds-thread" data-thread-key="post-为什么写博客" data-title="为什么写博客" data-url="http://wubinge.github.io/2015/03/19/为什么写博客/"></div>
     <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">

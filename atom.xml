@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不积跬步，无以至千里]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://wubinge.github.io/"/>
-  <updated>2015-04-28T06:45:09.152Z</updated>
+  <updated>2015-05-14T01:27:58.753Z</updated>
   <id>http://wubinge.github.io/</id>
   
   <author>
@@ -13,6 +13,19 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[实现水平方向的UITableView]]></title>
+    <link href="http://wubinge.github.io/2015/05/13/%E5%AE%9E%E7%8E%B0%E6%B0%B4%E5%B9%B3%E6%96%B9%E5%90%91%E7%9A%84UITableView/"/>
+    <id>http://wubinge.github.io/2015/05/13/实现水平方向的UITableView/</id>
+    <published>2015-05-13T11:35:58.000Z</published>
+    <updated>2015-05-13T11:35:58.000Z</updated>
+    <content type="html"><![CDATA[]]></content>
+    <summary type="html">
+    <![CDATA[]]>
+    </summary>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[xcode包管理工具Alcatraz]]></title>
@@ -214,11 +227,65 @@ p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 
   </entry>
   
   <entry>
+    <title><![CDATA[为什么写博客]]></title>
+    <link href="http://wubinge.github.io/2015/03/19/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%86%99%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://wubinge.github.io/2015/03/19/为什么写博客/</id>
+    <published>2015-03-19T11:47:51.000Z</published>
+    <updated>2015-05-14T01:26:52.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="整理思路_记录知识">整理思路 记录知识</h3>
+<p>工作和学习中会遇到很问题，例如实现了新的功能，优化了程序的性能，解决了某个bug。这时候问题并没有真正的结束。接下来要做的就是把遇到的问题，解决的过程做一次整理，多问自己几个为什么。<br>把思考的结果经过整理并记录下来，让其他人能够看明白。<br>自己理解和说出来让别人理解是两码事。经过思考和整理，能够更深入和系统的对知识进行归纳和总结，在技术的深度和广度上都会有所提升。 </p>
+<h3 id="分享和帮助">分享和帮助</h3>
+<p>解决了某个问题，或者在某些方面有一些经验。写出来，能够让遇到同样问题的人看到，可以帮助别人解决问题。同时也可以接受别人的反馈，互相讨论和交流，大家都可以得到提高。</p>
+<h3 id="接受批评和指正">接受批评和指正</h3>
+<p>因为个人的经验和思路限制，肯定会对某个问题考虑不够全面，对技术点理解不够深入，甚至掌握了错误的技术。写成博文，则是给自己一个曝光的机会，让自己的短板和薄弱之处暴露在大家眼前，给了自己得到指正的机会。</p>
+<h3 id="抛砖引玉">抛砖引玉</h3>
+<p>同样一个问题，可能会存在更简便更优化的实现方案。通过写具备一定质量的文章，相当于搭建一个交流的平台。抛出问题并提供一个解决方案，往往能够起到抛砖引玉的效果，吸引到更优秀的人做出更优秀的解决方案。</p>
+<h3 id="平时需要注意的问题">平时需要注意的问题</h3>
+<p>新功能</p>
+<ul>
+<li>该功能能够为用户解决哪些问题</li>
+<li>有没有更好的解决方案</li>
+<li>竞品对于该需求的解决方案是什么</li>
+<li>实现该功能用到哪个框架 该框架还有哪些功能 可以解决哪一类问题</li>
+<li>该功能的核心技术点是什么 哪里可以针对性能的优化</li>
+</ul>
+<p>找到的某段代码实现了某个效果或者解决了一个bug</p>
+<ul>
+<li>bug出现的原因 是技术点没掌握还是编程习惯不好 如何避免再次出现</li>
+<li>有没有更好的解决方法</li>
+<li>这段代码用到了哪个框架 还可以解决哪一类问题</li>
+<li>这段代码的工作原理是什么 修改某几个参数会有什么样的不同效果</li>
+<li>有没有性能方面的问题 需要怎么优化</li>
+</ul>
+<p>项目中用到需要自定义的组件</p>
+<ul>
+<li>是否有现成的开源组件 它是如何设计的 我会如何设计</li>
+<li>如果需要自己来做 怎么设计这个组件 使它变得复用性和拓展性更强</li>
+<li>是否可以借鉴系统组件的设计方式 通过自己实现 更深刻理解系统的设计方式</li>
+<li>有哪些地方需要注意性能优化</li>
+</ul>
+<p>项目初期设计架构</p>
+<ul>
+<li>基础框架划分 单元测试 网络通讯 数据存储 公共模块 功能模块 分别如何去搭建</li>
+<li>工程目录如何划分 做到结构清晰 查找方便  </li>
+<li>如何基于MVC进行扩展 来更好的实现业务逻辑和数据处理 界面显示的分离 提高模块复用性</li>
+<li>代码规范 编程习惯 </li>
+<li>代码易读性 可复用性 可扩展性 后期更改需求的变动    </li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="整理思路_记录知识">整理思路 记录知识</h3>
+<p>工作和学习中会遇到很问题，例如实现了新的功能，优化了程序的性能，解决了某个bug。这时候问题并没有真正的结束。接下来要做的就是把遇到的问题，解决的过程做一次整理，多问自己几个为什么。<br>把思考的结果经过]]>
+    </summary>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[搭建个人博客]]></title>
     <link href="http://wubinge.github.io/2015/03/18/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
     <id>http://wubinge.github.io/2015/03/18/搭建个人博客/</id>
     <published>2015-03-18T11:51:58.000Z</published>
-    <updated>2015-04-28T06:41:57.000Z</updated>
+    <updated>2015-05-13T11:47:29.000Z</updated>
     <content type="html"><![CDATA[<h2 id="前言">前言</h2>
 <hr>
 <p>之前在csdn上写过博文，觉得它的编辑框使用起来毫无沉浸感，可控性也很差。于是希望搭建独立的博客。<br>在网上搜索之后，确定使用hexo博客生成框架+github page免费空间的方式来创建博客系统。<br>很喜欢markdown的语法，配合mou编辑器，写起来很有沉浸感。简单记录一下搭建过程。</p>
