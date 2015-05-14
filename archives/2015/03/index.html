@@ -164,7 +164,7 @@ p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 
       
     </div>
   <footer class="article-footer">
-<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/24/object-c的copy机制-二/" data-id="8rrl4rpods3l6ztt" class="article-share-link">Share</a>   --> 
+<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/24/object-c的copy机制-二/" data-id="4fttmsf6tvniosir" class="article-share-link">Share</a>   --> 
 
       
     </footer>
@@ -240,7 +240,7 @@ p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 
       
     </div>
   <footer class="article-footer">
-<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/24/object-c的copy机制-一/" data-id="5qwis6orb69i1ss7" class="article-share-link">Share</a>   --> 
+<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/24/object-c的copy机制-一/" data-id="yl80gnw6m6qkun3r" class="article-share-link">Share</a>   --> 
 
       
     </footer>
@@ -290,7 +290,7 @@ p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 
       
     </div>
   <footer class="article-footer">
-<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/23/自己动手写flv文件/" data-id="4ue85xv99l3l0uw1" class="article-share-link">Share</a>   --> 
+<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/23/自己动手写flv文件/" data-id="h7ux8ybtwrpnv2ei" class="article-share-link">Share</a>   --> 
 
       
     </footer>
@@ -369,7 +369,7 @@ p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 
       
     </div>
   <footer class="article-footer">
-<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/19/为什么写博客/" data-id="jgllq7i152rw8buy" class="article-share-link">Share</a>   --> 
+<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/19/为什么写博客/" data-id="6bcoa61w0a617ko3" class="article-share-link">Share</a>   --> 
 
       
     </footer>
@@ -408,10 +408,10 @@ p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言">前言</h2>
+        <h3 id="前言">前言</h3>
 <hr>
 <p>之前在csdn上写过博文，觉得它的编辑框使用起来毫无沉浸感，可控性也很差。于是希望搭建独立的博客。<br>在网上搜索之后，确定使用hexo博客生成框架+github page免费空间的方式来创建博客系统。<br>很喜欢markdown的语法，配合mou编辑器，写起来很有沉浸感。简单记录一下搭建过程。</p>
-<h2 id="配置环境">配置环境</h2>
+<h3 id="配置环境">配置环境</h3>
 <hr>
 <p>hexo基于node.js，那么就先安装node.js。使用Homebrew安装:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew <span class="operator"><span class="keyword">install</span> node</span></div></pre></td></tr></table></figure>
@@ -419,7 +419,7 @@ p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 
 <p>node自带npm,查看安装结果:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$:</span>node -v</div><div class="line">v<span class="number">0</span>.<span class="number">10.36</span></div><div class="line"><span class="variable">$:</span>npm -v</div><div class="line"><span class="number">2.6</span>.<span class="number">1</span></div></pre></td></tr></table></figure>
 
-<h2 id="安装hexo">安装hexo</h2>
+<h3 id="安装hexo">安装hexo</h3>
 <p>使用npm安装：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$:</span>npm install hexo -g</div></pre></td></tr></table></figure>
 
@@ -433,7 +433,35 @@ p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hexo server</div><div class="line">info] Hexo is running <span class="keyword">at</span> <span class="keyword">http</span>://localhost:<span class="number">4000</span>/. Press Ctrl+C <span class="built_in">to</span> stop.</div></pre></td></tr></table></figure>
 
 <p>在浏览器输入<a href="http://localhost:4000/即可看到博客的预览效果。" target="_blank" rel="external">http://localhost:4000/即可看到博客的预览效果。</a></p>
-<h2 id="安装过程遇到的问题">安装过程遇到的问题</h2>
+<h3 id="发布到github">发布到github</h3>
+<p>把我们的博客发布到github的空间。执行以下步骤：</p>
+<ul>
+<li>在github创建新的repository,名为username.github.io,username必须是github的用户名。</li>
+<li>编辑hexo的_conig.yml的Deployment如下  </li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">  <span class="built_in">type</span>: github  </div><div class="line">  repository: git@github.com:username/username.github.<span class="built_in">io</span>.git        </div><div class="line">  branch: master</div></pre></td></tr></table></figure>
+
+<ul>
+<li>hexo d -g 发布到github</li>
+</ul>
+<h3 id="添加多说评论系统">添加多说评论系统</h3>
+<p>默认的评论系统是disqus，换成国内的多说评论系统。<br>1、登录多说，创建多说shorname。所谓shortname就是在多说后台设置的域名前缀。比如xxxx.duoshuo.com，那么short-name就是xxxx。<br>2、在_config.yml中添加多说的配置：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">duoshuo_shortname</span>: <span class="string">你站点的short_name</span></div></pre></td></tr></table></figure>
+
+
+<p>3、修改themes\landscape\layout_partial\article.ejs模板 </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="vbscript">&lt;% <span class="keyword">if</span> (!index && post.comments && config.disqus_shortname){ %&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="title">section</span> <span class="attribute">id</span>=<span class="value">"comments"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"disqus_thread"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="title">noscript</span>&gt;</span>Please enable JavaScript to view the <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"//disqus.com/?ref_noscript"</span>&gt;</span>comments powered by Disqus.<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">noscript</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="title">section</span>&gt;</span></div><div class="line">  <span class="vbscript">&lt;% } %&gt;</span></div></pre></td></tr></table></figure>
+
+<p>改为：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="vbscript">&lt;% <span class="keyword">if</span> (!index && post.comments && config.duoshuo_shortname){ %&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="title">section</span> <span class="attribute">id</span>=<span class="value">"comments"</span>&gt;</span></div><div class="line">   <span class="comment">&lt;!-- 多说评论框 start --&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"ds-thread"</span> <span class="attribute">data-thread-key</span>=<span class="value">"&lt;%= post.layout %&gt;-&lt;%= post.slug %&gt;"</span> <span class="attribute">data-title</span>=<span class="value">"&lt;%= post.title %&gt;"</span> <span class="attribute">data-url</span>=<span class="value">"&lt;%= page.permalink %&gt;"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></div><div class="line">   <span class="comment">&lt;!-- 多说评论框 end --&gt;</span></div><div class="line">   <span class="comment">&lt;!-- 多说公共JS代码 start (一个网页只需插入一次) --&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line">   <span class="keyword">var</span> duoshuoQuery = {short_name:<span class="string">'&lt;%= config.duoshuo_shortname %&gt;'</span>};</div><div class="line">     (<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</div><div class="line">       <span class="keyword">var</span> ds = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</div><div class="line">       ds.type = <span class="string">'text/javascript'</span>;ds.async = <span class="literal">true</span>;</div><div class="line">       ds.src = (<span class="built_in">document</span>.location.protocol == <span class="string">'https:'</span> ? <span class="string">'https:'</span> : <span class="string">'http:'</span>) + <span class="string">'//static.duoshuo.com/embed.js'</span>;</div><div class="line">       ds.charset = <span class="string">'UTF-8'</span>;</div><div class="line">       (<span class="built_in">document</span>.getElementsByTagName(<span class="string">'head'</span>)[<span class="number">0</span>] </div><div class="line">        || <span class="built_in">document</span>.getElementsByTagName(<span class="string">'body'</span>)[<span class="number">0</span>]).appendChild(ds);</div><div class="line">     })();</div><div class="line">     <span class="tag">&lt;/<span class="title">script</span>&gt;</span></div><div class="line">   <span class="comment">&lt;!-- 多说公共JS代码 end --&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="title">section</span>&gt;</span></div><div class="line"> <span class="vbscript">&lt;% } %&gt;</span></div></pre></td></tr></table></figure>
+
+<p>摘自<a href="http://dev.duoshuo.com/threads/541d3b2b40b5abcd2e4df0e9" target="_blank" rel="external">多说教程</a></p>
+<h3 id="使用jiaThis分享组件">使用jiaThis分享组件</h3>
+<p>去除默认分享按钮：<br>themes\landscape\layout_partial\article.ejs中注释掉：  </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;a <span class="variable">data-url=</span><span class="string">"&lt;%- post.permalink %&gt;"</span> <span class="variable">data-id=</span><span class="string">"&lt;%= post._id %&gt;"</span> <span class="variable">class=</span><span class="string">"article-share-link"</span>&gt;Share&lt;/a&gt;</div></pre></td></tr></table></figure>
+
+<p>在想要添加jiaThis的位置放置jiaThis的代码。<br><a href="http://www.jiathis.com/getcode/icon/?style=32x32&amp;btn=qzone,tsina,tqq,weixin,renren,jicon&amp;codestyle=standard&amp;showshares=true" target="_blank" rel="external">这里</a>有更详细的教程。</p>
+<h3 id="安装过程遇到的问题">安装过程遇到的问题</h3>
 <h6 id="1、执行npm_install_hexo_-g后出现：">1、执行npm install hexo -g后出现：</h6>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">npm</span> WARN locking <span class="attribute">Error</span>: EACCES, open <span class="string">'/Users/imac/.npm/_locks/</span></div><div class="line">hexo-89ff29e8d72588ea.lock.STALE'</div><div class="line"><span class="built_in">npm</span> WARN locking  <span class="regexp">/Users/imac/</span>.<span class="built_in">npm</span><span class="regexp">/_locks/hexo-89ff29e8d72588ea.lock failed { [Error: EACCES, open '/Users/imac/</span>.<span class="built_in">npm</span>/_locks/hexo-<span class="number">89</span>ff29e8d72588ea.lock.STALE<span class="string">']</span></div><div class="line">npm WARN locking   errno: 3,</div><div class="line">npm WARN locking   code: 'EACCES<span class="string">',</span></div><div class="line">npm WARN locking   path: '<span class="regexp">/Users/imac/</span>.<span class="built_in">npm</span>/_locks/hexo-<span class="number">89</span>ff29e8d72588ea.lock.STALE<span class="string">' }</span></div><div class="line">npm ERR! Darwin 14.0.0</div><div class="line">npm ERR! argv "node" "/usr/local/bin/npm" "install" "hexo@2.8.3" "-g"</div><div class="line">npm ERR! node v0.10.35</div><div class="line">npm ERR! npm  v2.1.18</div><div class="line"></div><div class="line">npm ERR! Attempt to unlock /usr/local/Cellar/node/0.10.35_2/libexec/npm/lib/node_modules/hexo, which hasn't been locked</div><div class="line"><span class="built_in">npm</span> ERR! </div><div class="line"><span class="built_in">npm</span> ERR! If you need help, you may report <span class="keyword">this</span> error <span class="attribute">at</span>:</div><div class="line"><span class="built_in">npm</span> ERR!     &lt;<span class="attribute">http</span>:<span class="regexp">//gi</span>thub.com/<span class="built_in">npm</span>/<span class="built_in">npm</span>/issues&gt;</div><div class="line"><span class="built_in">npm</span> ERR! Please include the following file <span class="reserved">with</span> any support <span class="attribute">request</span>:</div><div class="line"><span class="built_in">npm</span> ERR!     /Users/imac/<span class="built_in">npm</span>-debug.log</div></pre></td></tr></table></figure>
 
@@ -472,7 +500,7 @@ p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 
       
     </div>
   <footer class="article-footer">
-<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/18/搭建个人博客/" data-id="slgkhtxl5uj8aoos" class="article-share-link">Share</a>   --> 
+<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/18/搭建个人博客/" data-id="t0ig1vyz3qp0yjat" class="article-share-link">Share</a>   --> 
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/标签/">标签</a></li></ul>
