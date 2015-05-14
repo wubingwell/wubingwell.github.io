@@ -1304,12 +1304,12 @@ pre .javascript .function {
   margin: 50px 0;
 }
 .widget {
-  color: #777;
+  color: #262626;
   text-shadow: 0 1px #fff;
-  background: #ddd;
-  -webkit-box-shadow: 0 -1px 4px #ccc inset;
-  box-shadow: 0 -1px 4px #ccc inset;
-  border: 1px solid #ccc;
+  background: #fff;
+  -webkit-box-shadow: 0 -1px 4px #fff inset;
+  box-shadow: 0 -1px 4px #fff inset;
+  border: 1px solid #fff;
   padding: 15px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
@@ -1361,7 +1361,7 @@ pre .javascript .function {
 .tag-list-count,
 .archive-list-count {
   padding-left: 5px;
-  color: #999;
+  color: color-black;
   font-size: 0.85em;
 }
 .category-list-count:before,
