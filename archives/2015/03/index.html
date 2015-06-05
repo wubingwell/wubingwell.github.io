@@ -67,107 +67,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-iOS音频开发之音乐播放器I" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/03/30/iOS音频开发之音乐播放器I/" class="article-date">
-  <time datetime="2015-03-30T12:47:09.000Z" itemprop="datePublished">2015-03-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/30/iOS音频开发之音乐播放器I/">iOS音频开发之音乐播放器I</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="前言">前言</h4>
-<p>用两篇博文来介绍一款本地音乐播放器的功能开发。<br>围绕一个AVAudioPlayer的本地播放器来介绍音频播放器开发的主要功能实现。  例如后台播放、中断处理以及锁屏等。有一个相关的<a href="https://github.com/wubingwell/WBAudioPlayer" target="_blank" rel="external">demo</a>放在github上面。<br>AVAudioPlayer适用于播放本地音频文件和音频数据。简单展示音频信息以及控制播放，而不需要对音频数据进行自定义的处理比如编解码等，那么使用AVAudioPlayer即可。<br>AVAudioPlayer来自于MediaLayer的AVFoundation.framework。 AVFoundation提供一系列Object-C接口实现对音视频和图片的播放、录制和处理功能。  </p>
-<hr>
-<h4 id="初始化">初始化</h4>
-<p>初始化很简单，这里简单列一下。首先要导入AVFoundation.framework<br>可以使用本地NSURL和内存数据NSData来初始化一个AVAudioPlayer的实例。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSURL</span> * url = [<span class="built_in">NSURL</span> fileURLWithPath:audio];</div><div class="line">AVAudioPlayer * player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:<span class="literal">nil</span>];</div></pre></td></tr></table></figure>
-
-<h3 id="相关属性">相关属性</h3>
-<p>1、循环播放次数</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="at_rule">@<span class="keyword">property</span> NSInteger numberOfLoops</span>;</div></pre></td></tr></table></figure>
-
-<p>该属性值为0代表播放一次结束；1代表播放两次；以此类推。</p>
-<hr>
-<p>2、音频时长</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span>(<span class="keyword">readonly</span>) <span class="built_in">NSTimeInterval</span> duration; <span class="comment">/* the duration of the sound. */</span></div></pre></td></tr></table></figure>
-
-<p>单位是秒，可以用来显示以及计算当前播放的进度。</p>
-<hr>
-<p>3、当前时间</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="at_rule">@<span class="keyword">property</span> NSTimeInterval currentTime</span>;</div></pre></td></tr></table></figure>
-
-<p>单位是秒，表示当前的播放位置;对其赋值时，则表示播放的起始位置。<br>通过改变该属性值可以实现快进快退的seek功能。</p>
-<hr>
-<p>4、音量</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@property <span class="keyword">float</span> <span class="shader"><span class="keyword">volume</span>;</span></div></pre></td></tr></table></figure>
-
-<hr>
-<p>5、播放速度</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="at_rule">@<span class="keyword">property</span> BOOL enableRate <span class="function">NS_AVAILABLE</span>(<span class="number">10</span>_8, <span class="number">5</span>_0)</span>;</div><div class="line"><span class="at_rule">@<span class="keyword">property</span> float rate</span></div></pre></td></tr></table></figure>
-
-<p>必须设置enableRate = YES之后，设置rate的值才有效果。0.5表示一半速度，1.0表示正常速度，2.0表示两倍速度。</p>
-<hr>
-<p>6、当前设备时间</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="at_rule">@<span class="keyword">property(readonly)</span> NSTimeInterval deviceCurrentTime <span class="function">NS_AVAILABLE</span>(<span class="number">10</span>_7, <span class="number">4</span>_0)</span>;</div></pre></td></tr></table></figure>
-
-<p>代表音频输出设备的连续工作时间。只要有一个播放器存在，无论其处于播放、停止还是暂停状态，该属性的值都连续增长。以AVAudioPlayer为例，当player实例置空时，该属性值为0。<br>当使用playAtTime时用到该属性。</p>
-<hr>
-<h3 id="重要方法">重要方法</h3>
-<p>1、播放</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">-<span class="ruby"> (<span class="constant">BOOL</span>)prepareToPlay;	</span></div><div class="line">-<span class="ruby"> (<span class="constant">BOOL</span>)play;</span></div></pre></td></tr></table></figure>
-
-<p>在play之前调用prepareToPlay方法，预加载音频数据缓冲以及获取播放所需要的音频硬件。从而在调用play进行播放时减少延迟时间。尤其是在audio interruption结束后需要resume audio时，必须先调用prepareToPlay，否则无法重新播放。</p>
-<hr>
-<p>2、在未来某个时间开始播放</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="pp">- <span class="params">(<span class="variable">BOOL</span>)</span>playAtTime:<span class="params">(<span class="variable">NSTimeInterval</span>)</span>time NS_AVAILABLE<span class="params">(<span class="number">10</span>_7, <span class="number">4</span>_0)</span></span></div></pre></td></tr></table></figure>
-
-<p>该方法允许在未来的某个时间点播放音频。参数time必须是基于deviceCurrentTime并且比其大的绝对时间。例如如果希望在距离当前时间点20s后播放音频:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="title">[player playAtTime:player.deviceCurrentTime+20]</span><span class="comment">;</span></div></pre></td></tr></table></figure>
-
-<p>这里的deviceCurrentTime代表的是音频输出设备的NOW时间点。该方法可以代替UILocalNotification实现闹钟的功能，如果你希望在闹钟时间播放高度自定义的音频。</p>
-<h3 id="AVAudioPlayerDelegate">AVAudioPlayerDelegate</h3>
-<p>AVAudioPlayerDelegate定义了播放状态的协议方法，实现这些方法可以方便地响应播放器的状态。</p>
-<p>1、播放结束</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="pp">- <span class="params">(void)</span>audioPlayerDidFinishPlaying:<span class="params">(<span class="variable">AVAudioPlayer</span> *)</span>player successfully:<span class="params">(<span class="variable">BOOL</span>)</span>flag;</span></div></pre></td></tr></table></figure>
-
-<p>音频播放结束时会调用这个方法，可以在里面做切歌以及更新UI等操作。</p>
-<p>2、解码过程中出现错误</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="pp">- <span class="params">(void)</span>audioPlayerDecodeErrorDidOccur:<span class="params">(<span class="variable">AVAudioPlayer</span> *)</span>player error:<span class="params">(<span class="variable">NSError</span> *)</span>error;</span></div></pre></td></tr></table></figure>
-
-<p>播放过程中如果解码出错，会调用这个方法。在此给出用户相关的UI提示。</p>
-<p>3、中断相关</p>
-<p>AVAudioPlayerDelegate提供了处理中断的协议方法，播放过程中如果有电话、系统闹钟等会中断当前的音频播放。中断开始和结束后，需要进行相应的处理，这几个方法在iOS8.0已经过期，可以使用AVAudiosession的中断通知来实现该功能。<br>对于音频的中断处理，见<a href="http://wubingwell.github.io/2015/04/20/iOS%E9%9F%B3%E9%A2%91%E5%BC%80%E5%8F%91%E4%B9%8B%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8II/" target="_blank" rel="external">另外一篇</a>。</p>
-
-      
-    </div>
-  <footer class="article-footer">
-<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/30/iOS音频开发之音乐播放器I/" data-id="pdp0mjt30lhkk3ek" class="article-share-link">Share</a>   --> 
-
-      
-    </footer>
-  </div>
-<!--去除nav    -->
-</article>
-
-
-
-
-
-  
     <article id="post-object-c的copy机制-二" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/03/24/object-c的copy机制-二/" class="article-date">
@@ -361,7 +260,7 @@ p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/音视频/">音视频</a>
+    <a class="article-category-link" href="/categories/音视频开发/">音视频开发</a>
   </div>
 
   </div>
@@ -392,85 +291,6 @@ p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 
     </div>
   <footer class="article-footer">
 <!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/23/自己动手写flv文件/" data-id="e9ye4788ozbw0dvn" class="article-share-link">Share</a>   --> 
-
-      
-    </footer>
-  </div>
-<!--去除nav    -->
-</article>
-
-
-
-
-
-  
-    <article id="post-为什么写博客" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/03/19/为什么写博客/" class="article-date">
-  <time datetime="2015-03-19T11:47:51.000Z" itemprop="datePublished">2015-03-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/19/为什么写博客/">为什么写博客</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="整理思路_记录知识">整理思路 记录知识</h3>
-<p>工作和学习中会遇到很问题，例如实现了新的功能，优化了程序的性能，解决了某个bug。这时候问题并没有真正的结束。接下来要做的就是把遇到的问题，解决的过程做一次整理，多问自己几个为什么。<br>把思考的结果经过整理并记录下来，让其他人能够看明白。<br>自己理解和说出来让别人理解是两码事。经过思考和整理，能够更深入和系统的对知识进行归纳和总结，在技术的深度和广度上都会有所提升。 </p>
-<h3 id="分享和帮助">分享和帮助</h3>
-<p>解决了某个问题，或者在某些方面有一些经验。写出来，能够让遇到同样问题的人看到，可以帮助别人解决问题。同时也可以接受别人的反馈，互相讨论和交流，大家都可以得到提高。</p>
-<h3 id="接受批评和指正">接受批评和指正</h3>
-<p>因为个人的经验和思路限制，肯定会对某个问题考虑不够全面，对技术点理解不够深入，甚至掌握了错误的技术。写成博文，则是给自己一个曝光的机会，让自己的短板和薄弱之处暴露在大家眼前，给了自己得到指正的机会。</p>
-<h3 id="抛砖引玉">抛砖引玉</h3>
-<p>同样一个问题，可能会存在更简便更优化的实现方案。通过写具备一定质量的文章，相当于搭建一个交流的平台。抛出问题并提供一个解决方案，往往能够起到抛砖引玉的效果，吸引到更优秀的人做出更优秀的解决方案。</p>
-<h3 id="平时需要注意的问题">平时需要注意的问题</h3>
-<p>新功能</p>
-<ul>
-<li>该功能能够为用户解决哪些问题</li>
-<li>有没有更好的解决方案</li>
-<li>竞品对于该需求的解决方案是什么</li>
-<li>实现该功能用到哪个框架 该框架还有哪些功能 可以解决哪一类问题</li>
-<li>该功能的核心技术点是什么 哪里可以针对性能的优化</li>
-</ul>
-<p>找到的某段代码实现了某个效果或者解决了一个bug</p>
-<ul>
-<li>bug出现的原因 是技术点没掌握还是编程习惯不好 如何避免再次出现</li>
-<li>有没有更好的解决方法</li>
-<li>这段代码用到了哪个框架 还可以解决哪一类问题</li>
-<li>这段代码的工作原理是什么 修改某几个参数会有什么样的不同效果</li>
-<li>有没有性能方面的问题 需要怎么优化</li>
-</ul>
-<p>项目中用到需要自定义的组件</p>
-<ul>
-<li>是否有现成的开源组件 它是如何设计的 我会如何设计</li>
-<li>如果需要自己来做 怎么设计这个组件 使它变得复用性和拓展性更强</li>
-<li>是否可以借鉴系统组件的设计方式 通过自己实现 更深刻理解系统的设计方式</li>
-<li>有哪些地方需要注意性能优化</li>
-</ul>
-<p>项目初期设计架构</p>
-<ul>
-<li>基础框架划分 单元测试 网络通讯 数据存储 公共模块 功能模块 分别如何去搭建</li>
-<li>工程目录如何划分 做到结构清晰 查找方便  </li>
-<li>如何基于MVC进行扩展 来更好的实现业务逻辑和数据处理 界面显示的分离 提高模块复用性</li>
-<li>代码规范 编程习惯 </li>
-<li>代码易读性 可复用性 可扩展性 后期更改需求的变动    </li>
-</ul>
-
-      
-    </div>
-  <footer class="article-footer">
-<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/19/为什么写博客/" data-id="ynxdhpkyx4az9nee" class="article-share-link">Share</a>   --> 
 
       
     </footer>
@@ -633,7 +453,7 @@ p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/object-c/">object-c</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具方法/">工具方法</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/音视频/">音视频</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/object-c/">object-c</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具方法/">工具方法</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/音视频开发/">音视频开发</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 

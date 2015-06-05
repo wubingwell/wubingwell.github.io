@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>bing&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="title: iOS音频开发之音乐播放器IIdate: 2015-04-20 16:20:09categories:iOS应用程序开发
+tags:
+后台播放
+作为一款音乐播放器，我们希望APP在进入后台或者lock screen的时候仍然可以播放音乐。由于iOS的多任务机制的限制，在APP进入后台时，很快就被系统挂起。因此需要做接下来的两件事情。
+
+Background Mode
+
+为了满足某些A">
+<meta property="og:type" content="article">
+<meta property="og:title" content="bing's blog">
+<meta property="og:url" content="http://wubinge.github.io/2015/06/05/iOS音频开发之音乐播放器II/">
+<meta property="og:site_name" content="bing's blog">
+<meta property="og:description" content="title: iOS音频开发之音乐播放器IIdate: 2015-04-20 16:20:09categories:iOS应用程序开发
+tags:
+后台播放
+作为一款音乐播放器，我们希望APP在进入后台或者lock screen的时候仍然可以播放音乐。由于iOS的多任务机制的限制，在APP进入后台时，很快就被系统挂起。因此需要做接下来的两件事情。
+
+Background Mode
+
+为了满足某些A">
+<meta property="og:image" content="http://7xic7r.com1.z0.glb.clouddn.com/image/bgmodeA7EA71ED-3165-4B02-8D99-13C1944F7821.png">
+<meta property="og:image" content="http://7xic7r.com1.z0.glb.clouddn.com/audio_session_interrupted.png">
+<meta property="og:image" content="http://7xic7r.com1.z0.glb.clouddn.com/control_center.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="bing's blog">
+<meta name="twitter:description" content="title: iOS音频开发之音乐播放器IIdate: 2015-04-20 16:20:09categories:iOS应用程序开发
+tags:
+后台播放
+作为一款音乐播放器，我们希望APP在进入后台或者lock screen的时候仍然可以播放音乐。由于iOS的多任务机制的限制，在APP进入后台时，很快就被系统挂起。因此需要做接下来的两件事情。
+
+Background Mode
+
+为了满足某些A">
+
+  
+    <link rel="alternative" href="/atom.xml" title="bing&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">bing&#39;s blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">不积跬步，无以至千里</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://wubinge.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-iOS音频开发之音乐播放器II" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/06/05/iOS音频开发之音乐播放器II/" class="article-date">
+  <time datetime="2015-06-05T09:15:29.000Z" itemprop="datePublished">2015-06-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>title: iOS音频开发之音乐播放器II<br>date: 2015-04-20 16:20:09<br>categories:iOS应用程序开发</p>
+<h2 id="tags:">tags:</h2>
+<h3 id="后台播放">后台播放</h3>
+<p>作为一款音乐播放器，我们希望APP在进入后台或者lock screen的时候仍然可以播放音乐。由于iOS的多任务机制的限制，在APP进入后台时，很快就被系统挂起。因此需要做接下来的两件事情。</p>
+<ul>
+<li>Background Mode</li>
+</ul>
+<p>为了满足某些APP后台运行的需求，iOS允许具有某些功能的APP设置Background Mode来达到后台运行的目的。音频类的可以在info.plist中添加Required background modes键，值设置为App plays audio或者如图所示勾选：<br><img src="http://7xic7r.com1.z0.glb.clouddn.com/image/bgmodeA7EA71ED-3165-4B02-8D99-13C1944F7821.png" width="500" height="100" alt="Background Modes" align="center"><br></p>
+<ul>
+<li>配置AVAudiosession</li>
+</ul>
+<p>AVAudiosession是AVFoundation框架提供的一个单例类，可以用来为我们的APP设置一个合适的音频环境。通过对他进行配置，我们可以为自己的音乐播放APP设置合适的特征。<br>AVAudiosession有一个category属性，默认值是AVAudioSessionCategorySoloAmbient。该属性值的特征如下：</p>
+<p>1、(设置正确的Background Mode)后台以及锁屏状态停止播放。</p>
+<p>2、开启静音开关，音乐静音。</p>
+<p>3、可以和其他APP的音频进行混音。意即打开本APP(开启AVAudiosession)，其他APP的声音不会停止。SDK的注释是这样的</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/*  Use this category <span class="keyword">for</span> background sounds such <span class="keyword">as</span> rain, car engine noise, etc.  </div><div class="line"> Mixes <span class="keyword">with</span> other music. */</div><div class="line">AVF_EXPORT NSString *<span class="keyword">const</span> AVAudioSessionCategoryAmbient;</div></pre></td></tr></table></figure>
+
+<p>因此可以用在游戏里面的背景音效播放。比如希望在后台播放喜欢的音乐同时玩一款游戏，我们肯定不希望打开游戏时，后台播放的背景音乐停止播放。</p>
+<p>显然这个默认值对于我们的音乐播放器是不合适的。我们应该使用</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">AVAudioSession * avSession = [AVAudioSession sharedInstance];</div><div class="line">[avSession  setCategory:AVAudioSessionCategoryPlayback <span class="built_in">error</span>:<span class="keyword">nil</span>];</div></pre></td></tr></table></figure>
+
+<p>没错，就是AVAudioSessionCategoryPlayback，它的特征完全符合我们对于音乐播放器的需要：</p>
+<p>1、(设置正确的Background Mode)后台以及锁屏继续播放。</p>
+<p>2、开启静音开关，不影响音频音量。</p>
+<p>3、默认禁止混音(nonmixable)。意即开启打开本APP(开启AVAudiosession)，其他同样是采用nonmixable类别的audio session将停止(无法使得mixable的audio session停止)。可以使用下面的方法改变这个特性，但是对于一款音乐播放器，mixable是没有必要的。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[avSession  setCategory:AVAudioSessionCategoryPlayback </div><div class="line"></div><div class="line">withOptions:AVAudioSessionCategoryOptionMixWithOthers <span class="built_in">error</span>:<span class="keyword">nil</span>];</div></pre></td></tr></table></figure>
+
+<p>至此我们就实现了音频后台播放。</p>
+<p>关于混音再说一点，除了游戏背景音乐适合采用混音模式外，优先级比较高的音频功能，例如实现了定时播放音频功能的闹钟或者提醒类应用，也可以采用混音模式。这样即便用户在听歌也不会错过重要的提醒。</p>
+<p>我们最近开发的基于提醒的社交APP <a href="https://itunes.apple.com/CN/app/id938161536" title="title" target="_blank" rel="external">神多多闹钟</a> 就是使用AVAudioplayer的playAtTime达到定时播放指定音频的目的。并且AVAudioSession采用的是混音模式。</p>
+<h3 id="音频中断">音频中断</h3>
+<p>手机上不止我们一款APP，在听歌的时候，如果有人给我们打电话；或者之前定的一个闹钟到时间了；或者使用了siri功能。这些会使用手机音频的应用，就会跟我们的APP音频起冲突。称作音频中断。<br>iOS系统的音频服务优先级高于第三方APP。当有电话进入、系统闹钟响起，都会导致第三方APP的audiosession中断。 以来电为例，展示音频中断的流程:   </p>
+<p><img src="http://7xic7r.com1.z0.glb.clouddn.com/audio_session_interrupted.png" width="500" height="300" alt="Background Modes" align="center"><br></p>
+<p>可以看到，来电话时，APP的audiosession被设置系统为inactive状态。当用户忽略来电，系统自动将其设置为active。在中断开始和结束时，需要APP做出对应的行为。例如开始/暂停播放以及更新界面。<br>通过注册观察者来获取AVAudioSessionInterruptionNotification事件的通知来响应中断的开始和结束。  </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr_selector">[[NSNotificationCenter defaultCenter]</span> <span class="tag">addObserver</span><span class="pseudo">:self</span> <span class="tag">selector</span>:<span class="at_rule">@<span class="keyword">selector(interruptionNotificationCallback:)</span> name:AVAudioSessionInterruptionNotification object:nil]</span>;</div></pre></td></tr></table></figure>
+
+
+<p>在interruptionNotificationCallback通过判断AudioSessionInterruptionType来分别处理interruption begin 和 interruption end.  </p>
+<h3 id="远程控制">远程控制</h3>
+<p>设想以下的使用场景，用户用我们的APP在后台听着音乐，刷着微博或者微信。这时候用户希望调节音量，快进快退或者切换歌曲。除了重新打开APP来操作外，还可以在iOS的Control Center中进行这些操作。<br>Control Center允许用户随处快速访问常用的设置和APP，甚至在锁屏界面也可以访问。在手机屏幕底部上滑即可唤出Control Center。<br><img src="http://7xic7r.com1.z0.glb.clouddn.com/control_center.png" width="200" height="300" alt="Background Modes" align="center"><br><br>iOS7.1以后，Media Player framework 加入了MPRemoteCommandCenter这个类。使用block类实现远程控制回调。在这里我使用MPRemoteCommandCenter。iOS7.1之前，需要在UIApplication中实现remoteControlReceivedWithEvent来处理。<br>要让APP支持RemoteControl,我们需要用到MPRemoteCommandCenter单例类。它提供了处理 remote control events所需要的对象。它的属性中包括了众多MPRemoteCommand类对象，代表着iOS所支持的不同类型的remote control evnt。为MPRemoteCommand对象添加target和action来响应其控制事件。  </p>
+<h5 id="获取MPRemoteCommandCenter对象">获取MPRemoteCommandCenter对象</h5>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">MPRemoteCommandCenter *commandCenter </span>=<span class="string"> [MPRemoteCommandCenter sharedCommandCenter];</span></div></pre></td></tr></table></figure>
+
+<h6 id="播放控制">播放控制</h6>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[commandCenter.playCommand <span class="symbol">addTarget:</span><span class="keyword">self</span> <span class="symbol">action:</span><span class="variable">@selector</span>(<span class="symbol">didReceivePlayCommand:</span>)];</div><div class="line">[commandCenter.pauseCommand <span class="symbol">addTarget:</span><span class="keyword">self</span> <span class="symbol">action:</span><span class="variable">@selector</span>(<span class="symbol">didReceivePauseCommand:</span>)];</div></pre></td></tr></table></figure>
+
+<h6 id="切换歌曲">切换歌曲</h6>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[commandCenter.nextTrackCommand <span class="symbol">addTarget:</span><span class="keyword">self</span> <span class="symbol">action:</span><span class="variable">@selector</span>(didReceiveNextTrackCommand)];</div><div class="line">[commandCenter.previousTrackCommand <span class="symbol">addTarget:</span><span class="keyword">self</span> <span class="symbol">action:</span><span class="variable">@selector</span>(didReceivePreviousTrackCommand)];</div></pre></td></tr></table></figure>
+
+<p>这些可以满足一般的播放器对于RemoteControl的要求。<br>MPRemoteCommandCenter也提供了一些相对精细化的控制属性。例如改变播放速率、快进快退、跳转到固定时间点播放等等,<a href="!https://developer.apple.com/library/ios/documentation/MediaPlayer/Reference/MPRemoteCommandCenter_Ref/#//apple_ref/occ/instp/MPRemoteCommandCenter/skipBackwardCommand">这里</a>可以看到更详细的介绍。</p>
+<h3 id="锁频界面显示歌曲信息">锁频界面显示歌曲信息</h3>
+<p>为了在锁屏界面和控制中心显示当前歌曲的信息，需要用到Media Player Framework的MPNowPlayingInfoCenter类。<br>这是一个单例类，用法非常简单，只需为其nowPlayingInfo属性设置适当的值即可。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:songInfo]</div></pre></td></tr></table></figure>
+
+<p>songInfo是一个NSDictionary的对象，里面包含着希望显示的歌曲信息。<br>该功能的关键就是创建这个NSDictionary的对象。<br>1、相关key定义在MPMediaItem.h中，部分常用key如下：  </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">MP_EXTERN <span class="built_in">NSString</span> * <span class="keyword">const</span> MPMediaItemPropertyArtwork; <span class="comment">//歌曲封面</span></div><div class="line">MP_EXTERN <span class="built_in">NSString</span> * <span class="keyword">const</span> MPMediaItemPropertyTitle;   <span class="comment">//歌名</span></div><div class="line">MP_EXTERN <span class="built_in">NSString</span> * <span class="keyword">const</span> MPMediaItemPropertyAlbumTitle;  <span class="comment">//专辑名</span></div><div class="line">MP_EXTERN <span class="built_in">NSString</span> * <span class="keyword">const</span> MPMediaItemPropertyArtist;  <span class="comment">//歌手</span></div></pre></td></tr></table></figure>
+
+<p>2、valu的获取<br>根据歌曲来源的不同，这里有两种歌曲信息的获取方式：  </p>
+<ul>
+<li><p>itunes Library<br>通过MPMediaPickerController获取itunes Library的歌曲。很容易就获取到歌曲的MPMediaItem。MPMediaItem包   含我们所需要的歌曲信息。MPMediaPickerController和MPMediaItem是Media Player Framework的内容。</p>
+</li>
+<li><p>App内歌曲</p>
+</li>
+</ul>
+<p>如果是App内的歌曲，根据歌曲文件路径，获取AVMetadataItem。简单给出获取方法：  </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSURL</span> * url = [<span class="built_in">NSURL</span> fileURLWithPath:audio];</div><div class="line">AVURLAsset * asset = [AVURLAsset assetWithURL:url];</div><div class="line"><span class="built_in">NSMutableDictionary</span> *songInfo = [[<span class="built_in">NSMutableDictionary</span> alloc] init];</div><div class="line"><span class="built_in">NSArray</span> * formats = [asset availableMetadataFormats];</div><div class="line"><span class="keyword">for</span>(<span class="built_in">NSString</span> * format <span class="keyword">in</span> formats)</div><div class="line">{</div><div class="line">   <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,format);</div><div class="line">   <span class="built_in">NSArray</span> * items = [asset metadataForFormat:format];</div><div class="line">   <span class="keyword">for</span> (AVMetadataItem* item <span class="keyword">in</span> items)</div><div class="line">   {</div><div class="line">       <span class="built_in">NSLog</span>(<span class="string">@"%@\n"</span>,item<span class="variable">.commonKey</span>);</div><div class="line">       </div><div class="line">       <span class="keyword">if</span> ([item<span class="variable">.commonKey</span> isEqualToString:<span class="string">@"artwork"</span>])</div><div class="line">       {</div><div class="line">           <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,item<span class="variable">.dataType</span>);</div><div class="line">           <span class="built_in">UIImage</span>* image = [<span class="built_in">UIImage</span> imageWithData:(NSData*)item<span class="variable">.value</span>];</div><div class="line">           MPMediaItemArtwork *albumArt = [[MPMediaItemArtwork alloc] initWithImage:image];</div><div class="line">           [songInfo setObject:albumArt forKey:MPMediaItemPropertyArtwork];</div><div class="line">       }<span class="keyword">else</span> <span class="keyword">if</span> ([item<span class="variable">.commonKey</span> isEqualToString:<span class="string">@"title"</span>])</div><div class="line">       {</div><div class="line">           [songInfo setObject:item<span class="variable">.value</span> forKey:MPMediaItemPropertyTitle];</div><div class="line">       }</div><div class="line">       <span class="keyword">else</span> <span class="keyword">if</span> ([item<span class="variable">.commonKey</span> isEqualToString:<span class="string">@"albumName"</span>])</div><div class="line">       {</div><div class="line">           [songInfo setObject:item<span class="variable">.value</span> forKey:MPMediaItemPropertyAlbumTitle];</div><div class="line">       }</div><div class="line">       <span class="keyword">else</span> <span class="keyword">if</span> ([item<span class="variable">.commonKey</span> isEqualToString:<span class="string">@"artist"</span>])</div><div class="line">       {</div><div class="line">           [songInfo setObject:item<span class="variable">.value</span> forKey:MPMediaItemPropertyArtist];</div><div class="line">       }</div><div class="line">   }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<h4 id="特别注意">特别注意</h4>
+<p>需要特别注意的是MPNowPlayingInfoPropertyPlaybackRate 和MPNowPlayingInfoPropertyElapsedPlaybackTime。前者表示播放速率，后者表示已播放时间，即上图中进度条左边的时间。MPNowPlayingInfoPropertyElapsedPlaybackTime不需要我们来刷新，而是自动地根据前一个时间和播放速率来计算。<br>因此当歌曲暂停时，其实该值还是在增加。为了保证该值的精确，需要在暂停和重新开始播放时，重新设置MPNowPlayingInfoPropertyPlaybackRate的值。</p>
+<h3 id="代码">代码</h3>
+<p>有一个相关的<a href="https://github.com/wubingwell/WBAudioPlayer/tree/master/WBAudioPlayer" target="_blank" rel="external">demo</a>放在github上面，后面会为这个demo更新一个apple watch app。</p>
+
+      
+    </div>
+  <footer class="article-footer">
+<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/06/05/iOS音频开发之音乐播放器II/" data-id="k07nb551i4jzb6gk" class="article-share-link">Share</a>   --> 
+
+      
+    </footer>
+  </div>
+<!--去除nav  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/06/05/iOS音频开发之音乐播放器I/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+    -->
+</article>
+
+
+<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+       <h6>分享到:</h6> <a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_tqq"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+
+
+<section id="comments">
+<!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-iOS音频开发之音乐播放器II" data-title="" data-url="http://wubinge.github.io/2015/06/05/iOS音频开发之音乐播放器II/"></div>
+    <!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"listenme"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/object-c/">object-c</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具方法/">工具方法</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/音视频开发/">音视频开发</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    <div class="widget-wrap">
+   <h3 class="widget-title">Aout me</h3>
+    <div class="widget">
+      <h6>iOS开发工程师</h6>
+      <h6>            </h6>
+      <h6>github: <a href = "https://github.com/wubingwell">wubingwell</a></h6>
+       <h6>weibo: <a href = "http://weibo.com/u/3212832922">邓城君</a></h6>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 bing<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+
+  </div>
+</body>
+</html>

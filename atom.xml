@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不积跬步，无以至千里]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://wubinge.github.io/"/>
-  <updated>2015-06-05T09:11:54.878Z</updated>
+  <updated>2015-06-05T09:15:41.015Z</updated>
   <id>http://wubinge.github.io/</id>
   
   <author>
@@ -15,55 +15,14 @@
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[xcode包管理工具Alcatraz]]></title>
-    <link href="http://wubinge.github.io/2015/04/27/xcode%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/"/>
-    <id>http://wubinge.github.io/2015/04/27/xcode包管理工具/</id>
-    <published>2015-04-27T12:00:48.000Z</published>
-    <updated>2015-04-28T06:45:01.000Z</updated>
-    <content type="html"><![CDATA[<p><img src="http://7xic7r.com1.z0.glb.clouddn.com/alcatraz屏幕快照 2015-04-27 20.15.03.png" width="500"><br></p>
-<h3 id="简介">简介</h3>
-<p>Alcatraz是专为xcode设计的开源包管理工具，开发者可以用它自动的搜索、安装所需要的xcode插件、颜色方案和模板，完全摒弃了手动拷贝文件来安装xcode包的方式。Alcatraz的使用体验非常友好，就像是xcode原生的功能。</p>
-<h3 id="安装">安装</h3>
-<p>Alcatraz的安装非常方便快速，打开终端输入以下命令：  </p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -fsSL http<span class="variable">s:</span>//raw.githubusercontent.<span class="keyword">com</span>/supermarin/Alcatraz/master/Scripts/install.<span class="keyword">sh</span> | <span class="keyword">sh</span></div></pre></td></tr></table></figure>
-
-
-<p>当前支持OSX 10.9和Xcode 5以上版本<br>xcode的插件目录是  </p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~<span class="regexp">/Library/</span>Application Support<span class="regexp">/Developer/</span>Shared<span class="regexp">/Xcode/</span>Plug-ins</div></pre></td></tr></table></figure>
-
-
-<p>没有安装过xcode插件，这个目录是不存在的。<br>如果上面的安装命令失败，可以手动下载<a href="https://github.com/supermarin/Alcatraz/releases/download/1.1.2/Alcatraz.tar.gz" target="_blank" rel="external">Alcatraz</a>解压后放入插件目录，插件目录可以手动创建。Alcatraz本质上也是xcode的一个插件。</p>
-<h3 id="卸载">卸载</h3>
-<p>删除Alcatraz</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rm -rf ~<span class="regexp">/Library/</span>Application\ Support<span class="regexp">/Developer/</span>Shared<span class="regexp">/Xcode/</span>Plug-ins<span class="regexp">/Alcatraz.xcplugin</span></div></pre></td></tr></table></figure>
-
-<p>移除缓存</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rm -rf ~<span class="regexp">/Library/</span><span class="constant">Application</span>\ <span class="constant">Support</span>/<span class="constant">Alcatraz</span></div></pre></td></tr></table></figure>
-
-<h3 id="使用">使用</h3>
-<p>使用非常方便，Xcode-&gt;Menu-&gt;Window-&gt;Package Manager  </p>
-<p><img src="http://7xic7r.com1.z0.glb.clouddn.com/alcatraz1.png" width="500">  </p>
-<p>alcatraz界面图，包含插件、颜色方案和模板。直接搜索需要的插件并下载，删除也非常方便。 </p>
-<p><img src="http://7xic7r.com1.z0.glb.clouddn.com/alcatraz2.png" width="500"></p>
-<p><a href="http://www.cocoachina.com/industry/20130918/7022.html" target="_blank" rel="external">这篇文章</a>列出一些提高xcode工作效率的插件。使用alcatraz直接搜索下载安装即可使用。 </p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p><img src="http://7xic7r.com1.z0.glb.clouddn.com/alcatraz屏幕快照 2015-04-27 20.15.03.png" width="500"><br></p>
-<h3 id="简介">简介</h3>
-<p>Alcatra]]>
-    </summary>
-    
-      <category term="工具方法" scheme="http://wubinge.github.io/categories/%E5%B7%A5%E5%85%B7%E6%96%B9%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[iOS音频开发之音乐播放器II]]></title>
-    <link href="http://wubinge.github.io/2015/04/20/iOS%E9%9F%B3%E9%A2%91%E5%BC%80%E5%8F%91%E4%B9%8B%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8II/"/>
-    <id>http://wubinge.github.io/2015/04/20/iOS音频开发之音乐播放器II/</id>
-    <published>2015-04-20T08:20:09.000Z</published>
-    <updated>2015-06-05T09:10:40.000Z</updated>
-    <content type="html"><![CDATA[<h3 id="后台播放">后台播放</h3>
+    <title><![CDATA[]]></title>
+    <link href="http://wubinge.github.io/2015/06/05/iOS%E9%9F%B3%E9%A2%91%E5%BC%80%E5%8F%91%E4%B9%8B%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8II/"/>
+    <id>http://wubinge.github.io/2015/06/05/iOS音频开发之音乐播放器II/</id>
+    <published>2015-06-05T09:15:29.000Z</published>
+    <updated>2015-06-05T09:15:29.000Z</updated>
+    <content type="html"><![CDATA[<p>title: iOS音频开发之音乐播放器II<br>date: 2015-04-20 16:20:09<br>categories:iOS应用程序开发</p>
+<h2 id="tags:">tags:</h2>
+<h3 id="后台播放">后台播放</h3>
 <p>作为一款音乐播放器，我们希望APP在进入后台或者lock screen的时候仍然可以播放音乐。由于iOS的多任务机制的限制，在APP进入后台时，很快就被系统挂起。因此需要做接下来的两件事情。</p>
 <ul>
 <li>Background Mode</li>
@@ -134,21 +93,23 @@
 <p>有一个相关的<a href="https://github.com/wubingwell/WBAudioPlayer/tree/master/WBAudioPlayer" target="_blank" rel="external">demo</a>放在github上面，后面会为这个demo更新一个apple watch app。</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<h3 id="后台播放">后台播放</h3>
-<p>作为一款音乐播放器，我们希望APP在进入后台或者lock screen的时候仍然可以播放音乐。由于iOS的多任务机制的限制，在APP进入后台时，很快就被系统挂起。因此需要做接下来的两件事情。</p>
-<ul>
-<li>Back]]>
+    <![CDATA[<p>title: iOS音频开发之音乐播放器II<br>date: 2015-04-20 16:20:09<br>categories:iOS应用程序开发</p>
+<h2 id="tags:">tags:</h2>
+<h3 id="后台播放">后台播放</h3>
+<p>作为一款]]>
     </summary>
     
   </entry>
   
   <entry>
-    <title><![CDATA[iOS音频开发之音乐播放器I]]></title>
-    <link href="http://wubinge.github.io/2015/03/30/iOS%E9%9F%B3%E9%A2%91%E5%BC%80%E5%8F%91%E4%B9%8B%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8I/"/>
-    <id>http://wubinge.github.io/2015/03/30/iOS音频开发之音乐播放器I/</id>
-    <published>2015-03-30T12:47:09.000Z</published>
-    <updated>2015-06-05T09:11:42.000Z</updated>
-    <content type="html"><![CDATA[<h4 id="前言">前言</h4>
+    <title><![CDATA[]]></title>
+    <link href="http://wubinge.github.io/2015/06/05/iOS%E9%9F%B3%E9%A2%91%E5%BC%80%E5%8F%91%E4%B9%8B%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8I/"/>
+    <id>http://wubinge.github.io/2015/06/05/iOS音频开发之音乐播放器I/</id>
+    <published>2015-06-05T09:15:10.000Z</published>
+    <updated>2015-06-05T09:15:10.000Z</updated>
+    <content type="html"><![CDATA[<p>title: iOS音频开发之音乐播放器I<br>date: 2015-03-30 20:47:09<br>categories:iOS应用程序开发</p>
+<h2 id="tags:">tags:</h2>
+<h4 id="前言">前言</h4>
 <p>用两篇博文来介绍一款本地音乐播放器的功能开发。<br>围绕一个AVAudioPlayer的本地播放器来介绍音频播放器开发的主要功能实现。  例如后台播放、中断处理以及锁屏等。有一个相关的<a href="https://github.com/wubingwell/WBAudioPlayer" target="_blank" rel="external">demo</a>放在github上面。<br>AVAudioPlayer适用于播放本地音频文件和音频数据。简单展示音频信息以及控制播放，而不需要对音频数据进行自定义的处理比如编解码等，那么使用AVAudioPlayer即可。<br>AVAudioPlayer来自于MediaLayer的AVFoundation.framework。 AVFoundation提供一系列Object-C接口实现对音视频和图片的播放、录制和处理功能。  </p>
 <hr>
 <h4 id="初始化">初始化</h4>
@@ -212,9 +173,112 @@
 <p>AVAudioPlayerDelegate提供了处理中断的协议方法，播放过程中如果有电话、系统闹钟等会中断当前的音频播放。中断开始和结束后，需要进行相应的处理，这几个方法在iOS8.0已经过期，可以使用AVAudiosession的中断通知来实现该功能。<br>对于音频的中断处理，见<a href="http://wubingwell.github.io/2015/04/20/iOS%E9%9F%B3%E9%A2%91%E5%BC%80%E5%8F%91%E4%B9%8B%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8II/" target="_blank" rel="external">另外一篇</a>。</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<h4 id="前言">前言</h4>
-<p>用两篇博文来介绍一款本地音乐播放器的功能开发。<br>围绕一个AVAudioPlayer的本地播放器来介绍音频播放器开发的主要功能实现。  例如后台播放、中断处理以及锁屏等。有一个相关的<a href="https://github.]]>
+    <![CDATA[<p>title: iOS音频开发之音乐播放器I<br>date: 2015-03-30 20:47:09<br>categories:iOS应用程序开发</p>
+<h2 id="tags:">tags:</h2>
+<h4 id="前言">前言</h4>
+<p>用两篇博文来介绍一]]>
     </summary>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[]]></title>
+    <link href="http://wubinge.github.io/2015/06/05/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%86%99%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://wubinge.github.io/2015/06/05/为什么写博客/</id>
+    <published>2015-06-05T09:13:45.000Z</published>
+    <updated>2015-06-05T09:13:45.000Z</updated>
+    <content type="html"><![CDATA[<p>title: 为什么写博客<br>date: 2015-03-19 19:47:51<br>categories:”工具方法”</p>
+<h2 id="tags:">tags:</h2>
+<h3 id="整理思路_记录知识">整理思路 记录知识</h3>
+<p>工作和学习中会遇到很问题，例如实现了新的功能，优化了程序的性能，解决了某个bug。这时候问题并没有真正的结束。接下来要做的就是把遇到的问题，解决的过程做一次整理，多问自己几个为什么。<br>把思考的结果经过整理并记录下来，让其他人能够看明白。<br>自己理解和说出来让别人理解是两码事。经过思考和整理，能够更深入和系统的对知识进行归纳和总结，在技术的深度和广度上都会有所提升。 </p>
+<h3 id="分享和帮助">分享和帮助</h3>
+<p>解决了某个问题，或者在某些方面有一些经验。写出来，能够让遇到同样问题的人看到，可以帮助别人解决问题。同时也可以接受别人的反馈，互相讨论和交流，大家都可以得到提高。</p>
+<h3 id="接受批评和指正">接受批评和指正</h3>
+<p>因为个人的经验和思路限制，肯定会对某个问题考虑不够全面，对技术点理解不够深入，甚至掌握了错误的技术。写成博文，则是给自己一个曝光的机会，让自己的短板和薄弱之处暴露在大家眼前，给了自己得到指正的机会。</p>
+<h3 id="抛砖引玉">抛砖引玉</h3>
+<p>同样一个问题，可能会存在更简便更优化的实现方案。通过写具备一定质量的文章，相当于搭建一个交流的平台。抛出问题并提供一个解决方案，往往能够起到抛砖引玉的效果，吸引到更优秀的人做出更优秀的解决方案。</p>
+<h3 id="平时需要注意的问题">平时需要注意的问题</h3>
+<p>新功能</p>
+<ul>
+<li>该功能能够为用户解决哪些问题</li>
+<li>有没有更好的解决方案</li>
+<li>竞品对于该需求的解决方案是什么</li>
+<li>实现该功能用到哪个框架 该框架还有哪些功能 可以解决哪一类问题</li>
+<li>该功能的核心技术点是什么 哪里可以针对性能的优化</li>
+</ul>
+<p>找到的某段代码实现了某个效果或者解决了一个bug</p>
+<ul>
+<li>bug出现的原因 是技术点没掌握还是编程习惯不好 如何避免再次出现</li>
+<li>有没有更好的解决方法</li>
+<li>这段代码用到了哪个框架 还可以解决哪一类问题</li>
+<li>这段代码的工作原理是什么 修改某几个参数会有什么样的不同效果</li>
+<li>有没有性能方面的问题 需要怎么优化</li>
+</ul>
+<p>项目中用到需要自定义的组件</p>
+<ul>
+<li>是否有现成的开源组件 它是如何设计的 我会如何设计</li>
+<li>如果需要自己来做 怎么设计这个组件 使它变得复用性和拓展性更强</li>
+<li>是否可以借鉴系统组件的设计方式 通过自己实现 更深刻理解系统的设计方式</li>
+<li>有哪些地方需要注意性能优化</li>
+</ul>
+<p>项目初期设计架构</p>
+<ul>
+<li>基础框架划分 单元测试 网络通讯 数据存储 公共模块 功能模块 分别如何去搭建</li>
+<li>工程目录如何划分 做到结构清晰 查找方便  </li>
+<li>如何基于MVC进行扩展 来更好的实现业务逻辑和数据处理 界面显示的分离 提高模块复用性</li>
+<li>代码规范 编程习惯 </li>
+<li>代码易读性 可复用性 可扩展性 后期更改需求的变动    </li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>title: 为什么写博客<br>date: 2015-03-19 19:47:51<br>categories:”工具方法”</p>
+<h2 id="tags:">tags:</h2>
+<h3 id="整理思路_记录知识">整理思路 记录知识</h3>
+<p>工作和学习中]]>
+    </summary>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[xcode包管理工具Alcatraz]]></title>
+    <link href="http://wubinge.github.io/2015/04/27/xcode%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/"/>
+    <id>http://wubinge.github.io/2015/04/27/xcode包管理工具/</id>
+    <published>2015-04-27T12:00:48.000Z</published>
+    <updated>2015-04-28T06:45:01.000Z</updated>
+    <content type="html"><![CDATA[<p><img src="http://7xic7r.com1.z0.glb.clouddn.com/alcatraz屏幕快照 2015-04-27 20.15.03.png" width="500"><br></p>
+<h3 id="简介">简介</h3>
+<p>Alcatraz是专为xcode设计的开源包管理工具，开发者可以用它自动的搜索、安装所需要的xcode插件、颜色方案和模板，完全摒弃了手动拷贝文件来安装xcode包的方式。Alcatraz的使用体验非常友好，就像是xcode原生的功能。</p>
+<h3 id="安装">安装</h3>
+<p>Alcatraz的安装非常方便快速，打开终端输入以下命令：  </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -fsSL http<span class="variable">s:</span>//raw.githubusercontent.<span class="keyword">com</span>/supermarin/Alcatraz/master/Scripts/install.<span class="keyword">sh</span> | <span class="keyword">sh</span></div></pre></td></tr></table></figure>
+
+
+<p>当前支持OSX 10.9和Xcode 5以上版本<br>xcode的插件目录是  </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~<span class="regexp">/Library/</span>Application Support<span class="regexp">/Developer/</span>Shared<span class="regexp">/Xcode/</span>Plug-ins</div></pre></td></tr></table></figure>
+
+
+<p>没有安装过xcode插件，这个目录是不存在的。<br>如果上面的安装命令失败，可以手动下载<a href="https://github.com/supermarin/Alcatraz/releases/download/1.1.2/Alcatraz.tar.gz" target="_blank" rel="external">Alcatraz</a>解压后放入插件目录，插件目录可以手动创建。Alcatraz本质上也是xcode的一个插件。</p>
+<h3 id="卸载">卸载</h3>
+<p>删除Alcatraz</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rm -rf ~<span class="regexp">/Library/</span>Application\ Support<span class="regexp">/Developer/</span>Shared<span class="regexp">/Xcode/</span>Plug-ins<span class="regexp">/Alcatraz.xcplugin</span></div></pre></td></tr></table></figure>
+
+<p>移除缓存</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rm -rf ~<span class="regexp">/Library/</span><span class="constant">Application</span>\ <span class="constant">Support</span>/<span class="constant">Alcatraz</span></div></pre></td></tr></table></figure>
+
+<h3 id="使用">使用</h3>
+<p>使用非常方便，Xcode-&gt;Menu-&gt;Window-&gt;Package Manager  </p>
+<p><img src="http://7xic7r.com1.z0.glb.clouddn.com/alcatraz1.png" width="500">  </p>
+<p>alcatraz界面图，包含插件、颜色方案和模板。直接搜索需要的插件并下载，删除也非常方便。 </p>
+<p><img src="http://7xic7r.com1.z0.glb.clouddn.com/alcatraz2.png" width="500"></p>
+<p><a href="http://www.cocoachina.com/industry/20130918/7022.html" target="_blank" rel="external">这篇文章</a>列出一些提高xcode工作效率的插件。使用alcatraz直接搜索下载安装即可使用。 </p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><img src="http://7xic7r.com1.z0.glb.clouddn.com/alcatraz屏幕快照 2015-04-27 20.15.03.png" width="500"><br></p>
+<h3 id="简介">简介</h3>
+<p>Alcatra]]>
+    </summary>
+    
+      <category term="工具方法" scheme="http://wubinge.github.io/categories/%E5%B7%A5%E5%85%B7%E6%96%B9%E6%B3%95/"/>
     
   </entry>
   
@@ -357,7 +421,7 @@ p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 
     <link href="http://wubinge.github.io/2015/03/23/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%86%99flv%E6%96%87%E4%BB%B6/"/>
     <id>http://wubinge.github.io/2015/03/23/自己动手写flv文件/</id>
     <published>2015-03-23T11:24:28.000Z</published>
-    <updated>2015-04-28T06:42:10.000Z</updated>
+    <updated>2015-06-05T09:14:12.000Z</updated>
     <content type="html"><![CDATA[<p>项目需要使用ffmpeg来实现flv格式的编解码功能。ffmpeg对编解码大致分两部分来实现：数据编码和文件编码，直接调用相关api就可以实现。然而不够灵活，需要自己定制flv格式，于是就把文件编码这一部分自己来做，加入自己的东西。数据的编码直接使用ffmpeg的api。解码的时候根据由自己来分析格式，抽取纯音频数据，进行解码。</p>
 <p>首先需要对flv的格式做一个了解，这块网上文章很多，也很详细。</p>
 <p>flv文件分为header区和tag区。header区都是固定的9bytes,接着是为了兼容格式的previous size 4bytes。后面就是tag区。一般第一个tag是标示为0x12的脚本tag，包含了一些音频信息，例如时长，文件大小等。也有的没有脚本tag，那么播放器就会遍历文件寻找这些信息。web版flv由于编码过程不够规范，所以很多没有脚本tag，自然得不到tag信息，但是这个需求是听录音，mp3和flv一起播放，而mp3的长度是可以得到的；然而手机生成的录音就需要打上长度信息.<br>header区和脚本tag可以先作为文件头写入flv文件，脚本tag可以根据自己的需求来定制。只要符合播放器的解码规则，不要视为错误文件就可以。</p>
@@ -370,61 +434,7 @@ p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 
     <![CDATA[<p>项目需要使用ffmpeg来实现flv格式的编解码功能。ffmpeg对编解码大致分两部分来实现：数据编码和文件编码，直接调用相关api就可以实现。然而不够灵活，需要自己定制flv格式，于是就把文件编码这一部分自己来做，加入自己的东西。数据的编码直接使用ffmpeg的api。解]]>
     </summary>
     
-      <category term="音视频" scheme="http://wubinge.github.io/categories/%E9%9F%B3%E8%A7%86%E9%A2%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[为什么写博客]]></title>
-    <link href="http://wubinge.github.io/2015/03/19/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%86%99%E5%8D%9A%E5%AE%A2/"/>
-    <id>http://wubinge.github.io/2015/03/19/为什么写博客/</id>
-    <published>2015-03-19T11:47:51.000Z</published>
-    <updated>2015-05-14T01:26:52.000Z</updated>
-    <content type="html"><![CDATA[<h3 id="整理思路_记录知识">整理思路 记录知识</h3>
-<p>工作和学习中会遇到很问题，例如实现了新的功能，优化了程序的性能，解决了某个bug。这时候问题并没有真正的结束。接下来要做的就是把遇到的问题，解决的过程做一次整理，多问自己几个为什么。<br>把思考的结果经过整理并记录下来，让其他人能够看明白。<br>自己理解和说出来让别人理解是两码事。经过思考和整理，能够更深入和系统的对知识进行归纳和总结，在技术的深度和广度上都会有所提升。 </p>
-<h3 id="分享和帮助">分享和帮助</h3>
-<p>解决了某个问题，或者在某些方面有一些经验。写出来，能够让遇到同样问题的人看到，可以帮助别人解决问题。同时也可以接受别人的反馈，互相讨论和交流，大家都可以得到提高。</p>
-<h3 id="接受批评和指正">接受批评和指正</h3>
-<p>因为个人的经验和思路限制，肯定会对某个问题考虑不够全面，对技术点理解不够深入，甚至掌握了错误的技术。写成博文，则是给自己一个曝光的机会，让自己的短板和薄弱之处暴露在大家眼前，给了自己得到指正的机会。</p>
-<h3 id="抛砖引玉">抛砖引玉</h3>
-<p>同样一个问题，可能会存在更简便更优化的实现方案。通过写具备一定质量的文章，相当于搭建一个交流的平台。抛出问题并提供一个解决方案，往往能够起到抛砖引玉的效果，吸引到更优秀的人做出更优秀的解决方案。</p>
-<h3 id="平时需要注意的问题">平时需要注意的问题</h3>
-<p>新功能</p>
-<ul>
-<li>该功能能够为用户解决哪些问题</li>
-<li>有没有更好的解决方案</li>
-<li>竞品对于该需求的解决方案是什么</li>
-<li>实现该功能用到哪个框架 该框架还有哪些功能 可以解决哪一类问题</li>
-<li>该功能的核心技术点是什么 哪里可以针对性能的优化</li>
-</ul>
-<p>找到的某段代码实现了某个效果或者解决了一个bug</p>
-<ul>
-<li>bug出现的原因 是技术点没掌握还是编程习惯不好 如何避免再次出现</li>
-<li>有没有更好的解决方法</li>
-<li>这段代码用到了哪个框架 还可以解决哪一类问题</li>
-<li>这段代码的工作原理是什么 修改某几个参数会有什么样的不同效果</li>
-<li>有没有性能方面的问题 需要怎么优化</li>
-</ul>
-<p>项目中用到需要自定义的组件</p>
-<ul>
-<li>是否有现成的开源组件 它是如何设计的 我会如何设计</li>
-<li>如果需要自己来做 怎么设计这个组件 使它变得复用性和拓展性更强</li>
-<li>是否可以借鉴系统组件的设计方式 通过自己实现 更深刻理解系统的设计方式</li>
-<li>有哪些地方需要注意性能优化</li>
-</ul>
-<p>项目初期设计架构</p>
-<ul>
-<li>基础框架划分 单元测试 网络通讯 数据存储 公共模块 功能模块 分别如何去搭建</li>
-<li>工程目录如何划分 做到结构清晰 查找方便  </li>
-<li>如何基于MVC进行扩展 来更好的实现业务逻辑和数据处理 界面显示的分离 提高模块复用性</li>
-<li>代码规范 编程习惯 </li>
-<li>代码易读性 可复用性 可扩展性 后期更改需求的变动    </li>
-</ul>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h3 id="整理思路_记录知识">整理思路 记录知识</h3>
-<p>工作和学习中会遇到很问题，例如实现了新的功能，优化了程序的性能，解决了某个bug。这时候问题并没有真正的结束。接下来要做的就是把遇到的问题，解决的过程做一次整理，多问自己几个为什么。<br>把思考的结果经过]]>
-    </summary>
+      <category term="音视频开发" scheme="http://wubinge.github.io/categories/%E9%9F%B3%E8%A7%86%E9%A2%91%E5%BC%80%E5%8F%91/"/>
     
   </entry>
   
