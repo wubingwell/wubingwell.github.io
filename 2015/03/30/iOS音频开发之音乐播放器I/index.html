@@ -3,26 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>bing&#39;s blog</title>
+  <title>iOS音频开发之音乐播放器I | bing&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="title: iOS音频开发之音乐播放器Idate: 2015-03-30 20:47:09categories:iOS应用程序开发
-tags:
-前言
-用两篇博文来介绍一款本地音乐播放器的功能开发。围绕一个AVAudioPlayer的本地播放器来介绍音频播放器开发的主要功能实现。  例如后台播放、中断处理以及锁屏等。有一个相关的demo放在github上面。AVAudioPlayer适用于播放本地">
+  <meta name="description" content="前言
+用两篇博文来介绍一款本地音乐播放器的功能开发。围绕一个AVAudioPlayer的本地播放器来介绍音频播放器开发的主要功能实现。  例如后台播放、中断处理以及锁屏等。有一个相关的demo放在github上面。AVAudioPlayer适用于播放本地音频文件和音频数据。简单展示音频信息以及控制播放，而不需要对音频数据进行自定义的处理比如编解码等，那么使用AVAudioPlayer即可。AVAu">
 <meta property="og:type" content="article">
-<meta property="og:title" content="bing's blog">
-<meta property="og:url" content="http://wubinge.github.io/2015/06/05/iOS音频开发之音乐播放器I/">
+<meta property="og:title" content="iOS音频开发之音乐播放器I">
+<meta property="og:url" content="http://wubinge.github.io/2015/03/30/iOS音频开发之音乐播放器I/">
 <meta property="og:site_name" content="bing's blog">
-<meta property="og:description" content="title: iOS音频开发之音乐播放器Idate: 2015-03-30 20:47:09categories:iOS应用程序开发
-tags:
-前言
-用两篇博文来介绍一款本地音乐播放器的功能开发。围绕一个AVAudioPlayer的本地播放器来介绍音频播放器开发的主要功能实现。  例如后台播放、中断处理以及锁屏等。有一个相关的demo放在github上面。AVAudioPlayer适用于播放本地">
+<meta property="og:description" content="前言
+用两篇博文来介绍一款本地音乐播放器的功能开发。围绕一个AVAudioPlayer的本地播放器来介绍音频播放器开发的主要功能实现。  例如后台播放、中断处理以及锁屏等。有一个相关的demo放在github上面。AVAudioPlayer适用于播放本地音频文件和音频数据。简单展示音频信息以及控制播放，而不需要对音频数据进行自定义的处理比如编解码等，那么使用AVAudioPlayer即可。AVAu">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="bing's blog">
-<meta name="twitter:description" content="title: iOS音频开发之音乐播放器Idate: 2015-03-30 20:47:09categories:iOS应用程序开发
-tags:
-前言
-用两篇博文来介绍一款本地音乐播放器的功能开发。围绕一个AVAudioPlayer的本地播放器来介绍音频播放器开发的主要功能实现。  例如后台播放、中断处理以及锁屏等。有一个相关的demo放在github上面。AVAudioPlayer适用于播放本地">
+<meta name="twitter:title" content="iOS音频开发之音乐播放器I">
+<meta name="twitter:description" content="前言
+用两篇博文来介绍一款本地音乐播放器的功能开发。围绕一个AVAudioPlayer的本地播放器来介绍音频播放器开发的主要功能实现。  例如后台播放、中断处理以及锁屏等。有一个相关的demo放在github上面。AVAudioPlayer适用于播放本地音频文件和音频数据。简单展示音频信息以及控制播放，而不需要对音频数据进行自定义的处理比如编解码等，那么使用AVAudioPlayer即可。AVAu">
 
   
     <link rel="alternative" href="/atom.xml" title="bing&#39;s blog" type="application/atom+xml">
@@ -76,19 +70,31 @@ tags:
       <div class="outer">
         <section id="main"><article id="post-iOS音频开发之音乐播放器I" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/06/05/iOS音频开发之音乐播放器I/" class="article-date">
-  <time datetime="2015-06-05T09:15:10.000Z" itemprop="datePublished">2015-06-05</time>
+    <a href="/2015/03/30/iOS音频开发之音乐播放器I/" class="article-date">
+  <time datetime="2015-03-30T12:47:09.000Z" itemprop="datePublished">2015-03-30</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS应用程序开发/">iOS应用程序开发</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      iOS音频开发之音乐播放器I
+    </h1>
+  
+
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>title: iOS音频开发之音乐播放器I<br>date: 2015-03-30 20:47:09<br>categories:iOS应用程序开发</p>
-<h2 id="tags:">tags:</h2>
-<h4 id="前言">前言</h4>
+        <h4 id="前言">前言</h4>
 <p>用两篇博文来介绍一款本地音乐播放器的功能开发。<br>围绕一个AVAudioPlayer的本地播放器来介绍音频播放器开发的主要功能实现。  例如后台播放、中断处理以及锁屏等。有一个相关的<a href="https://github.com/wubingwell/WBAudioPlayer" target="_blank" rel="external">demo</a>放在github上面。<br>AVAudioPlayer适用于播放本地音频文件和音频数据。简单展示音频信息以及控制播放，而不需要对音频数据进行自定义的处理比如编解码等，那么使用AVAudioPlayer即可。<br>AVAudioPlayer来自于MediaLayer的AVFoundation.framework。 AVFoundation提供一系列Object-C接口实现对音视频和图片的播放、录制和处理功能。  </p>
 <hr>
 <h4 id="初始化">初始化</h4>
@@ -154,7 +160,7 @@ tags:
       
     </div>
   <footer class="article-footer">
-<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/06/05/iOS音频开发之音乐播放器I/" data-id="pdp0mjt30lhkk3ek" class="article-share-link">Share</a>   --> 
+<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/30/iOS音频开发之音乐播放器I/" data-id="pdp0mjt30lhkk3ek" class="article-share-link">Share</a>   --> 
 
       
     </footer>
@@ -163,19 +169,19 @@ tags:
     
 <nav id="article-nav">
   
-    <a href="/2015/06/05/iOS音频开发之音乐播放器II/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/04/20/iOS音频开发之音乐播放器II/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          (no title)
+          iOS音频开发之音乐播放器II
         
       </div>
     </a>
   
   
-    <a href="/2015/06/05/为什么写博客/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/03/24/object-c的copy机制-二/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title"></div>
+      <div class="article-nav-title">object-c的copy机制(二)</div>
     </a>
   
 </nav>
@@ -201,7 +207,7 @@ tags:
 
 <section id="comments">
 <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="post-iOS音频开发之音乐播放器I" data-title="" data-url="http://wubinge.github.io/2015/06/05/iOS音频开发之音乐播放器I/"></div>
+    <div class="ds-thread" data-thread-key="post-iOS音频开发之音乐播放器I" data-title="iOS音频开发之音乐播放器I" data-url="http://wubinge.github.io/2015/03/30/iOS音频开发之音乐播放器I/"></div>
     <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
@@ -226,7 +232,7 @@ tags:
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/object-c/">object-c</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具方法/">工具方法</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/音视频开发/">音视频开发</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS应用程序开发/">iOS应用程序开发</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/object-c/">object-c</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具方法/">工具方法</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/音视频开发/">音视频开发</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
