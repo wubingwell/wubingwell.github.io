@@ -3,17 +3,35 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2015/4 | bing&#39;s blog</title>
+  <title>iOS音频开发之音乐播放器II | bing&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="bing's blog">
-<meta property="og:url" content="http://wubinge.github.io/archives/2015/04/">
+  <meta name="description" content="后台播放
+作为一款音乐播放器，我们希望APP在进入后台或者lock screen的时候仍然可以播放音乐。由于iOS的多任务机制的限制，在APP进入后台时，很快就被系统挂起。因此需要做接下来的两件事情。
+
+Background Mode
+
+为了满足某些APP后台运行的需求，iOS允许具有某些功能的APP设置Background Mode来达到后台运行的目的。音频类的可以在info.plist中添加R">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS音频开发之音乐播放器II">
+<meta property="og:url" content="http://wubinge.github.io/2015/04/20/iOS音频开发之音乐播放器II/">
 <meta property="og:site_name" content="bing's blog">
-<meta property="og:description">
+<meta property="og:description" content="后台播放
+作为一款音乐播放器，我们希望APP在进入后台或者lock screen的时候仍然可以播放音乐。由于iOS的多任务机制的限制，在APP进入后台时，很快就被系统挂起。因此需要做接下来的两件事情。
+
+Background Mode
+
+为了满足某些APP后台运行的需求，iOS允许具有某些功能的APP设置Background Mode来达到后台运行的目的。音频类的可以在info.plist中添加R">
+<meta property="og:image" content="http://7xic7r.com1.z0.glb.clouddn.com/image/bgmodeA7EA71ED-3165-4B02-8D99-13C1944F7821.png">
+<meta property="og:image" content="http://7xic7r.com1.z0.glb.clouddn.com/audio_session_interrupted.png">
+<meta property="og:image" content="http://7xic7r.com1.z0.glb.clouddn.com/control_center.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="bing's blog">
-<meta name="twitter:description">
+<meta name="twitter:title" content="iOS音频开发之音乐播放器II">
+<meta name="twitter:description" content="后台播放
+作为一款音乐播放器，我们希望APP在进入后台或者lock screen的时候仍然可以播放音乐。由于iOS的多任务机制的限制，在APP进入后台时，很快就被系统挂起。因此需要做接下来的两件事情。
+
+Background Mode
+
+为了满足某些APP后台运行的需求，iOS允许具有某些功能的APP设置Background Mode来达到后台运行的目的。音频类的可以在info.plist中添加R">
 
   
     <link rel="alternative" href="/atom.xml" title="bing&#39;s blog" type="application/atom+xml">
@@ -65,78 +83,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-xcode包管理工具" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/04/27/xcode包管理工具/" class="article-date">
-  <time datetime="2015-04-27T12:00:48.000Z" itemprop="datePublished">2015-04-27</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/工具方法/">工具方法</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/27/xcode包管理工具/">xcode包管理工具Alcatraz</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="http://7xic7r.com1.z0.glb.clouddn.com/alcatraz屏幕快照 2015-04-27 20.15.03.png" width="500"><br></p>
-<h3 id="简介">简介</h3>
-<p>Alcatraz是专为xcode设计的开源包管理工具，开发者可以用它自动的搜索、安装所需要的xcode插件、颜色方案和模板，完全摒弃了手动拷贝文件来安装xcode包的方式。Alcatraz的使用体验非常友好，就像是xcode原生的功能。</p>
-<h3 id="安装">安装</h3>
-<p>Alcatraz的安装非常方便快速，打开终端输入以下命令：  </p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -fsSL http<span class="variable">s:</span>//raw.githubusercontent.<span class="keyword">com</span>/supermarin/Alcatraz/master/Scripts/install.<span class="keyword">sh</span> | <span class="keyword">sh</span></div></pre></td></tr></table></figure>
-
-
-<p>当前支持OSX 10.9和Xcode 5以上版本<br>xcode的插件目录是  </p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~<span class="regexp">/Library/</span>Application Support<span class="regexp">/Developer/</span>Shared<span class="regexp">/Xcode/</span>Plug-ins</div></pre></td></tr></table></figure>
-
-
-<p>没有安装过xcode插件，这个目录是不存在的。<br>如果上面的安装命令失败，可以手动下载<a href="https://github.com/supermarin/Alcatraz/releases/download/1.1.2/Alcatraz.tar.gz" target="_blank" rel="external">Alcatraz</a>解压后放入插件目录，插件目录可以手动创建。Alcatraz本质上也是xcode的一个插件。</p>
-<h3 id="卸载">卸载</h3>
-<p>删除Alcatraz</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rm -rf ~<span class="regexp">/Library/</span>Application\ Support<span class="regexp">/Developer/</span>Shared<span class="regexp">/Xcode/</span>Plug-ins<span class="regexp">/Alcatraz.xcplugin</span></div></pre></td></tr></table></figure>
-
-<p>移除缓存</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rm -rf ~<span class="regexp">/Library/</span><span class="constant">Application</span>\ <span class="constant">Support</span>/<span class="constant">Alcatraz</span></div></pre></td></tr></table></figure>
-
-<h3 id="使用">使用</h3>
-<p>使用非常方便，Xcode-&gt;Menu-&gt;Window-&gt;Package Manager  </p>
-<p><img src="http://7xic7r.com1.z0.glb.clouddn.com/alcatraz1.png" width="500">  </p>
-<p>alcatraz界面图，包含插件、颜色方案和模板。直接搜索需要的插件并下载，删除也非常方便。 </p>
-<p><img src="http://7xic7r.com1.z0.glb.clouddn.com/alcatraz2.png" width="500"></p>
-<p><a href="http://www.cocoachina.com/industry/20130918/7022.html" target="_blank" rel="external">这篇文章</a>列出一些提高xcode工作效率的插件。使用alcatraz直接搜索下载安装即可使用。 </p>
-
-      
-    </div>
-  <footer class="article-footer">
-<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/04/27/xcode包管理工具/" data-id="h2erjvtqs4qq9hbw" class="article-share-link">Share</a>   --> 
-
-      
-    </footer>
-  </div>
-<!--去除nav    -->
-</article>
-
-
-
-
-
-  
-    <article id="post-iOS音频开发之音乐播放器II" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-iOS音频开发之音乐播放器II" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/04/20/iOS音频开发之音乐播放器II/" class="article-date">
   <time datetime="2015-04-20T08:20:09.000Z" itemprop="datePublished">2015-04-20</time>
@@ -149,8 +96,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/20/iOS音频开发之音乐播放器II/">iOS音频开发之音乐播放器II</a>
+    <h1 class="article-title" itemprop="name">
+      iOS音频开发之音乐播放器II
     </h1>
   
 
@@ -236,15 +183,65 @@
       
     </footer>
   </div>
-<!--去除nav    -->
+<!--去除nav  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/04/27/xcode包管理工具/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          xcode包管理工具Alcatraz
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/03/30/iOS音频开发之音乐播放器I/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">iOS音频开发之音乐播放器I</div>
+    </a>
+  
+</nav>
+
+    -->
 </article>
 
 
+<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+       <h6>分享到:</h6> <a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_tqq"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
 
 
 
-  
-  
+<section id="comments">
+<!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-iOS音频开发之音乐播放器II" data-title="iOS音频开发之音乐播放器II" data-url="http://wubinge.github.io/2015/04/20/iOS音频开发之音乐播放器II/"></div>
+    <!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"listenme"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+</section>
+
 </section>
         
           <aside id="sidebar">

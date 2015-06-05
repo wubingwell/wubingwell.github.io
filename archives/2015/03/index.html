@@ -67,6 +67,107 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-iOS音频开发之音乐播放器I" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/03/30/iOS音频开发之音乐播放器I/" class="article-date">
+  <time datetime="2015-03-30T12:47:09.000Z" itemprop="datePublished">2015-03-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/03/30/iOS音频开发之音乐播放器I/">iOS音频开发之音乐播放器I</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="前言">前言</h4>
+<p>用两篇博文来介绍一款本地音乐播放器的功能开发。<br>围绕一个AVAudioPlayer的本地播放器来介绍音频播放器开发的主要功能实现。  例如后台播放、中断处理以及锁屏等。有一个相关的<a href="https://github.com/wubingwell/WBAudioPlayer" target="_blank" rel="external">demo</a>放在github上面。<br>AVAudioPlayer适用于播放本地音频文件和音频数据。简单展示音频信息以及控制播放，而不需要对音频数据进行自定义的处理比如编解码等，那么使用AVAudioPlayer即可。<br>AVAudioPlayer来自于MediaLayer的AVFoundation.framework。 AVFoundation提供一系列Object-C接口实现对音视频和图片的播放、录制和处理功能。  </p>
+<hr>
+<h4 id="初始化">初始化</h4>
+<p>初始化很简单，这里简单列一下。首先要导入AVFoundation.framework<br>可以使用本地NSURL和内存数据NSData来初始化一个AVAudioPlayer的实例。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSURL</span> * url = [<span class="built_in">NSURL</span> fileURLWithPath:audio];</div><div class="line">AVAudioPlayer * player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:<span class="literal">nil</span>];</div></pre></td></tr></table></figure>
+
+<h3 id="相关属性">相关属性</h3>
+<p>1、循环播放次数</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="at_rule">@<span class="keyword">property</span> NSInteger numberOfLoops</span>;</div></pre></td></tr></table></figure>
+
+<p>该属性值为0代表播放一次结束；1代表播放两次；以此类推。</p>
+<hr>
+<p>2、音频时长</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span>(<span class="keyword">readonly</span>) <span class="built_in">NSTimeInterval</span> duration; <span class="comment">/* the duration of the sound. */</span></div></pre></td></tr></table></figure>
+
+<p>单位是秒，可以用来显示以及计算当前播放的进度。</p>
+<hr>
+<p>3、当前时间</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="at_rule">@<span class="keyword">property</span> NSTimeInterval currentTime</span>;</div></pre></td></tr></table></figure>
+
+<p>单位是秒，表示当前的播放位置;对其赋值时，则表示播放的起始位置。<br>通过改变该属性值可以实现快进快退的seek功能。</p>
+<hr>
+<p>4、音量</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@property <span class="keyword">float</span> <span class="shader"><span class="keyword">volume</span>;</span></div></pre></td></tr></table></figure>
+
+<hr>
+<p>5、播放速度</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="at_rule">@<span class="keyword">property</span> BOOL enableRate <span class="function">NS_AVAILABLE</span>(<span class="number">10</span>_8, <span class="number">5</span>_0)</span>;</div><div class="line"><span class="at_rule">@<span class="keyword">property</span> float rate</span></div></pre></td></tr></table></figure>
+
+<p>必须设置enableRate = YES之后，设置rate的值才有效果。0.5表示一半速度，1.0表示正常速度，2.0表示两倍速度。</p>
+<hr>
+<p>6、当前设备时间</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="at_rule">@<span class="keyword">property(readonly)</span> NSTimeInterval deviceCurrentTime <span class="function">NS_AVAILABLE</span>(<span class="number">10</span>_7, <span class="number">4</span>_0)</span>;</div></pre></td></tr></table></figure>
+
+<p>代表音频输出设备的连续工作时间。只要有一个播放器存在，无论其处于播放、停止还是暂停状态，该属性的值都连续增长。以AVAudioPlayer为例，当player实例置空时，该属性值为0。<br>当使用playAtTime时用到该属性。</p>
+<hr>
+<h3 id="重要方法">重要方法</h3>
+<p>1、播放</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">-<span class="ruby"> (<span class="constant">BOOL</span>)prepareToPlay;	</span></div><div class="line">-<span class="ruby"> (<span class="constant">BOOL</span>)play;</span></div></pre></td></tr></table></figure>
+
+<p>在play之前调用prepareToPlay方法，预加载音频数据缓冲以及获取播放所需要的音频硬件。从而在调用play进行播放时减少延迟时间。尤其是在audio interruption结束后需要resume audio时，必须先调用prepareToPlay，否则无法重新播放。</p>
+<hr>
+<p>2、在未来某个时间开始播放</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="pp">- <span class="params">(<span class="variable">BOOL</span>)</span>playAtTime:<span class="params">(<span class="variable">NSTimeInterval</span>)</span>time NS_AVAILABLE<span class="params">(<span class="number">10</span>_7, <span class="number">4</span>_0)</span></span></div></pre></td></tr></table></figure>
+
+<p>该方法允许在未来的某个时间点播放音频。参数time必须是基于deviceCurrentTime并且比其大的绝对时间。例如如果希望在距离当前时间点20s后播放音频:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="title">[player playAtTime:player.deviceCurrentTime+20]</span><span class="comment">;</span></div></pre></td></tr></table></figure>
+
+<p>这里的deviceCurrentTime代表的是音频输出设备的NOW时间点。该方法可以代替UILocalNotification实现闹钟的功能，如果你希望在闹钟时间播放高度自定义的音频。</p>
+<h3 id="AVAudioPlayerDelegate">AVAudioPlayerDelegate</h3>
+<p>AVAudioPlayerDelegate定义了播放状态的协议方法，实现这些方法可以方便地响应播放器的状态。</p>
+<p>1、播放结束</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="pp">- <span class="params">(void)</span>audioPlayerDidFinishPlaying:<span class="params">(<span class="variable">AVAudioPlayer</span> *)</span>player successfully:<span class="params">(<span class="variable">BOOL</span>)</span>flag;</span></div></pre></td></tr></table></figure>
+
+<p>音频播放结束时会调用这个方法，可以在里面做切歌以及更新UI等操作。</p>
+<p>2、解码过程中出现错误</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="pp">- <span class="params">(void)</span>audioPlayerDecodeErrorDidOccur:<span class="params">(<span class="variable">AVAudioPlayer</span> *)</span>player error:<span class="params">(<span class="variable">NSError</span> *)</span>error;</span></div></pre></td></tr></table></figure>
+
+<p>播放过程中如果解码出错，会调用这个方法。在此给出用户相关的UI提示。</p>
+<p>3、中断相关</p>
+<p>AVAudioPlayerDelegate提供了处理中断的协议方法，播放过程中如果有电话、系统闹钟等会中断当前的音频播放。中断开始和结束后，需要进行相应的处理，这几个方法在iOS8.0已经过期，可以使用AVAudiosession的中断通知来实现该功能。<br>对于音频的中断处理，见<a href="">另外一篇</a>。</p>
+
+      
+    </div>
+  <footer class="article-footer">
+<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/30/iOS音频开发之音乐播放器I/" data-id="pb0nhfddnz50ryvd" class="article-share-link">Share</a>   --> 
+
+      
+    </footer>
+  </div>
+<!--去除nav    -->
+</article>
+
+
+
+
+
+  
     <article id="post-object-c的copy机制-二" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/03/24/object-c的copy机制-二/" class="article-date">
@@ -164,7 +265,7 @@ p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 
       
     </div>
   <footer class="article-footer">
-<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/24/object-c的copy机制-二/" data-id="exz7h7hgmt58smue" class="article-share-link">Share</a>   --> 
+<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/24/object-c的copy机制-二/" data-id="qx0vfwd9ekk4q592" class="article-share-link">Share</a>   --> 
 
       
     </footer>
@@ -240,7 +341,7 @@ p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 
       
     </div>
   <footer class="article-footer">
-<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/24/object-c的copy机制-一/" data-id="lked6p58q0dherpv" class="article-share-link">Share</a>   --> 
+<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/24/object-c的copy机制-一/" data-id="laso4xzwo8s8r65x" class="article-share-link">Share</a>   --> 
 
       
     </footer>
@@ -290,7 +391,7 @@ p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 
       
     </div>
   <footer class="article-footer">
-<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/23/自己动手写flv文件/" data-id="mxj3zdqxeffog1qw" class="article-share-link">Share</a>   --> 
+<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/23/自己动手写flv文件/" data-id="7y25soewq2s8z2ft" class="article-share-link">Share</a>   --> 
 
       
     </footer>
@@ -369,7 +470,7 @@ p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 
       
     </div>
   <footer class="article-footer">
-<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/19/为什么写博客/" data-id="g65mnf5uxqj3sbnd" class="article-share-link">Share</a>   --> 
+<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/19/为什么写博客/" data-id="qne1wiz2hxd3tmtc" class="article-share-link">Share</a>   --> 
 
       
     </footer>
@@ -508,7 +609,7 @@ p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 
       
     </div>
   <footer class="article-footer">
-<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/18/搭建个人博客/" data-id="sla0n1bz9fb9d80g" class="article-share-link">Share</a>   --> 
+<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/18/搭建个人博客/" data-id="omo59wph2oulu4vn" class="article-share-link">Share</a>   --> 
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/标签/">标签</a></li></ul>
