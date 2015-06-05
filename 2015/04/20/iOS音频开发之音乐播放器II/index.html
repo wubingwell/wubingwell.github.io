@@ -132,7 +132,7 @@ Background Mode
 
 <p>至此我们就实现了音频后台播放。</p>
 <p>关于混音再说一点，除了游戏背景音乐适合采用混音模式外，优先级比较高的音频功能，例如实现了定时播放音频功能的闹钟或者提醒类应用，也可以采用混音模式。这样即便用户在听歌也不会错过重要的提醒。</p>
-<p>我们最近上架的基于提醒的社交APP <a href="https://itunes.apple.com/CN/app/id938161536" title="title" target="_blank" rel="external">神多多闹钟</a> 就是使用AVAudioplayer的playAtTime达到定时播放指定音频的目的。并且AVAudioSession采用的是混音模式。</p>
+<p>我们最近开发的基于提醒的社交APP <a href="https://itunes.apple.com/CN/app/id938161536" title="title" target="_blank" rel="external">神多多闹钟</a> 就是使用AVAudioplayer的playAtTime达到定时播放指定音频的目的。并且AVAudioSession采用的是混音模式。</p>
 <h3 id="音频中断">音频中断</h3>
 <p>手机上不止我们一款APP，在听歌的时候，如果有人给我们打电话；或者之前定的一个闹钟到时间了；或者使用了siri功能。这些会使用手机音频的应用，就会跟我们的APP音频起冲突。称作音频中断。<br>iOS系统的音频服务优先级高于第三方APP。当有电话进入、系统闹钟响起，都会导致第三方APP的audiosession中断。 以来电为例，展示音频中断的流程:   </p>
 <p><img src="http://7xic7r.com1.z0.glb.clouddn.com/audio_session_interrupted.png" width="500" height="300" alt="Background Modes" align="center"><br></p>
@@ -178,7 +178,7 @@ Background Mode
       
     </div>
   <footer class="article-footer">
-<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/04/20/iOS音频开发之音乐播放器II/" data-id="ycrkpys4xw1hku6j" class="article-share-link">Share</a>   --> 
+<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/04/20/iOS音频开发之音乐播放器II/" data-id="k07nb551i4jzb6gk" class="article-share-link">Share</a>   --> 
 
       
     </footer>
