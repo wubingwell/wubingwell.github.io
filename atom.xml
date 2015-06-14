@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不积跬步，无以至千里]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://wubinge.github.io/"/>
-  <updated>2015-06-11T06:42:28.174Z</updated>
+  <updated>2015-06-14T14:53:56.486Z</updated>
   <id>http://wubinge.github.io/</id>
   
   <author>
@@ -13,6 +13,36 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Mac OS X开启NTFS格式存储的写权限]]></title>
+    <link href="http://wubinge.github.io/2015/06/14/Mac-OS-X%E5%BC%80%E5%90%AFNTFS%E6%A0%BC%E5%BC%8F%E5%AD%98%E5%82%A8%E7%9A%84%E5%86%99%E6%9D%83%E9%99%90/"/>
+    <id>http://wubinge.github.io/2015/06/14/Mac-OS-X开启NTFS格式存储的写权限/</id>
+    <published>2015-06-14T13:14:01.000Z</published>
+    <updated>2015-06-14T14:53:37.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="前言">前言</h3>
+<p>对于在Mac OS和Windows之间共享大文件的需求，我通常使用FAT32和NTFS格式的存储介质来实现。高速3.0加上SSD的速度，还是很不错的。但是对于容量大于4G的文件，FAT32无法写入，而NTFS在Mac OS无法写入数据。我们需要想办法实现在Mac OS上写入NTFS的功能。</p>
+<h3 id="开启写入NTFS功能">开启写入NTFS功能</h3>
+<p>有很多第三方软件可以实现写入NTFS格式存储。但这种方式太麻烦，这里介绍一种简单的方式。<br>在/etc目录创建文件：  </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> vim /etc/fstab</div></pre></td></tr></table></figure>
+
+
+<p>写入内容：  </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">LABEL=ntfsName  <span class="literal">none</span>    ntfs    rw,<span class="literal">auto</span>,nobrowse</div></pre></td></tr></table></figure>
+
+
+<p>ntfsName是我们希望开启写入权限的NTFS格式磁盘或分区的名字,就是显示在Finder或者Desktop的名字，这样就可以对ntfsName分区进行写入操作。<br>需要注意的是，再次插入存储设备，我们找不到ntfsName的盘符以及图标。它被放在隐藏目录/Volumes里面。<br>如果不想每次都使用终端访问，那么将该目录链接到桌面即可：  </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> ln <span class="operator">-s</span> /Volumes ~/Desktop/Volumes</div></pre></td></tr></table></figure>
+
+
+<p>如果不想再支持写入NTFS，删除/etc/fstab即可。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="前言">前言</h3>
+<p>对于在Mac OS和Windows之间共享大文件的需求，我通常使用FAT32和NTFS格式的存储介质来实现。高速3.0加上SSD的速度，还是很不错的。但是对于容量大于4G的文件，FAT32无法写入，而NTFS在Mac OS无法写入数据]]>
+    </summary>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[xcode包管理工具Alcatraz]]></title>
