@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不积跬步，无以至千里]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://wubinge.github.io/"/>
-  <updated>2015-06-14T14:58:53.827Z</updated>
+  <updated>2015-06-14T15:00:31.744Z</updated>
   <id>http://wubinge.github.io/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://wubinge.github.io/2015/06/14/Mac-OS-X%E5%BC%80%E5%90%AFNTFS%E6%A0%BC%E5%BC%8F%E5%AD%98%E5%82%A8%E7%9A%84%E5%86%99%E6%9D%83%E9%99%90/"/>
     <id>http://wubinge.github.io/2015/06/14/Mac-OS-X开启NTFS格式存储的写权限/</id>
     <published>2015-06-14T13:14:01.000Z</published>
-    <updated>2015-06-14T14:58:40.000Z</updated>
+    <updated>2015-06-14T15:00:19.000Z</updated>
     <content type="html"><![CDATA[<h3 id="前言">前言</h3>
 <p>我的移动硬盘分了三个区，格式分别为：Mac OS 扩展（日志式）、FAT32和NTFS。在Mac OS和Windows之间共享文件会使用FAT32和NTFS。但是对于容量大于4G的文件，FAT32无法写入，而NTFS在Mac OS无法写入数据，需要想办法实现在Mac OS上写入NTFS的功能。</p>
 <h3 id="开启写入NTFS功能">开启写入NTFS功能</h3>
@@ -41,6 +41,8 @@
     <![CDATA[<h3 id="前言">前言</h3>
 <p>我的移动硬盘分了三个区，格式分别为：Mac OS 扩展（日志式）、FAT32和NTFS。在Mac OS和Windows之间共享文件会使用FAT32和NTFS。但是对于容量大于4G的文件，FAT32无法写入，而NTFS在Mac OS无法]]>
     </summary>
+    
+      <category term="工具方法" scheme="http://wubinge.github.io/categories/%E5%B7%A5%E5%85%B7%E6%96%B9%E6%B3%95/"/>
     
   </entry>
   
