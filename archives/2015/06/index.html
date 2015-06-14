@@ -90,7 +90,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="前言">前言</h3>
-<p>对于在Mac OS和Windows之间共享大文件的需求，我通常使用FAT32和NTFS格式的存储介质来实现。高速3.0加上SSD的速度，还是很不错的。但是对于容量大于4G的文件，FAT32无法写入，而NTFS在Mac OS无法写入数据。我们需要想办法实现在Mac OS上写入NTFS的功能。</p>
+<p>我的移动硬盘分了三个区，格式分别为：Mac OS 扩展（日志式）、FAT32和NTFS。在Mac OS和Windows之间共享文件会使用FAT32和NTFS。但是对于容量大于4G的文件，FAT32无法写入，而NTFS在Mac OS无法写入数据，需要想办法实现在Mac OS上写入NTFS的功能。</p>
 <h3 id="开启写入NTFS功能">开启写入NTFS功能</h3>
 <p>有很多第三方软件可以实现写入NTFS格式存储。但这种方式太麻烦，这里介绍一种简单的方式。<br>在/etc目录创建文件：  </p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> vim /etc/fstab</div></pre></td></tr></table></figure>
