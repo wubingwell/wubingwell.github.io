@@ -3,26 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Mac OS X开启NTFS格式存储的写权限 | bing&#39;s den</title>
+  <title>iOS 9.0新特性 | bing&#39;s den</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言
-我的移动硬盘分了三个区，格式分别为：Mac OS 扩展（日志式）、FAT32和NTFS。在Mac OS和Windows之间共享文件会使用FAT32和NTFS。但是对于容量大于4G的文件，FAT32无法写入，而NTFS在Mac OS无法写入数据，需要想办法实现在Mac OS上写入NTFS的功能。
-开启写入NTFS功能
-有很多第三方软件可以实现写入NTFS格式存储。但这种方式太麻烦，这里介绍一种">
+  <meta name="description" content="App Transport Security
+下载xcode7.0 beta版，运行app发现所有的网络请求都是失败的。erro信息:The resource could not be loaded because the App Transport Security policy requires the use of a secure connection
+iOS9.0引入了App Trans">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mac OS X开启NTFS格式存储的写权限">
-<meta property="og:url" content="http://wubinge.github.io/2015/06/14/Mac-OS-X开启NTFS格式存储的写权限/">
+<meta property="og:title" content="iOS 9.0新特性">
+<meta property="og:url" content="http://wubinge.github.io/2015/07/07/ios-9-0新特性/">
 <meta property="og:site_name" content="bing's den">
-<meta property="og:description" content="前言
-我的移动硬盘分了三个区，格式分别为：Mac OS 扩展（日志式）、FAT32和NTFS。在Mac OS和Windows之间共享文件会使用FAT32和NTFS。但是对于容量大于4G的文件，FAT32无法写入，而NTFS在Mac OS无法写入数据，需要想办法实现在Mac OS上写入NTFS的功能。
-开启写入NTFS功能
-有很多第三方软件可以实现写入NTFS格式存储。但这种方式太麻烦，这里介绍一种">
+<meta property="og:description" content="App Transport Security
+下载xcode7.0 beta版，运行app发现所有的网络请求都是失败的。erro信息:The resource could not be loaded because the App Transport Security policy requires the use of a secure connection
+iOS9.0引入了App Trans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mac OS X开启NTFS格式存储的写权限">
-<meta name="twitter:description" content="前言
-我的移动硬盘分了三个区，格式分别为：Mac OS 扩展（日志式）、FAT32和NTFS。在Mac OS和Windows之间共享文件会使用FAT32和NTFS。但是对于容量大于4G的文件，FAT32无法写入，而NTFS在Mac OS无法写入数据，需要想办法实现在Mac OS上写入NTFS的功能。
-开启写入NTFS功能
-有很多第三方软件可以实现写入NTFS格式存储。但这种方式太麻烦，这里介绍一种">
+<meta name="twitter:title" content="iOS 9.0新特性">
+<meta name="twitter:description" content="App Transport Security
+下载xcode7.0 beta版，运行app发现所有的网络请求都是失败的。erro信息:The resource could not be loaded because the App Transport Security policy requires the use of a secure connection
+iOS9.0引入了App Trans">
 
   
     <link rel="alternative" href="/atom.xml" title="bing&#39;s den" type="application/atom+xml">
@@ -74,16 +71,12 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Mac-OS-X开启NTFS格式存储的写权限" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-ios-9-0新特性" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/06/14/Mac-OS-X开启NTFS格式存储的写权限/" class="article-date">
-  <time datetime="2015-06-14T13:14:01.000Z" itemprop="datePublished">2015-06-14</time>
+    <a href="/2015/07/07/ios-9-0新特性/" class="article-date">
+  <time datetime="2015-07-07T07:46:28.000Z" itemprop="datePublished">2015-07-07</time>
 </a>
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/工具方法/">工具方法</a>
-  </div>
-
   </div>
   <div class="article-inner">
     
@@ -92,7 +85,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Mac OS X开启NTFS格式存储的写权限
+      iOS 9.0新特性
     </h1>
   
 
@@ -100,27 +93,19 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="前言">前言</h3>
-<p>我的移动硬盘分了三个区，格式分别为：Mac OS 扩展（日志式）、FAT32和NTFS。在Mac OS和Windows之间共享文件会使用FAT32和NTFS。但是对于容量大于4G的文件，FAT32无法写入，而NTFS在Mac OS无法写入数据，需要想办法实现在Mac OS上写入NTFS的功能。</p>
-<h3 id="开启写入NTFS功能">开启写入NTFS功能</h3>
-<p>有很多第三方软件可以实现写入NTFS格式存储。但这种方式太麻烦，这里介绍一种简单的方式。<br>在/etc目录创建文件：  </p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> vim /etc/fstab</div></pre></td></tr></table></figure>
-
-
-<p>写入内容：  </p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">LABEL=ntfsName  <span class="literal">none</span>    ntfs    rw,<span class="literal">auto</span>,nobrowse</div></pre></td></tr></table></figure>
-
-
-<p>ntfsName是我们希望开启写入权限的NTFS格式磁盘或分区的名字,就是显示在Finder或者Desktop的名字，这样就可以对ntfsName分区进行写入操作。<br>需要注意的是，再次插入存储设备，我们找不到ntfsName的盘符以及图标。它被放在隐藏目录/Volumes里面。<br>如果不想每次都使用终端访问，那么将该目录链接到桌面即可：  </p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> ln <span class="operator">-s</span> /Volumes ~/Desktop/Volumes</div></pre></td></tr></table></figure>
-
-
-<p>如果不想再支持写入NTFS，删除/etc/fstab即可。</p>
+        <h5 id="App_Transport_Security">App Transport Security</h5>
+<p>下载xcode7.0 beta版，运行app发现所有的网络请求都是失败的。<br>erro信息:<br>The resource could not be loaded because the App Transport Security policy requires the use of a secure connection</p>
+<p>iOS9.0引入了App Transport Security的特性，要求在app的网络通讯必须使用安全的HTTPS协议。而我们的app使用的是http协议。<br>短时间内更换成HTTPS协议是不现实的，临时的解决办法:  </p>
+<ul>
+<li>Info.plist中添加行NSAppTransportSecurity，类型为NSDictionary.</li>
+<li>NSAppTransportSecurity下添加bool类型的NSAllowsArbitraryLoads,值为YES.</li>
+</ul>
+<p>新的app要使用HTTPS协议来开发，旧的APP在时间充足的条件下最好更换协议。现在移动互联网越来越普及，对应的安全问题需要极其重视，特别是涉及个人隐私和支付的app。</p>
 
       
     </div>
   <footer class="article-footer">
-<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/06/14/Mac-OS-X开启NTFS格式存储的写权限/" data-id="cdi9sjpu249hligp" class="article-share-link">Share</a>   --> 
+<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/07/07/ios-9-0新特性/" data-id="p22smfj3vsmh0k45" class="article-share-link">Share</a>   --> 
 
       
     </footer>
@@ -129,19 +114,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/07/07/ios-9-0新特性/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          iOS 9.0新特性
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/04/27/xcode包管理工具/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/06/14/Mac-OS-X开启NTFS格式存储的写权限/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">xcode包管理工具Alcatraz</div>
+      <div class="article-nav-title">Mac OS X开启NTFS格式存储的写权限</div>
     </a>
   
 </nav>
@@ -167,7 +143,7 @@
 
 <section id="comments">
 <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="post-Mac-OS-X开启NTFS格式存储的写权限" data-title="Mac OS X开启NTFS格式存储的写权限" data-url="http://wubinge.github.io/2015/06/14/Mac-OS-X开启NTFS格式存储的写权限/"></div>
+    <div class="ds-thread" data-thread-key="post-ios-9-0新特性" data-title="iOS 9.0新特性" data-url="http://wubinge.github.io/2015/07/07/ios-9-0新特性/"></div>
     <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">

@@ -67,6 +67,53 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ios-9-0新特性" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/07/07/ios-9-0新特性/" class="article-date">
+  <time datetime="2015-07-07T07:46:28.000Z" itemprop="datePublished">2015-07-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/07/07/ios-9-0新特性/">iOS 9.0新特性</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="App_Transport_Security">App Transport Security</h5>
+<p>下载xcode7.0 beta版，运行app发现所有的网络请求都是失败的。<br>erro信息:<br>The resource could not be loaded because the App Transport Security policy requires the use of a secure connection</p>
+<p>iOS9.0引入了App Transport Security的特性，要求在app的网络通讯必须使用安全的HTTPS协议。而我们的app使用的是http协议。<br>短时间内更换成HTTPS协议是不现实的，临时的解决办法:  </p>
+<ul>
+<li>Info.plist中添加行NSAppTransportSecurity，类型为NSDictionary.</li>
+<li>NSAppTransportSecurity下添加bool类型的NSAllowsArbitraryLoads,值为YES.</li>
+</ul>
+<p>新的app要使用HTTPS协议来开发，旧的APP在时间充足的条件下最好更换协议。现在移动互联网越来越普及，对应的安全问题需要极其重视，特别是涉及个人隐私和支付的app。</p>
+
+      
+    </div>
+  <footer class="article-footer">
+<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/07/07/ios-9-0新特性/" data-id="p22smfj3vsmh0k45" class="article-share-link">Share</a>   --> 
+
+      
+    </footer>
+  </div>
+<!--去除nav    -->
+</article>
+
+
+
+
+
+  
     <article id="post-Mac-OS-X开启NTFS格式存储的写权限" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/06/14/Mac-OS-X开启NTFS格式存储的写权限/" class="article-date">
