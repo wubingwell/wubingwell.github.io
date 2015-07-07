@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不积跬步，无以至千里]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://wubinge.github.io/"/>
-  <updated>2015-07-07T12:27:54.847Z</updated>
+  <updated>2015-07-07T12:31:48.981Z</updated>
   <id>http://wubinge.github.io/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://wubinge.github.io/2015/07/07/%E4%BD%BF%E7%94%A8%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E8%89%B2%E5%80%BC/"/>
     <id>http://wubinge.github.io/2015/07/07/使用十六进制色值/</id>
     <published>2015-07-07T11:45:11.000Z</published>
-    <updated>2015-07-07T12:27:48.000Z</updated>
+    <updated>2015-07-07T12:31:37.000Z</updated>
     <content type="html"><![CDATA[<h3 id="前言">前言</h3>
 <p>在做界面开发中，遇到颜色相关的视图，美术会在设计图标注一个色值。一般给的是十六进制的RGB值。可以使用代码解析色值，转化为UIColor实例；也可以在IB中直接设置颜色。</p>
 <h3 id="代码使用Hex色值">代码使用Hex色值</h3>
@@ -41,6 +41,8 @@
 <p>在做界面开发中，遇到颜色相关的视图，美术会在设计图标注一个色值。一般给的是十六进制的RGB值。可以使用代码解析色值，转化为UIColor实例；也可以在IB中直接设置颜色。</p>
 <h3 id="代码使用Hex色值">代码使用Hex色]]>
     </summary>
+    
+      <category term="工具方法" scheme="http://wubinge.github.io/categories/%E5%B7%A5%E5%85%B7%E6%96%B9%E6%B3%95/"/>
     
   </entry>
   

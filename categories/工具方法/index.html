@@ -67,6 +67,64 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-使用十六进制色值" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/07/07/使用十六进制色值/" class="article-date">
+  <time datetime="2015-07-07T11:45:11.000Z" itemprop="datePublished">2015-07-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/工具方法/">工具方法</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/07/07/使用十六进制色值/">使用十六进制色值</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前言">前言</h3>
+<p>在做界面开发中，遇到颜色相关的视图，美术会在设计图标注一个色值。一般给的是十六进制的RGB值。可以使用代码解析色值，转化为UIColor实例；也可以在IB中直接设置颜色。</p>
+<h3 id="代码使用Hex色值">代码使用Hex色值</h3>
+<p>我们通常将十六进制色值转化为red、green和blue三个色值参数，使用UIColor的相关方法来接收参数，生成需要的UIColor实例。</p>
+<ul>
+<li>解析NSInteger十六进制色值,可以写成Macro。   </li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[UIColor colorWithRed:((<span class="built_in">float</span>)((rgbValue & <span class="number">0xFF0000</span>) &gt;&gt; <span class="number">16</span>))/<span class="number">255.0</span> green:((<span class="built_in">float</span>)((rgbValue & <span class="number">0xFF00</span>) &gt;&gt; <span class="number">8</span>))/<span class="number">255.0</span> blue:((<span class="built_in">float</span>)(rgbValue & <span class="number">0xFF</span>))/<span class="number">255.0</span> alpha:<span class="number">1.0</span>]</div></pre></td></tr></table></figure>
+
+<ul>
+<li>解析NSString类型十六进制色值<br>主要利用NSScaner的来实现，github上有一个<a href="https://github.com/mRs-/HexColors" target="_blank" rel="external">开源库</a>。</li>
+</ul>
+<h3 id="在IB中使用Hex色值">在IB中使用Hex色值</h3>
+<p>通常我们在IB中的取色器无法使用Hex色值来设置颜色。<br>现在可以使用<a href="http://wafflesoftware.net/hexpicker/" target="_blank" rel="external">HexColorPicker</a>来实现这个功能。<br>下载安装包之后，解压并将其中的HexColorPicker.colorPicker文件拷贝到~/Library/ColorPickers目录里(没有ColorPickers则新建一个)。重新启动Xcode，IB的取色器是这样子的。带#tab页中输入Hex色值即可设置需要的颜色。  </p>
+<p><img src="http://7xic7r.com1.z0.glb.clouddn.com/HexClor.png" align="center"></p>
+
+      
+    </div>
+  <footer class="article-footer">
+<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/07/07/使用十六进制色值/" data-id="uvnrmq87mg7c9cgl" class="article-share-link">Share</a>   --> 
+
+      
+    </footer>
+  </div>
+<!--去除nav    -->
+</article>
+
+
+
+
+
+  
     <article id="post-Mac-OS-X开启NTFS格式存储的写权限" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/06/14/Mac-OS-X开启NTFS格式存储的写权限/" class="article-date">
@@ -428,7 +486,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS应用程序开发/">iOS应用程序开发</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/object-c/">object-c</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具方法/">工具方法</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/音视频开发/">音视频开发</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS应用程序开发/">iOS应用程序开发</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/object-c/">object-c</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具方法/">工具方法</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/音视频开发/">音视频开发</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
