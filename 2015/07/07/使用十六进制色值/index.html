@@ -110,7 +110,7 @@
 <ul>
 <li>解析NSInteger十六进制色值,可以写成Macro。   </li>
 </ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr_selector">[UIColor alloc]</span> <span class="tag">init</span>]</div></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[UIColor colorWithRed:((<span class="built_in">float</span>)((rgbValue & <span class="number">0xFF0000</span>) &gt;&gt; <span class="number">16</span>))/<span class="number">255.0</span> green:((<span class="built_in">float</span>)((rgbValue & <span class="number">0xFF00</span>) &gt;&gt; <span class="number">8</span>))/<span class="number">255.0</span> blue:((<span class="built_in">float</span>)(rgbValue & <span class="number">0xFF</span>))/<span class="number">255.0</span> alpha:<span class="number">1.0</span>]</div></pre></td></tr></table></figure>
 
 <ul>
 <li>解析NSString类型十六进制色值<br>主要利用NSScaner的来实现，github上有一个<a href="https://github.com/mRs-/HexColors" target="_blank" rel="external">开源库</a>。</li>
