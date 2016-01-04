@@ -3,22 +3,22 @@
 <head>
   <meta charset="utf-8">
   
-  <title>object-c的copy机制(一) | 武兵的技术博客</title>
+  <title>Objective-C的copy机制(一) | 武兵的技术博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前言
 之前的编码中，对于NSString的property修饰，习惯性使用copy，只是粗略的知道copy属于深复制，retain/strong属于浅复制，并没有对其深究。最近需要详细了解这一块知识，在网上搜索相关内容，并且用代码验证，查看对比了内存地址，做一些总结。  
 理解
 之前对于copy和retain/strong的区别理解是这样的：copy是复制了源对象所在内存空间的数据，放入目的对象指">
 <meta property="og:type" content="article">
-<meta property="og:title" content="object-c的copy机制(一)">
-<meta property="og:url" content="http://wubinge.github.io/2015/03/24/object-c的copy机制-一/">
+<meta property="og:title" content="Objective-C的copy机制(一)">
+<meta property="og:url" content="http://wubinge.github.io/2015/03/24/Objective-C的copy机制-一/">
 <meta property="og:site_name" content="武兵的技术博客">
 <meta property="og:description" content="前言
 之前的编码中，对于NSString的property修饰，习惯性使用copy，只是粗略的知道copy属于深复制，retain/strong属于浅复制，并没有对其深究。最近需要详细了解这一块知识，在网上搜索相关内容，并且用代码验证，查看对比了内存地址，做一些总结。  
 理解
 之前对于copy和retain/strong的区别理解是这样的：copy是复制了源对象所在内存空间的数据，放入目的对象指">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="object-c的copy机制(一)">
+<meta name="twitter:title" content="Objective-C的copy机制(一)">
 <meta name="twitter:description" content="前言
 之前的编码中，对于NSString的property修饰，习惯性使用copy，只是粗略的知道copy属于深复制，retain/strong属于浅复制，并没有对其深究。最近需要详细了解这一块知识，在网上搜索相关内容，并且用代码验证，查看对比了内存地址，做一些总结。  
 理解
@@ -74,14 +74,14 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-object-c的copy机制-一" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Objective-C的copy机制-一" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/03/24/object-c的copy机制-一/" class="article-date">
+    <a href="/2015/03/24/Objective-C的copy机制-一/" class="article-date">
   <time datetime="2015-03-24T08:28:05.000Z" itemprop="datePublished">2015-03-24</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/object-c/">object-c</a>
+    <a class="article-category-link" href="/categories/Objective-C/">Objective-C</a>
   </div>
 
   </div>
@@ -92,7 +92,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      object-c的copy机制(一)
+      Objective-C的copy机制(一)
     </h1>
   
 
@@ -137,7 +137,7 @@
       
     </div>
   <footer class="article-footer">
-<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/24/object-c的copy机制-一/" data-id="f3cv5um21gao0uka" class="article-share-link">Share</a>   --> 
+<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/24/Objective-C的copy机制-一/" data-id="x6g6m8rqwjkovjee" class="article-share-link">Share</a>   --> 
 
       
     </footer>
@@ -146,11 +146,11 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/03/24/object-c的copy机制-二/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/03/24/Objective-C的copy机制-二/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          object-c的copy机制(二)
+          Objective-C的copy机制(二)
         
       </div>
     </a>
@@ -184,7 +184,7 @@
 
 <section id="comments">
 <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="post-object-c的copy机制-一" data-title="object-c的copy机制(一)" data-url="http://wubinge.github.io/2015/03/24/object-c的copy机制-一/"></div>
+    <div class="ds-thread" data-thread-key="post-Objective-C的copy机制-一" data-title="Objective-C的copy机制(一)" data-url="http://wubinge.github.io/2015/03/24/Objective-C的copy机制-一/"></div>
     <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
@@ -209,7 +209,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS应用程序开发/">iOS应用程序开发</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/object-c/">object-c</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具方法/">工具方法</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/音视频开发/">音视频开发</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Objective-C/">Objective-C</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS应用程序开发/">iOS应用程序开发</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具方法/">工具方法</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/音视频开发/">音视频开发</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 

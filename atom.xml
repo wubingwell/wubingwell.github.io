@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不积跬步，无以至千里]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://wubinge.github.io/"/>
-  <updated>2016-01-04T14:30:59.022Z</updated>
+  <updated>2016-01-04T14:47:14.246Z</updated>
   <id>http://wubinge.github.io/</id>
   
   <author>
@@ -150,7 +150,7 @@
     <link href="http://wubinge.github.io/2015/04/20/iOS%E9%9F%B3%E9%A2%91%E5%BC%80%E5%8F%91%E4%B9%8B%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8II/"/>
     <id>http://wubinge.github.io/2015/04/20/iOS音频开发之音乐播放器II/</id>
     <published>2015-04-20T08:20:09.000Z</published>
-    <updated>2015-06-05T09:18:04.000Z</updated>
+    <updated>2016-01-04T14:46:44.000Z</updated>
     <content type="html"><![CDATA[<h3 id="后台播放">后台播放</h3>
 <p>作为一款音乐播放器，我们希望APP在进入后台或者lock screen的时候仍然可以播放音乐。由于iOS的多任务机制的限制，在APP进入后台时，很快就被系统挂起。因此需要做接下来的两件事情。</p>
 <ul>
@@ -237,9 +237,9 @@
     <link href="http://wubinge.github.io/2015/03/30/iOS%E9%9F%B3%E9%A2%91%E5%BC%80%E5%8F%91%E4%B9%8B%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8I/"/>
     <id>http://wubinge.github.io/2015/03/30/iOS音频开发之音乐播放器I/</id>
     <published>2015-03-30T12:47:09.000Z</published>
-    <updated>2015-06-05T09:17:58.000Z</updated>
+    <updated>2016-01-04T14:46:22.000Z</updated>
     <content type="html"><![CDATA[<h4 id="前言">前言</h4>
-<p>用两篇博文来介绍一款本地音乐播放器的功能开发。<br>围绕一个AVAudioPlayer的本地播放器来介绍音频播放器开发的主要功能实现。  例如后台播放、中断处理以及锁屏等。有一个相关的<a href="https://github.com/wubingwell/WBAudioPlayer" target="_blank" rel="external">demo</a>放在github上面。<br>AVAudioPlayer适用于播放本地音频文件和音频数据。简单展示音频信息以及控制播放，而不需要对音频数据进行自定义的处理比如编解码等，那么使用AVAudioPlayer即可。<br>AVAudioPlayer来自于MediaLayer的AVFoundation.framework。 AVFoundation提供一系列Object-C接口实现对音视频和图片的播放、录制和处理功能。  </p>
+<p>用两篇博文来介绍一款本地音乐播放器的功能开发。<br>围绕一个AVAudioPlayer的本地播放器来介绍音频播放器开发的主要功能实现。  例如后台播放、中断处理以及锁屏等。有一个相关的<a href="https://github.com/wubingwell/WBAudioPlayer" target="_blank" rel="external">demo</a>放在github上面。<br>AVAudioPlayer适用于播放本地音频文件和音频数据。简单展示音频信息以及控制播放，而不需要对音频数据进行自定义的处理比如编解码等，那么使用AVAudioPlayer即可。<br>AVAudioPlayer来自于MediaLayer的AVFoundation.framework。 AVFoundation提供一系列Objective-C接口实现对音视频和图片的播放、录制和处理功能。  </p>
 <hr>
 <h4 id="初始化">初始化</h4>
 <p>初始化很简单，这里简单列一下。首先要导入AVFoundation.framework<br>可以使用本地NSURL和内存数据NSData来初始化一个AVAudioPlayer的实例。</p>
@@ -413,11 +413,11 @@
   </entry>
   
   <entry>
-    <title><![CDATA[object-c的copy机制(二)]]></title>
-    <link href="http://wubinge.github.io/2015/03/24/object-c%E7%9A%84copy%E6%9C%BA%E5%88%B6-%E4%BA%8C/"/>
-    <id>http://wubinge.github.io/2015/03/24/object-c的copy机制-二/</id>
+    <title><![CDATA[Objective-C的copy机制(二)]]></title>
+    <link href="http://wubinge.github.io/2015/03/24/Objective-C%E7%9A%84copy%E6%9C%BA%E5%88%B6-%E4%BA%8C/"/>
+    <id>http://wubinge.github.io/2015/03/24/Objective-C的copy机制-二/</id>
     <published>2015-03-24T08:48:00.000Z</published>
-    <updated>2015-04-28T06:42:58.000Z</updated>
+    <updated>2016-01-04T14:45:55.000Z</updated>
     <content type="html"><![CDATA[<h4 id="前言">前言</h4>
 <p>上篇分析了NSString的copy和retain的区别，引出对custom object copy探究，参考了一些资料，这里做讨论。</p>
 <hr>
@@ -493,16 +493,16 @@ p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 
 <h4 id="实现了NSCopy/NSMutableCopying的框架类">]]>
     </summary>
     
-      <category term="object-c" scheme="http://wubinge.github.io/categories/object-c/"/>
+      <category term="Objective-C" scheme="http://wubinge.github.io/categories/Objective-C/"/>
     
   </entry>
   
   <entry>
-    <title><![CDATA[object-c的copy机制(一)]]></title>
-    <link href="http://wubinge.github.io/2015/03/24/object-c%E7%9A%84copy%E6%9C%BA%E5%88%B6-%E4%B8%80/"/>
-    <id>http://wubinge.github.io/2015/03/24/object-c的copy机制-一/</id>
+    <title><![CDATA[Objective-C的copy机制(一)]]></title>
+    <link href="http://wubinge.github.io/2015/03/24/Objective-C%E7%9A%84copy%E6%9C%BA%E5%88%B6-%E4%B8%80/"/>
+    <id>http://wubinge.github.io/2015/03/24/Objective-C的copy机制-一/</id>
     <published>2015-03-24T08:28:05.000Z</published>
-    <updated>2015-04-28T06:42:40.000Z</updated>
+    <updated>2016-01-04T14:44:58.000Z</updated>
     <content type="html"><![CDATA[<h2 id="前言">前言</h2>
 <p>之前的编码中，对于NSString的property修饰，习惯性使用copy，只是粗略的知道copy属于深复制，retain/strong属于浅复制，并没有对其深究。最近需要详细了解这一块知识，在网上搜索相关内容，并且用代码验证，查看对比了内存地址，做一些总结。  </p>
 <h3 id="理解">理解</h3>
@@ -542,7 +542,7 @@ p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 
 <p>之前的编码中，对于NSString的property修饰，习惯性使用copy，只是粗略的知道copy属于深复制，retain/strong属于浅复制，并没有对其深究。最近需要详细了解这一块知识，在网上搜索相关内容，并且用代码验证，查看]]>
     </summary>
     
-      <category term="object-c" scheme="http://wubinge.github.io/categories/object-c/"/>
+      <category term="Objective-C" scheme="http://wubinge.github.io/categories/Objective-C/"/>
     
   </entry>
   
