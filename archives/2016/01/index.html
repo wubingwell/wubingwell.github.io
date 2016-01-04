@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Archives: 2016/1 | 武兵的技术博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="武兵的技术博客">
+<meta property="og:url" content="http://wubinge.github.io/archives/2016/01/">
+<meta property="og:site_name" content="武兵的技术博客">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="武兵的技术博客">
+<meta name="twitter:description">
+
+  
+    <link rel="alternative" href="/atom.xml" title="武兵的技术博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">武兵的技术博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">不积跬步，无以至千里</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://wubinge.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-UINavigationController在ios7的变化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/01/03/UINavigationController在ios7的变化/" class="article-date">
+  <time datetime="2016-01-03T14:01:26.000Z" itemprop="datePublished">2016-01-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>date: 2015-03-25 16:20:00<br>categories:iOS应用程序开发</p>
+<h3 id="问题">问题</h3>
+<hr>
+<p>   最近做了个关于UINavigationController的demo，遇到一个问题，又引出更多问题，记录一下。 在ios7中，UINavigationController发生了很大的变化，特别是导航栏。<br>   先用一些代码，描述问题：<br>  1、添加导航控制器和视图控制器： </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">BOOL</span>)application:(<span class="built_in">UIApplication</span> *)application didFinishLaunchingWithOptions:(<span class="built_in">NSDictionary</span> *)launchOptions</div><div class="line">{</div><div class="line">    <span class="keyword">self</span><span class="variable">.window</span> = [[<span class="built_in">UIWindow</span> alloc] initWithFrame:[[UIScreen mainScreen] bounds]];</div><div class="line">    <span class="keyword">self</span><span class="variable">.window</span><span class="variable">.backgroundColor</span> = [<span class="built_in">UIColor</span> whiteColor];</div><div class="line">    [<span class="keyword">self</span><span class="variable">.window</span> makeKeyAndVisible];</div><div class="line">    MainViewController* mainController = [[MainViewController alloc] init];</div><div class="line">    <span class="built_in">UINavigationController</span>* nav = [[<span class="built_in">UINavigationController</span> alloc] initWithRootViewController:mainController];</div><div class="line">    <span class="keyword">self</span><span class="variable">.window</span><span class="variable">.rootViewController</span> = nav;</div><div class="line">    <span class="keyword">return</span> <span class="literal">YES</span>；</div></pre></td></tr></table></figure>
+
+
+<p>  2、MainViewController添加UILabel  </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)viewDidLoad</div><div class="line">{</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    <span class="comment">// Do any additional setup after loading the view from its nib.</span></div><div class="line">    <span class="built_in">UILabel</span>* label = [[<span class="built_in">UILabel</span> alloc] initWithFrame:CGRectMake(<span class="number">0</span>,<span class="number">0</span>, <span class="number">50</span>, <span class="number">50</span>)];</div><div class="line">    [label setText:<span class="string">@"test"</span>];</div><div class="line">    [label setBackgroundColor:[<span class="built_in">UIColor</span> redColor]];</div><div class="line">    [<span class="keyword">self</span><span class="variable">.view</span> addSubview:label];</div><div class="line">}</div></pre></td></tr></table></figure>
+
+
+
+<p>代码在ios6和ios7运行的效果如下：<br>ios6：  </p>
+<p><img src="http://7xic7r.com1.z0.glb.clouddn.com/20140402202833140.png" width="500"><br></p>
+<p>ios7：</p>
+<p><img src="http://7xic7r.com1.z0.glb.clouddn.com/20140402202833140.png" width="500"><br>  </p>
+<h3 id="描述">描述</h3>
+<hr>
+<p>self.view代表maincontroller的视图<br>问题出现了，很明显可以看出来，在ios7里面，self.view的内容延伸到了导航栏和状态栏的下面，并且可以模糊的看到。<br>首先我们来大概了解一下导航器的视图结构。用NSLog打印出状态栏、导航条和self.view以及self.view.superview的frame可以看出一些来。<br>这里以3.5屏幕为例  </p>
+<h4 id="iOS6正常状态">iOS6正常状态</h4>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">状态栏(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">20</span>)   导航条(<span class="number">0</span>,<span class="number">20</span>,<span class="number">320</span>,<span class="number">44</span>)     self.<span class="keyword">view</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">416</span>)   </div><div class="line">self.<span class="keyword">view</span>.superview(<span class="number">0</span>,<span class="number">64</span>,<span class="number">320</span>,<span class="number">416</span>)</div></pre></td></tr></table></figure>
+
+
+<h4 id="iOS6隐藏状态栏">iOS6隐藏状态栏</h4>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">状态栏(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>)          导航条(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">44</span>)self.<span class="keyword">view</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">436</span>)     </div><div class="line">self.<span class="keyword">view</span>.superview(<span class="number">0</span>,<span class="number">44</span>,<span class="number">320</span>,<span class="number">436</span>)</div></pre></td></tr></table></figure>
+
+<h4 id="iOS6隐藏导航栏">iOS6隐藏导航栏</h4>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">状态栏(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">20</span>)   导航条(<span class="number">0</span>,-<span class="number">24</span>,<span class="number">320</span>,<span class="number">44</span>)   self.<span class="keyword">view</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">460</span>)     </div><div class="line">self.<span class="keyword">view</span>.superview(<span class="number">0</span>,<span class="number">20</span>,<span class="number">320</span>,<span class="number">460</span>)</div></pre></td></tr></table></figure>
+
+
+<p>可以看出，状态栏、导航栏、self.view.superview在同一个坐标系内。<br>状态栏和导航栏的改变，会影响self.view.superview的变化。但是要注意的是，self.view的坐标始终不变，只是高度会随着superview而变化。<br>至于隐藏导航栏以后，为什么y坐标会变为-24，留出20的高度，推测作为状态栏的背景。</p>
+<h5 id="iOS7正常状态">iOS7正常状态</h5>
+<p>状态栏背景透明，导航栏半透明，导航栏的背景高度为64，frame(0,-20,320,64),Y方向多出的20点可以作为状态栏的背景。默认self.view延伸到屏幕顶部，被状态栏和导航栏覆盖。<strong>默认导航栏的 translucent = YES</strong>  此时各个元素的frame如下： </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">状态栏(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">20</span>)    导航条(<span class="number">0</span>,<span class="number">20</span>,<span class="number">320</span>,<span class="number">44</span>)   self.<span class="keyword">view</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">480</span>)     self.<span class="keyword">view</span>.superview(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">480</span>)</div></pre></td></tr></table></figure>
+
+<h4 id="iOS7隐藏状态栏">iOS7隐藏状态栏</h4>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">状态栏(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>)          导航条(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">44</span>)     self.<span class="keyword">view</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">480</span>)     self.<span class="keyword">view</span>.superview(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">480</span>)</div></pre></td></tr></table></figure>
+
+<h4 id="iOS7隐藏导航栏">iOS7隐藏导航栏</h4>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">状态栏(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">20</span>)   导航条(<span class="number">0</span>,-<span class="number">44</span>,<span class="number">320</span>,<span class="number">44</span>)   self.<span class="keyword">view</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">480</span>)     self.<span class="keyword">view</span>.superview(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">480</span>)</div></pre></td></tr></table></figure>
+
+<p>可以看出，self.view.superview不会因为状态栏和导航栏的改变而发生变化，始终铺满整个屏幕，当然self.view也是铺满整个屏幕的。</p>
+<h4 id="设置translucent_=_NO">设置translucent = NO</h4>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">状态栏(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">20</span>)    导航条(<span class="number">0</span>,<span class="number">20</span>,<span class="number">320</span>,<span class="number">44</span>)   self.<span class="keyword">view</span>(<span class="number">0</span>,<span class="number">64</span>,<span class="number">320</span>,<span class="number">416</span>)     self.<span class="keyword">view</span>.superview(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">480</span>)</div></pre></td></tr></table></figure>
+
+<p><strong><em>设置translucent=NO之后，self.view.superview依然铺满屏幕<br>self.view在状态栏和导航栏都可见的情况下，Y方向坐标是64<br>这是因为设置了导航栏的属性translucent=NO,所以self.view从导航栏下面开始平铺。</em></strong></p>
+<h4 id="iOS7隐藏状态栏-1">iOS7隐藏状态栏</h4>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">状态栏(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>)      导航条(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">44</span>)     self.<span class="keyword">view</span>(<span class="number">0</span>,<span class="number">44</span>,<span class="number">320</span>,<span class="number">436</span>)     self.<span class="keyword">view</span>.superview(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">480</span>)</div></pre></td></tr></table></figure>
+
+<p><strong><em>当状态栏隐藏，self.viewY坐标上移20点，高度增加20点</em></strong> </p>
+<h4 id="iOS7隐藏导航栏-1">iOS7隐藏导航栏</h4>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">状态栏(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">20</span>)   导航条(<span class="number">0</span>,-<span class="number">44</span>,<span class="number">320</span>,<span class="number">44</span>)   self.<span class="keyword">view</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">480</span>)      self.<span class="keyword">view</span>.superview(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">480</span>)</div></pre></td></tr></table></figure>
+
+<p><strong><em>隐藏了导航栏之后，translucent属性失去作用，self.view从屏幕左上角开始平铺，被状态栏覆盖了20点的高度</em></strong>  </p>
+<h3 id="总结">总结</h3>
+<hr>
+<h4 id="iOS6">iOS6</h4>
+<ul>
+<li>状态栏20高度导航栏44高度  </li>
+<li>self.view.superview的Y坐标和高度会随着状态栏和导航栏高度变化  </li>
+<li>self.view坐标和宽度不变，高度会随着self.view.superview变化。self.view的子视图不会被状态条或者导航条遮盖。</li>
+</ul>
+<h4 id="iOS7">iOS7</h4>
+<ul>
+<li>状态栏背景透明，高度20  </li>
+<li>导航栏背景半透明，坐标(0,-20,320,64)，Y轴方向多出的20点可以作为状态栏的背景，所以设置导航栏背景色，也能作为状态栏背景色  </li>
+<li>因为状态栏和导航栏所在区域开放给开发者操作，所以self.view.superview从屏幕顶部开始平铺整个屏幕并且固定并不变。  </li>
+<li>当导航栏显示且透明时，self.view的坐标(0,0)，当然也是平铺整个屏幕，延伸到导航栏和状态栏下面  </li>
+<li>当导航栏显示但是不透明，self.view刚好在导航栏的下边界开始平铺，此时状态栏的隐藏会影响到导航栏和self.view的坐标和高度。  </li>
+<li>导航栏隐藏，则透明属性不起作用，self.view坐标(0,0)，平铺整个屏幕，被状态栏遮盖20高度。</li>
+</ul>
+<h4 id="iOS7中设置self-view从导航栏下面显示的方法">iOS7中设置self.view从导航栏下面显示的方法</h4>
+<h5 id="全局设置">全局设置</h5>
+<ul>
+<li>[navigationBar setTranslucent:NO]。设置导航栏不透明，对所有控制器视图有效果。导航栏不透明了，不会再让你延伸view了。  </li>
+<li>[navigationBar setBackgroundImage:[UIImage imageNamed:@”image_background.png”] forBarMetrics:UIBarMetricsDefault];自定义导航栏背景图片，对所有控制器视图有效果。自定义背景，等于不透明，延伸了也看不到。   </li>
+<li>iOS7 SDK中新增了一个设置背景图片的方法（setBackgroundImage:forBarPosition:barMetrics:），比原有的方法多了一个UIBarPosition枚举参数，用于设置背景图片拉伸的策略<br>UIBarPositionTopAttached表明操作栏贴近屏幕顶部，背景向上延伸入系统状态栏区域。相对的，值UIBarPositionTop表示操作栏位于当前局部内容的顶部（比如，在弹出式气泡的顶部）它不为状态栏提供背景</li>
+</ul>
+<h4 id="局部设置">局部设置</h4>
+<ul>
+<li>[self setEdgesForExtendedLayout:UIRectEdgeNone]; 设置本控制器的视图延伸范围。对本控制器视图有效果。在ios7以下ios3以上的系统，可以使用wantsFullScreenLayout属性代替。 </li>
+<li>在全局设置的情况下，可以单独设置某个控制器view延伸到导航栏和状态栏下面：extendedLayoutIncludesOpaqueBars属性，默认是NO,设置为YES时，可以延伸。</li>
+</ul>
+<p>//////////////////////////////////////////////////6月11日更新<br>总结中case3里面，背景图片如果是半透明的，self.view还是会有延伸效果的；所以如果想阻挡它的延伸，一定要是不透明的背景图片。</p>
+
+      
+    </div>
+  <footer class="article-footer">
+<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2016/01/03/UINavigationController在ios7的变化/" data-id="cigp85ps0mq6rpdg" class="article-share-link">Share</a>   --> 
+
+      
+    </footer>
+  </div>
+<!--去除nav    -->
+</article>
+
+
+
+
+
+  
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS应用程序开发/">iOS应用程序开发</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/object-c/">object-c</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具方法/">工具方法</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/音视频开发/">音视频开发</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    <div class="widget-wrap">
+   <h3 class="widget-title">Aout me</h3>
+    <div class="widget">
+      <h6>iOS开发工程师</h6>
+      <h6>            </h6>
+      <h6>github: <a href = "https://github.com/wubingwell">wubingwell</a></h6>
+       <h6>weibo: <a href = "http://weibo.com/u/3212832922">邓城君</a></h6>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 bing<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+
+  </div>
+</body>
+</html>

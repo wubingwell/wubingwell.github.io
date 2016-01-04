@@ -67,6 +67,119 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-UINavigationController在ios7的变化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/01/03/UINavigationController在ios7的变化/" class="article-date">
+  <time datetime="2016-01-03T14:01:26.000Z" itemprop="datePublished">2016-01-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>date: 2015-03-25 16:20:00<br>categories:iOS应用程序开发</p>
+<h3 id="问题">问题</h3>
+<hr>
+<p>   最近做了个关于UINavigationController的demo，遇到一个问题，又引出更多问题，记录一下。 在ios7中，UINavigationController发生了很大的变化，特别是导航栏。<br>   先用一些代码，描述问题：<br>  1、添加导航控制器和视图控制器： </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">BOOL</span>)application:(<span class="built_in">UIApplication</span> *)application didFinishLaunchingWithOptions:(<span class="built_in">NSDictionary</span> *)launchOptions</div><div class="line">{</div><div class="line">    <span class="keyword">self</span><span class="variable">.window</span> = [[<span class="built_in">UIWindow</span> alloc] initWithFrame:[[UIScreen mainScreen] bounds]];</div><div class="line">    <span class="keyword">self</span><span class="variable">.window</span><span class="variable">.backgroundColor</span> = [<span class="built_in">UIColor</span> whiteColor];</div><div class="line">    [<span class="keyword">self</span><span class="variable">.window</span> makeKeyAndVisible];</div><div class="line">    MainViewController* mainController = [[MainViewController alloc] init];</div><div class="line">    <span class="built_in">UINavigationController</span>* nav = [[<span class="built_in">UINavigationController</span> alloc] initWithRootViewController:mainController];</div><div class="line">    <span class="keyword">self</span><span class="variable">.window</span><span class="variable">.rootViewController</span> = nav;</div><div class="line">    <span class="keyword">return</span> <span class="literal">YES</span>；</div></pre></td></tr></table></figure>
+
+
+<p>  2、MainViewController添加UILabel  </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)viewDidLoad</div><div class="line">{</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    <span class="comment">// Do any additional setup after loading the view from its nib.</span></div><div class="line">    <span class="built_in">UILabel</span>* label = [[<span class="built_in">UILabel</span> alloc] initWithFrame:CGRectMake(<span class="number">0</span>,<span class="number">0</span>, <span class="number">50</span>, <span class="number">50</span>)];</div><div class="line">    [label setText:<span class="string">@"test"</span>];</div><div class="line">    [label setBackgroundColor:[<span class="built_in">UIColor</span> redColor]];</div><div class="line">    [<span class="keyword">self</span><span class="variable">.view</span> addSubview:label];</div><div class="line">}</div></pre></td></tr></table></figure>
+
+
+
+<p>代码在ios6和ios7运行的效果如下：<br>ios6：  </p>
+<p><img src="http://7xic7r.com1.z0.glb.clouddn.com/20140402202833140.png" width="500"><br></p>
+<p>ios7：</p>
+<p><img src="http://7xic7r.com1.z0.glb.clouddn.com/20140402202833140.png" width="500"><br>  </p>
+<h3 id="描述">描述</h3>
+<hr>
+<p>self.view代表maincontroller的视图<br>问题出现了，很明显可以看出来，在ios7里面，self.view的内容延伸到了导航栏和状态栏的下面，并且可以模糊的看到。<br>首先我们来大概了解一下导航器的视图结构。用NSLog打印出状态栏、导航条和self.view以及self.view.superview的frame可以看出一些来。<br>这里以3.5屏幕为例  </p>
+<h4 id="iOS6正常状态">iOS6正常状态</h4>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">状态栏(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">20</span>)   导航条(<span class="number">0</span>,<span class="number">20</span>,<span class="number">320</span>,<span class="number">44</span>)     self.<span class="keyword">view</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">416</span>)   </div><div class="line">self.<span class="keyword">view</span>.superview(<span class="number">0</span>,<span class="number">64</span>,<span class="number">320</span>,<span class="number">416</span>)</div></pre></td></tr></table></figure>
+
+
+<h4 id="iOS6隐藏状态栏">iOS6隐藏状态栏</h4>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">状态栏(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>)          导航条(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">44</span>)self.<span class="keyword">view</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">436</span>)     </div><div class="line">self.<span class="keyword">view</span>.superview(<span class="number">0</span>,<span class="number">44</span>,<span class="number">320</span>,<span class="number">436</span>)</div></pre></td></tr></table></figure>
+
+<h4 id="iOS6隐藏导航栏">iOS6隐藏导航栏</h4>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">状态栏(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">20</span>)   导航条(<span class="number">0</span>,-<span class="number">24</span>,<span class="number">320</span>,<span class="number">44</span>)   self.<span class="keyword">view</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">460</span>)     </div><div class="line">self.<span class="keyword">view</span>.superview(<span class="number">0</span>,<span class="number">20</span>,<span class="number">320</span>,<span class="number">460</span>)</div></pre></td></tr></table></figure>
+
+
+<p>可以看出，状态栏、导航栏、self.view.superview在同一个坐标系内。<br>状态栏和导航栏的改变，会影响self.view.superview的变化。但是要注意的是，self.view的坐标始终不变，只是高度会随着superview而变化。<br>至于隐藏导航栏以后，为什么y坐标会变为-24，留出20的高度，推测作为状态栏的背景。</p>
+<h5 id="iOS7正常状态">iOS7正常状态</h5>
+<p>状态栏背景透明，导航栏半透明，导航栏的背景高度为64，frame(0,-20,320,64),Y方向多出的20点可以作为状态栏的背景。默认self.view延伸到屏幕顶部，被状态栏和导航栏覆盖。<strong>默认导航栏的 translucent = YES</strong>  此时各个元素的frame如下： </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">状态栏(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">20</span>)    导航条(<span class="number">0</span>,<span class="number">20</span>,<span class="number">320</span>,<span class="number">44</span>)   self.<span class="keyword">view</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">480</span>)     self.<span class="keyword">view</span>.superview(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">480</span>)</div></pre></td></tr></table></figure>
+
+<h4 id="iOS7隐藏状态栏">iOS7隐藏状态栏</h4>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">状态栏(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>)          导航条(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">44</span>)     self.<span class="keyword">view</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">480</span>)     self.<span class="keyword">view</span>.superview(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">480</span>)</div></pre></td></tr></table></figure>
+
+<h4 id="iOS7隐藏导航栏">iOS7隐藏导航栏</h4>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">状态栏(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">20</span>)   导航条(<span class="number">0</span>,-<span class="number">44</span>,<span class="number">320</span>,<span class="number">44</span>)   self.<span class="keyword">view</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">480</span>)     self.<span class="keyword">view</span>.superview(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">480</span>)</div></pre></td></tr></table></figure>
+
+<p>可以看出，self.view.superview不会因为状态栏和导航栏的改变而发生变化，始终铺满整个屏幕，当然self.view也是铺满整个屏幕的。</p>
+<h4 id="设置translucent_=_NO">设置translucent = NO</h4>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">状态栏(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">20</span>)    导航条(<span class="number">0</span>,<span class="number">20</span>,<span class="number">320</span>,<span class="number">44</span>)   self.<span class="keyword">view</span>(<span class="number">0</span>,<span class="number">64</span>,<span class="number">320</span>,<span class="number">416</span>)     self.<span class="keyword">view</span>.superview(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">480</span>)</div></pre></td></tr></table></figure>
+
+<p><strong><em>设置translucent=NO之后，self.view.superview依然铺满屏幕<br>self.view在状态栏和导航栏都可见的情况下，Y方向坐标是64<br>这是因为设置了导航栏的属性translucent=NO,所以self.view从导航栏下面开始平铺。</em></strong></p>
+<h4 id="iOS7隐藏状态栏-1">iOS7隐藏状态栏</h4>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">状态栏(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>)      导航条(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">44</span>)     self.<span class="keyword">view</span>(<span class="number">0</span>,<span class="number">44</span>,<span class="number">320</span>,<span class="number">436</span>)     self.<span class="keyword">view</span>.superview(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">480</span>)</div></pre></td></tr></table></figure>
+
+<p><strong><em>当状态栏隐藏，self.viewY坐标上移20点，高度增加20点</em></strong> </p>
+<h4 id="iOS7隐藏导航栏-1">iOS7隐藏导航栏</h4>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">状态栏(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">20</span>)   导航条(<span class="number">0</span>,-<span class="number">44</span>,<span class="number">320</span>,<span class="number">44</span>)   self.<span class="keyword">view</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">480</span>)      self.<span class="keyword">view</span>.superview(<span class="number">0</span>,<span class="number">0</span>,<span class="number">320</span>,<span class="number">480</span>)</div></pre></td></tr></table></figure>
+
+<p><strong><em>隐藏了导航栏之后，translucent属性失去作用，self.view从屏幕左上角开始平铺，被状态栏覆盖了20点的高度</em></strong>  </p>
+<h3 id="总结">总结</h3>
+<hr>
+<h4 id="iOS6">iOS6</h4>
+<ul>
+<li>状态栏20高度导航栏44高度  </li>
+<li>self.view.superview的Y坐标和高度会随着状态栏和导航栏高度变化  </li>
+<li>self.view坐标和宽度不变，高度会随着self.view.superview变化。self.view的子视图不会被状态条或者导航条遮盖。</li>
+</ul>
+<h4 id="iOS7">iOS7</h4>
+<ul>
+<li>状态栏背景透明，高度20  </li>
+<li>导航栏背景半透明，坐标(0,-20,320,64)，Y轴方向多出的20点可以作为状态栏的背景，所以设置导航栏背景色，也能作为状态栏背景色  </li>
+<li>因为状态栏和导航栏所在区域开放给开发者操作，所以self.view.superview从屏幕顶部开始平铺整个屏幕并且固定并不变。  </li>
+<li>当导航栏显示且透明时，self.view的坐标(0,0)，当然也是平铺整个屏幕，延伸到导航栏和状态栏下面  </li>
+<li>当导航栏显示但是不透明，self.view刚好在导航栏的下边界开始平铺，此时状态栏的隐藏会影响到导航栏和self.view的坐标和高度。  </li>
+<li>导航栏隐藏，则透明属性不起作用，self.view坐标(0,0)，平铺整个屏幕，被状态栏遮盖20高度。</li>
+</ul>
+<h4 id="iOS7中设置self-view从导航栏下面显示的方法">iOS7中设置self.view从导航栏下面显示的方法</h4>
+<h5 id="全局设置">全局设置</h5>
+<ul>
+<li>[navigationBar setTranslucent:NO]。设置导航栏不透明，对所有控制器视图有效果。导航栏不透明了，不会再让你延伸view了。  </li>
+<li>[navigationBar setBackgroundImage:[UIImage imageNamed:@”image_background.png”] forBarMetrics:UIBarMetricsDefault];自定义导航栏背景图片，对所有控制器视图有效果。自定义背景，等于不透明，延伸了也看不到。   </li>
+<li>iOS7 SDK中新增了一个设置背景图片的方法（setBackgroundImage:forBarPosition:barMetrics:），比原有的方法多了一个UIBarPosition枚举参数，用于设置背景图片拉伸的策略<br>UIBarPositionTopAttached表明操作栏贴近屏幕顶部，背景向上延伸入系统状态栏区域。相对的，值UIBarPositionTop表示操作栏位于当前局部内容的顶部（比如，在弹出式气泡的顶部）它不为状态栏提供背景</li>
+</ul>
+<h4 id="局部设置">局部设置</h4>
+<ul>
+<li>[self setEdgesForExtendedLayout:UIRectEdgeNone]; 设置本控制器的视图延伸范围。对本控制器视图有效果。在ios7以下ios3以上的系统，可以使用wantsFullScreenLayout属性代替。 </li>
+<li>在全局设置的情况下，可以单独设置某个控制器view延伸到导航栏和状态栏下面：extendedLayoutIncludesOpaqueBars属性，默认是NO,设置为YES时，可以延伸。</li>
+</ul>
+<p>//////////////////////////////////////////////////6月11日更新<br>总结中case3里面，背景图片如果是半透明的，self.view还是会有延伸效果的；所以如果想阻挡它的延伸，一定要是不透明的背景图片。</p>
+
+      
+    </div>
+  <footer class="article-footer">
+<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2016/01/03/UINavigationController在ios7的变化/" data-id="cigp85ps0mq6rpdg" class="article-share-link">Share</a>   --> 
+
+      
+    </footer>
+  </div>
+<!--去除nav    -->
+</article>
+
+
+
+
+
+  
     <article id="post-使用十六进制色值" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/07/07/使用十六进制色值/" class="article-date">
@@ -112,7 +225,7 @@
       
     </div>
   <footer class="article-footer">
-<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/07/07/使用十六进制色值/" data-id="t0eake3acikxwtat" class="article-share-link">Share</a>   --> 
+<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/07/07/使用十六进制色值/" data-id="wz565ykh68t1dea5" class="article-share-link">Share</a>   --> 
 
       
     </footer>
@@ -163,7 +276,7 @@
       
     </div>
   <footer class="article-footer">
-<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/07/07/ios-9-0新特性/" data-id="f4nd8nr3z82dd6pd" class="article-share-link">Share</a>   --> 
+<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/07/07/ios-9-0新特性/" data-id="e2fpsh5h1ak36k3e" class="article-share-link">Share</a>   --> 
 
       
     </footer>
@@ -222,7 +335,7 @@
       
     </div>
   <footer class="article-footer">
-<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/06/14/Mac-OS-X开启NTFS格式存储的写权限/" data-id="x2utqi6bsaltfx9n" class="article-share-link">Share</a>   --> 
+<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/06/14/Mac-OS-X开启NTFS格式存储的写权限/" data-id="m8urp06y4m8fxlpl" class="article-share-link">Share</a>   --> 
 
       
     </footer>
@@ -291,7 +404,7 @@
       
     </div>
   <footer class="article-footer">
-<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/04/27/xcode包管理工具/" data-id="ood6r5o7dcgn1uay" class="article-share-link">Share</a>   --> 
+<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/04/27/xcode包管理工具/" data-id="9vwzv3w4exvn7vfl" class="article-share-link">Share</a>   --> 
 
       
     </footer>
@@ -403,7 +516,7 @@
       
     </div>
   <footer class="article-footer">
-<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/04/20/iOS音频开发之音乐播放器II/" data-id="al5p6d1nluw0q1am" class="article-share-link">Share</a>   --> 
+<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/04/20/iOS音频开发之音乐播放器II/" data-id="gql9kh7vrqxe3ehm" class="article-share-link">Share</a>   --> 
 
       
     </footer>
@@ -508,7 +621,7 @@
       
     </div>
   <footer class="article-footer">
-<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/30/iOS音频开发之音乐播放器I/" data-id="fqbkx34s2p9kgipm" class="article-share-link">Share</a>   --> 
+<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/30/iOS音频开发之音乐播放器I/" data-id="arj9xyeapcfkuzt7" class="article-share-link">Share</a>   --> 
 
       
     </footer>
@@ -618,7 +731,7 @@ p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 
       
     </div>
   <footer class="article-footer">
-<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/24/object-c的copy机制-二/" data-id="8tb549ucy3q33559" class="article-share-link">Share</a>   --> 
+<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/24/object-c的copy机制-二/" data-id="s84lql15ywzx7cfp" class="article-share-link">Share</a>   --> 
 
       
     </footer>
@@ -694,7 +807,7 @@ p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 
       
     </div>
   <footer class="article-footer">
-<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/24/object-c的copy机制-一/" data-id="wa23fdyokczh4zjx" class="article-share-link">Share</a>   --> 
+<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/24/object-c的copy机制-一/" data-id="097m4t7170xyrue1" class="article-share-link">Share</a>   --> 
 
       
     </footer>
@@ -744,7 +857,7 @@ p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 
       
     </div>
   <footer class="article-footer">
-<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/23/自己动手写flv文件/" data-id="z10166g0vf9kuxjq" class="article-share-link">Share</a>   --> 
+<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/23/自己动手写flv文件/" data-id="g1s0oedw6w72rbgt" class="article-share-link">Share</a>   --> 
 
       
     </footer>
@@ -757,147 +870,10 @@ p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 
 
 
   
-    <article id="post-搭建个人博客" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/03/18/搭建个人博客/" class="article-date">
-  <time datetime="2015-03-18T11:51:58.000Z" itemprop="datePublished">2015-03-18</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/工具方法/">工具方法</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/18/搭建个人博客/">搭建个人博客</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="前言">前言</h3>
-<hr>
-<p>之前在csdn上写过博文，觉得它的编辑框使用起来毫无沉浸感，可控性也很差。于是希望搭建独立的博客。<br>在网上搜索之后，确定使用hexo博客生成框架+github page免费空间的方式来创建博客系统。<br>很喜欢markdown的语法，配合mou编辑器，写起来很有沉浸感。简单记录一下搭建过程。</p>
-<h3 id="配置环境">配置环境</h3>
-<hr>
-<p>hexo基于node.js，那么就先安装node.js。使用Homebrew安装:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew <span class="operator"><span class="keyword">install</span> node</span></div></pre></td></tr></table></figure>
-
-<p>node自带npm,查看安装结果:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$:</span>node -v</div><div class="line">v<span class="number">0</span>.<span class="number">10.36</span></div><div class="line"><span class="variable">$:</span>npm -v</div><div class="line"><span class="number">2.6</span>.<span class="number">1</span></div></pre></td></tr></table></figure>
-
-<h3 id="安装hexo">安装hexo</h3>
-<p>使用npm安装：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$:</span>npm install hexo -g</div></pre></td></tr></table></figure>
-
-<p>初始化，folder为指定的目录</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo init <span class="tag">&lt;<span class="title">folder</span>&gt;</span></div></pre></td></tr></table></figure>
-
-<p>进入folder目录内,生成静态文件</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> floder</div><div class="line">hexo generate/g</div></pre></td></tr></table></figure>
-
-<p>本地启动预览</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hexo server</div><div class="line">info] Hexo is running <span class="keyword">at</span> <span class="keyword">http</span>://localhost:<span class="number">4000</span>/. Press Ctrl+C <span class="built_in">to</span> stop.</div></pre></td></tr></table></figure>
-
-<p>在浏览器输入<a href="http://localhost:4000/即可看到博客的预览效果。" target="_blank" rel="external">http://localhost:4000/即可看到博客的预览效果。</a></p>
-<h3 id="发布到github">发布到github</h3>
-<p>把我们的博客发布到github的空间。执行以下步骤：</p>
-<ul>
-<li>在github创建新的repository,名为username.github.io,username必须是github的用户名。</li>
-<li>编辑hexo的_conig.yml的Deployment如下  </li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">  <span class="built_in">type</span>: github  </div><div class="line">  repository: git@github.com:username/username.github.<span class="built_in">io</span>.git        </div><div class="line">  branch: master</div></pre></td></tr></table></figure>
-
-<ul>
-<li>hexo d -g 发布到github</li>
-</ul>
-<h3 id="添加多说评论系统">添加多说评论系统</h3>
-<p>默认的评论系统是disqus，换成国内的多说评论系统。<br>1、登录多说，创建多说shorname。所谓shortname就是在多说后台设置的域名前缀。比如xxxx.duoshuo.com，那么short-name就是xxxx。<br>2、在_config.yml中添加多说的配置：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">duoshuo_shortname</span>: <span class="string">你站点的short_name</span></div></pre></td></tr></table></figure>
-
-
-<p>3、修改themes\landscape\layout_partial\article.ejs模板 </p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="vbscript">&lt;% <span class="keyword">if</span> (!index && post.comments && config.disqus_shortname){ %&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="title">section</span> <span class="attribute">id</span>=<span class="value">"comments"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"disqus_thread"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="title">noscript</span>&gt;</span>Please enable JavaScript to view the <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"//disqus.com/?ref_noscript"</span>&gt;</span>comments powered by Disqus.<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">noscript</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="title">section</span>&gt;</span></div><div class="line">  <span class="vbscript">&lt;% } %&gt;</span></div></pre></td></tr></table></figure>
-
-<p>改为：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="vbscript">&lt;% <span class="keyword">if</span> (!index && post.comments && config.duoshuo_shortname){ %&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="title">section</span> <span class="attribute">id</span>=<span class="value">"comments"</span>&gt;</span></div><div class="line">   <span class="comment">&lt;!-- 多说评论框 start --&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"ds-thread"</span> <span class="attribute">data-thread-key</span>=<span class="value">"&lt;%= post.layout %&gt;-&lt;%= post.slug %&gt;"</span> <span class="attribute">data-title</span>=<span class="value">"&lt;%= post.title %&gt;"</span> <span class="attribute">data-url</span>=<span class="value">"&lt;%= page.permalink %&gt;"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></div><div class="line">   <span class="comment">&lt;!-- 多说评论框 end --&gt;</span></div><div class="line">   <span class="comment">&lt;!-- 多说公共JS代码 start (一个网页只需插入一次) --&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line">   <span class="keyword">var</span> duoshuoQuery = {short_name:<span class="string">'&lt;%= config.duoshuo_shortname %&gt;'</span>};</div><div class="line">     (<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</div><div class="line">       <span class="keyword">var</span> ds = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</div><div class="line">       ds.type = <span class="string">'text/javascript'</span>;ds.async = <span class="literal">true</span>;</div><div class="line">       ds.src = (<span class="built_in">document</span>.location.protocol == <span class="string">'https:'</span> ? <span class="string">'https:'</span> : <span class="string">'http:'</span>) + <span class="string">'//static.duoshuo.com/embed.js'</span>;</div><div class="line">       ds.charset = <span class="string">'UTF-8'</span>;</div><div class="line">       (<span class="built_in">document</span>.getElementsByTagName(<span class="string">'head'</span>)[<span class="number">0</span>] </div><div class="line">        || <span class="built_in">document</span>.getElementsByTagName(<span class="string">'body'</span>)[<span class="number">0</span>]).appendChild(ds);</div><div class="line">     })();</div><div class="line">     <span class="tag">&lt;/<span class="title">script</span>&gt;</span></div><div class="line">   <span class="comment">&lt;!-- 多说公共JS代码 end --&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="title">section</span>&gt;</span></div><div class="line"> <span class="vbscript">&lt;% } %&gt;</span></div></pre></td></tr></table></figure>
-
-<p>摘自<a href="http://dev.duoshuo.com/threads/541d3b2b40b5abcd2e4df0e9" target="_blank" rel="external">多说教程</a></p>
-<h3 id="使用jiaThis分享组件">使用jiaThis分享组件</h3>
-<p>去除默认分享按钮：<br>themes\landscape\layout_partial\article.ejs中注释掉：  </p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;a <span class="variable">data-url=</span><span class="string">"&lt;%- post.permalink %&gt;"</span> <span class="variable">data-id=</span><span class="string">"&lt;%= post._id %&gt;"</span> <span class="variable">class=</span><span class="string">"article-share-link"</span>&gt;Share&lt;/a&gt;</div></pre></td></tr></table></figure>
-
-<p>在想要添加jiaThis的位置放置jiaThis的代码。<br><a href="http://www.jiathis.com/getcode/icon/?style=32x32&amp;btn=qzone,tsina,tqq,weixin,renren,jicon&amp;codestyle=standard&amp;showshares=true" target="_blank" rel="external">这里</a>有更详细的教程。</p>
-<h3 id="配置侧边栏">配置侧边栏</h3>
-<p>博客右边的侧边栏内容可以根据自己的需求配置，下面添加aboutme工具栏。<br>在themes/landscape/_config.yml的widget下添加- aboutme</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">widget<span class="variable">s:</span></div><div class="line">- aboutme</div></pre></td></tr></table></figure>
-
-<p>在themes/landscape/layout/_widget目录下创建aboutme.ejs。对aboutme.ejs编辑过的内容就会显示在右侧边栏。<br>对于不需要显示的工具，在themes/landscape/_config.yml中注释掉对应的名字即可：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">widgets:</div><div class="line">- category</div><div class="line"><span class="preprocessor">#- tag</span></div><div class="line"><span class="preprocessor">#- tagcloud</span></div><div class="line"><span class="preprocessor">#- archive</span></div><div class="line"><span class="preprocessor">#- recent_posts</span></div><div class="line">- aboutme</div></pre></td></tr></table></figure>
-
-<p>值得注意的是，通过修改themes/landscape/layout放置的ejs模板文件可以对页面的元素内容做增减；网站对应的布局样式和资源文件放置在themes/landscape/source/css中，可以修改页面内容的颜色、尺寸和图片资源等。</p>
-<h3 id="安装过程遇到的问题">安装过程遇到的问题</h3>
-<h6 id="1、执行npm_install_hexo_-g后出现：">1、执行npm install hexo -g后出现：</h6>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">npm</span> WARN locking <span class="attribute">Error</span>: EACCES, open <span class="string">'/Users/imac/.npm/_locks/</span></div><div class="line">hexo-89ff29e8d72588ea.lock.STALE'</div><div class="line"><span class="built_in">npm</span> WARN locking  <span class="regexp">/Users/imac/</span>.<span class="built_in">npm</span><span class="regexp">/_locks/hexo-89ff29e8d72588ea.lock failed { [Error: EACCES, open '/Users/imac/</span>.<span class="built_in">npm</span>/_locks/hexo-<span class="number">89</span>ff29e8d72588ea.lock.STALE<span class="string">']</span></div><div class="line">npm WARN locking   errno: 3,</div><div class="line">npm WARN locking   code: 'EACCES<span class="string">',</span></div><div class="line">npm WARN locking   path: '<span class="regexp">/Users/imac/</span>.<span class="built_in">npm</span>/_locks/hexo-<span class="number">89</span>ff29e8d72588ea.lock.STALE<span class="string">' }</span></div><div class="line">npm ERR! Darwin 14.0.0</div><div class="line">npm ERR! argv "node" "/usr/local/bin/npm" "install" "hexo@2.8.3" "-g"</div><div class="line">npm ERR! node v0.10.35</div><div class="line">npm ERR! npm  v2.1.18</div><div class="line"></div><div class="line">npm ERR! Attempt to unlock /usr/local/Cellar/node/0.10.35_2/libexec/npm/lib/node_modules/hexo, which hasn't been locked</div><div class="line"><span class="built_in">npm</span> ERR! </div><div class="line"><span class="built_in">npm</span> ERR! If you need help, you may report <span class="keyword">this</span> error <span class="attribute">at</span>:</div><div class="line"><span class="built_in">npm</span> ERR!     &lt;<span class="attribute">http</span>:<span class="regexp">//gi</span>thub.com/<span class="built_in">npm</span>/<span class="built_in">npm</span>/issues&gt;</div><div class="line"><span class="built_in">npm</span> ERR! Please include the following file <span class="reserved">with</span> any support <span class="attribute">request</span>:</div><div class="line"><span class="built_in">npm</span> ERR!     /Users/imac/<span class="built_in">npm</span>-debug.log</div></pre></td></tr></table></figure>
-
-<p>原因是当前用户不具有.npm和/usr/local的使用权限,修改它们的拥有者:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$:</span>sudo <span class="keyword">chown</span> -R <span class="string">`whoami`</span> .npm</div><div class="line"><span class="variable">$:</span>sudo <span class="keyword">chown</span> -R <span class="string">`whoami`</span> .npm /usr/<span class="keyword">local</span>/</div></pre></td></tr></table></figure>
-
-<p>参考:<a href="https://github.com/npm/npm/issues/4815" target="_blank" rel="external">https://github.com/npm/npm/issues/4815</a></p>
-<h6 id="2、node_gyp_rebuild卡住">2、node_gyp rebuild卡住</h6>
-<p>在初始化hexo时会卡到node_gyp rebuild过程,等待很久没有反应。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fsevents@<span class="number">0.2</span>.<span class="number">0</span> install <span class="regexp">/usr/</span>local<span class="regexp">/Cellar/</span>node<span class="regexp">/0.10.35_2/</span>libexec<span class="regexp">/npm/</span>lib<span class="regexp">/node_modules/</span>hexo<span class="regexp">/node_modules/</span>chokidar<span class="regexp">/node_modules/</span>fsevents node-gyp rebuild</div></pre></td></tr></table></figure>
-
-<p>node_gyp的编译需要python和编译工具：</p>
-<ul>
-<li>python (v2.7 recommended, v3.x.x is not supported)</li>
-<li>make</li>
-<li>A proper C/C++ compiler toolchain, like GCC</li>
-</ul>
-<p>如果以上都已经安装则可能是 NodeJs 源码缺失的原因。<br>node-gyp 编译时候需要 NodeJs 源码来提供头文件，所以它会先尝试下载 NodeJs 源码，由于国外CDN的原因,有时候下载 NodeJs 非常慢的。<br>那么就自己用迅雷等下载工具下载对应版本的nodejs源码,然后提取给node_gyp.<br>切记对应的node版本号。我是直接查看本地安装的node版本号下载对应node源码。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="preprocessor"># wget http://nodejs.org/dist/v0.10.33/node-v0.10.33.tar.gz</span></div><div class="line"><span class="preprocessor"># 假设源码已经下载好了.</span></div><div class="line">tar zxf node-v0<span class="number">.10</span><span class="number">.33</span>.tar.gz -C ~/.node-gyp</div><div class="line">mv ~/.node-gyp/node-v0<span class="number">.10</span><span class="number">.33</span> ~/.node-gyp/<span class="number">0.10</span><span class="number">.33</span></div><div class="line">printf <span class="string">"9\n"</span>&gt;~/.node-gyp/<span class="number">0.10</span><span class="number">.33</span>/installVersion</div></pre></td></tr></table></figure>
-
-<p>注意，不同操作系统下和编译不同的 package 时候 node-gyp 需要的源码版本有可能是不一样的，installVersion 也有可能不一样。推荐先检查一下 node-gyp 的输出日志来确定下载哪一个文件。</p>
-<p>另外还可以使用 npm install —loglevel verbose 查看安装时候的详细日志，来确定需要下载的 Nodejs 源码地址。<br>参考:<a href="https://breeswish.org/blog/2014/11/14/node-gyp-rebuild-freeze/" target="_blank" rel="external">https://breeswish.org/blog/2014/11/14/node-gyp-rebuild-freeze/</a></p>
-<h6 id="3、3-0版本降级到2-8-3要做的">3、3.0版本降级到2.8.3要做的</h6>
-<ul>
-<li>备份source、_config.yml和themes文件夹。</li>
-<li>卸载高版本插件，安装低版本插件</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">	</div><div class="line">npm uninstall hexo-<span class="keyword">renderer</span>-ejs hexo-<span class="keyword">renderer</span>-marked hexo-<span class="keyword">renderer</span>-stylus</div></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">	</div><div class="line">npm install hexo-<span class="keyword">renderer</span>-ejs<span class="variable">@0</span><span class="number">.1</span><span class="number">.0</span> hexo-<span class="keyword">renderer</span>-marked<span class="variable">@0</span><span class="number">.1</span><span class="number">.0</span> hexo-<span class="keyword">renderer</span>-stylus<span class="variable">@0</span><span class="number">.1</span><span class="number">.0</span> hexo-generator-feed<span class="variable">@0</span><span class="number">.2</span><span class="number">.1</span> hexo-generator-sitemap<span class="variable">@0</span><span class="number">.2</span><span class="number">.0</span></div></pre></td></tr></table></figure>
-
-<p>参考:<a href="http://sandylaw.tk/2015/03/07/hexo3to2/" target="_blank" rel="external">http://sandylaw.tk/2015/03/07/hexo3to2/</a></p>
-
-      
-    </div>
-  <footer class="article-footer">
-<!--去除原来的分享按钮      <a data-url="http://wubinge.github.io/2015/03/18/搭建个人博客/" data-id="jokkrpaa7020d1wv" class="article-share-link">Share</a>   --> 
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/标签/">标签</a></li></ul>
-
-    </footer>
-  </div>
-<!--去除nav    -->
-</article>
-
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
+    </nav>
   
 </section>
         
@@ -930,7 +906,7 @@ p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2015 bing<br>
+      &copy; 2016 bing<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
