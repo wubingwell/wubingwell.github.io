@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不积跬步，无以至千里]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://wubinge.github.io/"/>
-  <updated>2016-03-08T10:21:12.974Z</updated>
+  <updated>2016-03-08T10:23:41.837Z</updated>
   <id>http://wubinge.github.io/</id>
   
   <author>
@@ -13,72 +13,6 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
-  
-  <entry>
-    <title><![CDATA[]]></title>
-    <link href="http://wubinge.github.io/2016/03/08/swift%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%8F%AF%E9%80%89%E7%B1%BB%E5%9E%8Boptional_type/"/>
-    <id>http://wubinge.github.io/2016/03/08/swift中使用可选类型optional_type/</id>
-    <published>2016-03-08T10:18:08.000Z</published>
-    <updated>2016-03-07T02:07:20.000Z</updated>
-    <content type="html"><![CDATA[<h3 id="swift中使用可选类型Optional_type">swift中使用可选类型Optional type</h3>
-<hr>
-<h4 id="什么是Optional">什么是Optional</h4>
-<p>swift有一种看起来很奇怪的语法：  </p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var number: <span class="keyword">Int</span> = <span class="number">0</span>  </div><div class="line"></div><div class="line">var <span class="keyword">test</span>: <span class="keyword">Int</span>? = <span class="number">5</span></div></pre></td></tr></table></figure>
-
-
-
-<p>区别于number变量类型Int，test的类型看起来是普通类型跟上’?’，这种写法组成的类型叫Optional。  </p>
-<p>作为swfit的特性之一，Optional是swift处理空值的一种方式，看到Optional的定义，实质上是一个enum：  </p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Optional&lt;Wrapped&gt; : _Reflectable, NilLiteralConvertible {  </div><div class="line">    <span class="keyword">case</span> None  </div><div class="line">    <span class="keyword">case</span> Some(Wrapped)  </div><div class="line">    <span class="comment">/// Construct a `nil` instance.  </span></div><div class="line">    <span class="keyword">public</span> <span class="title">init</span>()  </div><div class="line">    /// Construct a non-`nil` instance that stores `some`.  </div><div class="line">    <span class="keyword">public</span> <span class="title">init</span>(_ some: Wrapped)   </div><div class="line">}</div></pre></td></tr></table></figure>
-
-<p>可以看到，Optional有两个成员.None和Some(Wrapped)。<br>‘Wrapped’取得很好的名字，有包装、包裹的意思。是对普通类型的包装，对应使用Optional变量时的unwrapped(解包)操作。其实就是给.Some成员设置一个Wrapped类型的关联值。<br>Int?是快捷表达语法糖，等价于Optional<int>。上面第一段声明代码可以写成这样:  </int></p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var number: <span class="keyword">Int</span> = <span class="number">0</span>  </div><div class="line">var <span class="keyword">test</span>: Optional&lt;<span class="keyword">Int</span>&gt; = Optional.Some(<span class="keyword">Int</span>(<span class="number">5</span>))</div></pre></td></tr></table></figure>
-
-
-<p>可以看出，Optional定义的变量就是一个Optional enum。要么是.None，就是nil值；要么是.Some(Wrapped),包含一个Wrapped类型的关联值。</p>
-<h4 id="为什么要有Optional">为什么要有Optional</h4>
-<p>Optinal是swift处理空值的一种方式。不同与Objective-C，swift中的包含nil值的变量是很危险的。如果向一个nil值发送消息，会引起runtime erro导致程序crash。<br>但是nil值的存在是不可避免的。<br>UIImageView的UIImage属性，在不显示图片的时候就是nil值，其声明为：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">var</span> image: UIImage? // <span class="keyword">default</span> <span class="keyword">is</span> nil</div></pre></td></tr></table></figure>
-
-<p>非数字字面值的String变量转化toInt:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> originStr: <span class="built_in">String</span> = <span class="string">"dsfdsklfkjklj"</span></div><div class="line"><span class="keyword">let</span> <span class="built_in">number</span> = Int(originStr) <span class="comment">//存储nil值</span></div></pre></td></tr></table></figure>
-
-
-<p>所有可能有nil值的变量，都使用Optional变量来兼容nil值和包含实际值的情况。  </p>
-<h4 id="使用Optional变量">使用Optional变量</h4>
-<p>我们知道，Optional变量实际上是对实际对应类型的值的包装(wrapped)。使用时需要对其进行解包(unwrapped)操作，把我们需要的真实的值从Optional中抽取出来。<br>swift提供了几种解包的方式：  </p>
-<ul>
-<li>Optional Binding  安全的方式  </li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"> <span class="keyword">let</span> possibleString : <span class="built_in">String</span>? = <span class="string">"Hello"</span></div><div class="line"> <span class="keyword">if</span> <span class="keyword">let</span> actualString = possibleString {</div><div class="line">    <span class="comment">//possibleString包含值，actualString获得值并进入该分支</span></div><div class="line">    println(actualString)</div><div class="line"> }</div><div class="line"><span class="keyword">else</span> {</div><div class="line">    <span class="comment">//possibleString值为nil，进入该分支处理，且不会出现强制解包引起的crash</span></div><div class="line">}</div></pre></td></tr></table></figure>
-
-
-
-<ul>
-<li>Forced Unwrapping  不安全<br>如果能够确定变量有值，则可以使用后缀!方式强制解包，取得真实值。但是如果变量为nil，强制解包会引起crash。</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> possible<span class="variable">String</span> : <span class="variable">String</span>? = <span class="string">"Hello"</span></div><div class="line"><span class="function"><span class="title">println</span><span class="params">(possible<span class="variable">String</span>!)</span></span></div></pre></td></tr></table></figure>
-
-
-
-<h4 id="Implicitly_Unwrapped_Optional_(隐式解包可选类型)">Implicitly Unwrapped Optional (隐式解包可选类型)</h4>
-<p>因为Optional Binding的解包方式太冗长，所以一般情况下，在确定变量有值的情况下，都使用Forced Unwrapping的方式来解包。  在实际的使用中，可选类型的变量可能非常多。这种情况下，强制解包的写法依然显得有些繁琐。为了解决这个问题，swift提供了Implicitly Unwrapped Optional，是一个和Optional不同的enum。与Optional语法糖不同，Implicitly Unwrapped Optional使用’!’代替’?’来实现。<br>使用Implicitly Unwrapped Optional变量时，默认是已经解绑的值，可以像普通变量一样使用。<br>Implicitly Unwrapped Optional适合满足两个条件的变量：  </p>
-<ul>
-<li>创建时是nil值 </li>
-<li>使用时一定有值的变量，如IBOutlet变量</li>
-</ul>
-<p>这里有<a href="!http://krakendev.io/blog/when-to-use-implicitly-unwrapped-optionals">更多Implicitly Unwrapped Optional的使用</a></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h3 id="swift中使用可选类型Optional_type">swift中使用可选类型Optional type</h3>
-<hr>
-<h4 id="什么是Optional">什么是Optional</h4>
-<p>swift有一种看起来很奇怪的语法：  </p>
-<fi]]>
-    </summary>
-    
-  </entry>
   
   <entry>
     <title><![CDATA[使用十六进制色值]]></title>
@@ -746,6 +680,72 @@ p's son <span class="variable">addr =</span> <span class="number">0</span>x5858 
       <category term="标签" scheme="http://wubinge.github.io/tags/%E6%A0%87%E7%AD%BE/"/>
     
       <category term="工具方法" scheme="http://wubinge.github.io/categories/%E5%B7%A5%E5%85%B7%E6%96%B9%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[swift中使用可选类型Optional type]]></title>
+    <link href="http://wubinge.github.io/2015/03/18/swift%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%8F%AF%E9%80%89%E7%B1%BB%E5%9E%8Boptional_type/"/>
+    <id>http://wubinge.github.io/2015/03/18/swift中使用可选类型optional_type/</id>
+    <published>2015-03-18T11:51:58.000Z</published>
+    <updated>2016-03-08T10:23:14.000Z</updated>
+    <content type="html"><![CDATA[<h4 id="什么是Optional">什么是Optional</h4>
+<p>swift有一种看起来很奇怪的语法：  </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var number: <span class="keyword">Int</span> = <span class="number">0</span>  </div><div class="line"></div><div class="line">var <span class="keyword">test</span>: <span class="keyword">Int</span>? = <span class="number">5</span></div></pre></td></tr></table></figure>
+
+
+
+<p>区别于number变量类型Int，test的类型看起来是普通类型跟上’?’，这种写法组成的类型叫Optional。  </p>
+<p>作为swfit的特性之一，Optional是swift处理空值的一种方式，看到Optional的定义，实质上是一个enum：  </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Optional&lt;Wrapped&gt; : _Reflectable, NilLiteralConvertible {  </div><div class="line">    <span class="keyword">case</span> None  </div><div class="line">    <span class="keyword">case</span> Some(Wrapped)  </div><div class="line">    <span class="comment">/// Construct a `nil` instance.  </span></div><div class="line">    <span class="keyword">public</span> <span class="title">init</span>()  </div><div class="line">    /// Construct a non-`nil` instance that stores `some`.  </div><div class="line">    <span class="keyword">public</span> <span class="title">init</span>(_ some: Wrapped)   </div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>可以看到，Optional有两个成员.None和Some(Wrapped)。<br>‘Wrapped’取得很好的名字，有包装、包裹的意思。是对普通类型的包装，对应使用Optional变量时的unwrapped(解包)操作。其实就是给.Some成员设置一个Wrapped类型的关联值。<br>Int?是快捷表达语法糖，等价于Optional<int>。上面第一段声明代码可以写成这样:  </int></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var number: <span class="keyword">Int</span> = <span class="number">0</span>  </div><div class="line">var <span class="keyword">test</span>: Optional&lt;<span class="keyword">Int</span>&gt; = Optional.Some(<span class="keyword">Int</span>(<span class="number">5</span>))</div></pre></td></tr></table></figure>
+
+
+<p>可以看出，Optional定义的变量就是一个Optional enum。要么是.None，就是nil值；要么是.Some(Wrapped),包含一个Wrapped类型的关联值。</p>
+<h4 id="为什么要有Optional">为什么要有Optional</h4>
+<p>Optinal是swift处理空值的一种方式。不同与Objective-C，swift中的包含nil值的变量是很危险的。如果向一个nil值发送消息，会引起runtime erro导致程序crash。<br>但是nil值的存在是不可避免的。<br>UIImageView的UIImage属性，在不显示图片的时候就是nil值，其声明为：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">var</span> image: UIImage? // <span class="keyword">default</span> <span class="keyword">is</span> nil</div></pre></td></tr></table></figure>
+
+<p>非数字字面值的String变量转化toInt:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> originStr: <span class="built_in">String</span> = <span class="string">"dsfdsklfkjklj"</span></div><div class="line"><span class="keyword">let</span> <span class="built_in">number</span> = Int(originStr) <span class="comment">//存储nil值</span></div></pre></td></tr></table></figure>
+
+
+<p>所有可能有nil值的变量，都使用Optional变量来兼容nil值和包含实际值的情况。  </p>
+<h4 id="使用Optional变量">使用Optional变量</h4>
+<p>我们知道，Optional变量实际上是对实际对应类型的值的包装(wrapped)。使用时需要对其进行解包(unwrapped)操作，把我们需要的真实的值从Optional中抽取出来。<br>swift提供了几种解包的方式：  </p>
+<ul>
+<li>Optional Binding  安全的方式  </li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"> <span class="keyword">let</span> possibleString : <span class="built_in">String</span>? = <span class="string">"Hello"</span></div><div class="line"> <span class="keyword">if</span> <span class="keyword">let</span> actualString = possibleString {</div><div class="line">    <span class="comment">//possibleString包含值，actualString获得值并进入该分支</span></div><div class="line">    println(actualString)</div><div class="line"> }</div><div class="line"><span class="keyword">else</span> {</div><div class="line">    <span class="comment">//possibleString值为nil，进入该分支处理，且不会出现强制解包引起的crash</span></div><div class="line">}</div></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>Forced Unwrapping  不安全<br>如果能够确定变量有值，则可以使用后缀!方式强制解包，取得真实值。但是如果变量为nil，强制解包会引起crash。</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> possible<span class="variable">String</span> : <span class="variable">String</span>? = <span class="string">"Hello"</span></div><div class="line"><span class="function"><span class="title">println</span><span class="params">(possible<span class="variable">String</span>!)</span></span></div></pre></td></tr></table></figure>
+
+
+
+<h4 id="Implicitly_Unwrapped_Optional_(隐式解包可选类型)">Implicitly Unwrapped Optional (隐式解包可选类型)</h4>
+<p>因为Optional Binding的解包方式太冗长，所以一般情况下，在确定变量有值的情况下，都使用Forced Unwrapping的方式来解包。  在实际的使用中，可选类型的变量可能非常多。这种情况下，强制解包的写法依然显得有些繁琐。为了解决这个问题，swift提供了Implicitly Unwrapped Optional，是一个和Optional不同的enum。与Optional语法糖不同，Implicitly Unwrapped Optional使用’!’代替’?’来实现。<br>使用Implicitly Unwrapped Optional变量时，默认是已经解绑的值，可以像普通变量一样使用。<br>Implicitly Unwrapped Optional适合满足两个条件的变量：  </p>
+<ul>
+<li>创建时是nil值 </li>
+<li>使用时一定有值的变量，如IBOutlet变量</li>
+</ul>
+<p>这里有<a href="!http://krakendev.io/blog/when-to-use-implicitly-unwrapped-optionals">更多Implicitly Unwrapped Optional的使用</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h4 id="什么是Optional">什么是Optional</h4>
+<p>swift有一种看起来很奇怪的语法：  </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="l]]>
+    </summary>
+    
+      <category term="标签" scheme="http://wubinge.github.io/tags/%E6%A0%87%E7%AD%BE/"/>
+    
+      <category term="swift" scheme="http://wubinge.github.io/categories/swift/"/>
     
   </entry>
   
